@@ -1,0 +1,654 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.2 distribution.
+%   Version 4.2a of REVTeX, December 2014
+%
+%   Copyright (c) 2014 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.2
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+
+\begin{document}
+\pagestyle{plain}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{FUENTES DE TENSION CONTINUA}% Force line breaks with \\
+%\thanks{A footnote to the article title}%
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+%Lines break automatically or can be forced 
+
+%with \\
+
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+\begin{abstract}
+\hfill \break
+La representación gráfica de los datos es una herramienta útil para comprender el comportamiento de un fenómeno determinista. En este trabajo, se busca determinar la fuerza electromotriz (f.e.m.), la resistencia interna de la fuente y la corriente de corto circuito mediante la ley de ohm y la correlación entre las variables intensidad y voltaje, a partir de los datos experimentales obtenidos, operando una fuente de tensión ideal o pila seca como también una fuente de tensión real durante la simulación en el laboratorio de física general, utilizando el método de mínimos cuadrados, con la finalidad de obtener la ecuación de la mejor recta a partir de los pares ordenados (x,y), es decir de los datos experimentales.\\
+Además, se implementa el trazado de la linea de ajuste a través de los puntos experimentales.
+Esto ayuda a determinar si la correlación entre las variables es lineal o no, presentando cierta dispersión entre los datos.
+\begin{description}
+\item[Palabras clave]Gráfica, Escalas lineales, Escalas no lineales, Relación lineal, Relación no lineal, Mínimos cuadrados, Intensidad, Voltaje, Resistencia.
+\end{description}
+\end{abstract}
+%\keywords{Suggested keywords}%Use showkeys class option if keyword
+%display desired
+\maketitle
+
+%\tableofcontents
+\section{Introducción}
+\label{sec:introduccion}
+\hfill \break
+Los datos presentados en este informe, son una extensión del trabajo de la ley de ohm, realizado por Mateo Merino Vidal \cite{202301308Prt0723032023}, presentado durante el curso de laboratorio de física general del departamento de Física, cabe mencionar que se trabajo con análisis básicos para la presentación final de datos, mediante  representaciones gráficas linealizadas.
+\hfill \break
+\hfill \break
+En electricidad se llama fuente al elemento activo que es capaz de entregar energía, los hay de dos tipos, uno que es capaz de generar una diferencia de potencial entre sus extremos y otro proporciona una corriente eléctrica para que otros circuitos funcionen, tal y como lo expresa Gilberto Rodriguez \cite{Gilberto}.
+\hfill \break
+\hfill \break
+Las fuentes ideales son elementos utilizados en la teoría de circuitos para el análisis y la creación de modelos que permitan analizar el comportamiento de componentes electrónicos o circuitos reales. 
+\hfill \break
+\hfill \break
+Pueden ser independientes, si sus magnitudes (tensión o corriente) son siempre constantes, o dependientes en el caso de que dependan de otra magnitud (tensión o corriente), por lo que se dividen en fuentes de tensión continua ideal y fuentes de tensión continua real, tal y como lo indica Federico Miyara \cite{Federico}.
+
+
+\begin{itemize}
+\item \textbf{Fuente de tensión ideal:} Aquella que genera una diferencia de potencial entre sus terminales constante e independiente de la carga que alimente. 
+\hfill \break
+\hfill \break
+Si la resistencia de carga es infinita se dirá que la fuente está en circuito abierto, y si fuese cero estaríamos en un caso absurdo, ya que según su definición una fuente de tensión ideal no puede estar en cortocircuito. 
+\item \textbf{Fuente de tensión real:} Es aquella que entre sus bornes proporciona una diferencia de potencial que depende del valor de la corriente que circula por el circuito.
+\hfill \break
+\hfill \break
+Una fuente de tensión real se representa esquemáticamente como una fuente de ideal más una resistencia interna. 
+\end{itemize}
+\hfill \break
+Todo el   conjunto   de   piezas   que   componen   una   fuente   de   tensión   (conductores,soluciones   ácidas,   metales,   etc.)  ofrecen   una   cierta   resistencia   al   paso   de   corriente denominada resistencia interna de la fuente (Ri) como también energia eléctrica almacenada denominada fuerza electromotriz (FEM), tal y como lo expresan Isidoro Pablo Perez, Carlos Díaz, Alejandro Giordana,Nicolás Ibáñez \cite{Isidoro}.
+\begin{itemize}
+\item \textbf{Resistencia Interna:} Es la resistencia dentro de la fuente de tensión que resiste el flujo de corriente y, generalmente, hace que la fuente de tensión genere calor.
+\hfill \break
+\hfill \break
+Depende de una serie de condiciones, como el grado de utilización, el tamaño de la fuente de tensión, la magnitud y la dirección de la corriente que circula por la fuente de tensión.
+\hfill \break
+\hfill \break
+\item \textbf{Fuerza Electromotriz:} Es la energia y no fuerza, proveniente de cualquier fuente o dispositivo que suministra corriente eléctrico.
+\hfill \break
+\hfill \break
+Se forma una diferencia de potencial entre dos puntos o polos (uno negativo y el otro positivo) de dicha fuente, que es capaz de bombear o impulsar las cargas eléctricas desde un potencial mas bajo hacia un potencial mayor a a través de un circuito cerrado.
+\hfill \break
+\hfill \break
+Se mide en voltios (V) que equivale a julios entre culombio (J/C).
+\end{itemize}
+
+
+\section{Objetivo y planteamiento del problema}
+\hfill \break
+El presente trabajo busca determinar mediante la aplicación del método de mínimos cuadrados la pendiente conocida como parámetro B y la ordenada al origen como parámetro A en la ecuación lineal de los datos experimentales obtenidos durante el experimento de fuente de tensión continua.\\
+\hfill \break
+Permitiendo hallar el valor de la Resistencia Interna (Ri), representada por el valor de la pendiente B y el valor de la Fuerza Electromotriz (FEM) representada por la ordenada al origen
+A en la ecuación lineal.\\
+\hfill \break
+Asimismo, se llega a calcular los errores estimados del parámetro A y B, como también el coeficiente de correlación para saber el grado de ajuste de la recta a la nube de puntos experimentales.\\
+\hfill \break
+Posteriormente, se procede a representar gráficamente la recta teórica de la ecuación lineal obtenida a partir de los datos del experimento realizado en el laboratorio de física general para una mejor observación de su ajuste a los puntos de los datos experimentales, como también de las desviaciones en el eje de las ordenadas Y respecto a la linea teórica y así determinar si existe una correlación lineal perfecta o no entre la variable dependiente e independiente.\\
+\section{Material y Procedimiento}
+\hfill \break
+\textbf{Material}
+\begin{enumerate}
+\item Fuente de tensión continua real
+\item Fuente de tensión continua ideal o pilas seca
+\item Resistencia Variable
+\item Voltímetro
+\item Amperímetro
+\item Cables de conexión
+
+\end{enumerate}
+\begin{figure}[H]
+\centering \includegraphics[scale=0.50]{Material1.jpeg}\\
+\hfill \break
+\hfill \break
+\centering \includegraphics[scale=0.50]{Material2.jpeg}
+\caption{\centering Material utilizado durante el experimento}
+\label{Figura1}
+\end{figure}
+
+\hfill \break
+\textbf{Procedimiento}
+\begin{enumerate}
+\item Conectar con un cable de conexión el positivo de la fuente de tensión continua ideal/real con el amperímetro.
+\item Conectar el amperímetro con otro cable de conexión con un extremo de la resistencia variable.
+\item  Conectar el otro extremo de la resistencia con el negativo de la fuente de tensión continua ideal/real.
+\item Conectar el voltímetro mediante cables de conexión con los extremos de la resistencia, es decir en paralelo.
+\item Encender la fuente de tensión continua idea/real.
+\item Tomar lecturas de los valores de corriente y voltaje que implican los instrumentos.
+\hfill \break
+\hfill \break
+Para cada valor de la intensidad de corriente el voltímetro asignara un valor de la caída de tensión.
+\end{enumerate}
+
+\section{Método}
+\label{sec:met}
+\hfill \break
+\textbf{Recta Teórica}
+\begin{gather}
+y=A+B \times x
+\label{ec:1}
+\end{gather} 
+\hfill \break
+\textbf{Relaciones Potenciales Simples}
+\begin{gather} 
+Parabola: y=a \times x^2 
+\label{ec:2}\\ \notag \\ 
+Hiperbola:y=a \times x^-1
+\label{ec:3} \\ \notag \\ 
+Cubica:y=a \times x^3
+\label{ec:4} \\ \notag \\ 
+Recta:y=a \times x^1
+\label{ec:5} 
+\end{gather}
+\hfill \break
+\textbf{Pendiente y Ordenada de la Recta}
+\begin{gather}
+A= \tfrac{\sum Yi \times \sum Xi^2-\sum Xi Yi  \times \sum Xi}{\Delta} 
+\label{ec:6} \\ \notag \\ 
+B= \tfrac{n \times \sum Xi Yi- \sum Xi \times \sum Yi}{\Delta}
+\label{ec:7} \\ \notag \\ 
+\Delta=n \sum Xi^2-(\sum Xi)^2
+\label{ec:8}
+\end{gather}
+\hfill \break
+\textbf{Desviación Individual}
+\begin{gather}
+d_i=Yi-Yi'
+\label{ec:9}
+\end{gather}
+\hfill \break
+\textbf{Errores Estimados para A y B}
+\begin{gather}
+\sigma^2=\tfrac{\sum d_i^2}{n-2}
+\label{ec:10} \\ \notag \\ 
+\sigma_A= \sqrt{\tfrac{\sigma^2 \sum Xi^2}{\Delta}}
+\label{ec:11} \\ \notag \\ 
+\sigma_B= \sqrt{\tfrac{\sigma^2 n}{\Delta}}
+\label{ec:12}
+\end{gather}
+\hfill \break
+\textbf{Coeficiente de correlación}
+\begin{gather}
+r=\tfrac{n(\sum XY)-(\sum X) (\sum Y)}{\sqrt{[n (\sum X^2)-(\sum X)^2] [n (\sum Y^2)-(\sum Y)^2]}}
+\label{ec:13}
+\end{gather}
+\hfill \break
+\textbf{Corriente de Cortocircuito}
+\begin{gather} 
+I_{cc}=\tfrac{FEM}{R_i}
+\label{ec:14} 
+\end{gather}
+\subsection{FUENTE DE TENSIÓN CONTINUA REAL}
+\hfill \break
+Obteniendo los datos experimentales de intensidad y voltaje durante el experimento.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Intensidad[A] & Voltaje[V]\\
+\hline
+0.08 &  7.00\\
+\hline
+0.1 &  6.80\\
+\hline
+0.12 &  6.80\\
+\hline
+0.14 &  6.80\\
+\hline
+0.20 &  6.60\\
+\hline
+0.30 &  6.40\\
+\hline
+0.44 &  6.00\\
+\hline
+\end{tabular}
+\caption{\centering Datos experimentales obtenidos durante el experimento}
+\label{Tabla1}
+\end{table}
+
+\hfill \break
+\hfill \break
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.\\
+ \hfill \break
+$X$= Intensidad[A]\\
+ \hfill \break
+$Y$=Voltaje [V]\\
+\hfill \break
+Representando los datos en plano cartesiano en base a escalas lineales, con la finalidad de obtener una nube de puntos entre los datos experimentales de la variable dependiente y la variable independiente.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen1.png}
+\caption{\centering Nube de puntos entre los diversos valores de la intensidad y el voltaje obtenido}
+\label{Figura2}
+\end{figure} 
+\hfill \break
+Trazando la curva de ajuste que mejor represente a la nube de puntos, dando como resultado un regresión lineal, cuya representación es una curva lineal perteneciente a una linea recta con la forma de la Ec.\ref{ec:5}\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen2.png}
+\caption{\centering Trazado de la curva lineal de ajuste en la nube de puntos}
+\label{Figura3}
+\end{figure}
+\hfill \break
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener Delta.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y  los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.\\
+\hfill \break
+\hfill \break
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Original\\
+\hline
+Test1 & 7.13  & -2.54 & $V=7.13-2.54I$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de la relación entre la variable independiente y la variable dependiente mediante el método de mínimos cuadrados}
+\label{Tabla2}
+\end{table}
+\hfill \break
+Graficando la correlación entre la pendiente B de la linea teórica y la intensidad, teniendo en cuenta que la pendiente B representa el valor de la resistencia interna en forma positiva.\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen3.png}
+\caption{\centering Correlación entre la resistencia interna y la intensidad}
+\label{Figura4}
+\end{figure}
+\hfill \break
+Aplicando la Ec.\ref{ec:14}, utilizando el valor de la pendiente B como positiva, la cual representa el valor de la resistencia interna (Ri) y el valor de la ordenada al origen A, la cual expresa el valor de la FEM, con la finalidad de determinar el valor de la corriente de cortocircuito ($I{cc}$).
+
+\hfill \break
+\textbf{Corriente de Cortocircuito} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} &  $I{cc}$[A]\\
+\hline
+Test1 &  2.81\\
+\hline
+\end{tabular}
+\caption{\centering Valor de la Corriente de cortocircuito}
+\label{Tabla3}
+\end{table}
+\hfill \break
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva lineal original y de la curva lineal cuya ecuación fue determinada anteriormente mediante mínimos cuadrados, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado.\\
+
+\hfill \break
+\textbf{Sigma al Cuadrado} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 69.06\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado }
+\label{Tabla4}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.\\
+
+\hfill \break
+\textbf{Desviación de A y B} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 6.02 & 26.03\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica}
+\label{Tabla5}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.\\
+
+
+\hfill \break
+\textbf{Coeficiente De Correlación} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & -0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica}
+\label{Tabla6}
+\end{table}
+
+\subsection{FUENTE DE TENSIÓN CONTINUA IDEAL}
+\hfill \break
+Obteniendo los datos experimentales de intensidad y voltaje durante el experimento.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Intensidad[A] & Voltaje[V]\\
+\hline
+0.10 &  7.40\\
+\hline
+0.16 &  7.40\\
+\hline
+0.22 &   7.40\\
+\hline
+0.28 &   7.40\\
+\hline
+0.34 &   7.40\\
+\hline
+0.40 &   7.40\\
+\hline
+0.46 &   7.40\\
+\hline
+\end{tabular}
+\caption{\centering Datos experimentales obtenidos durante el experimento}
+\label{Tabla7}
+\end{table}
+
+\hfill \break
+\hfill \break
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.\\
+ \hfill \break
+$X$= Intensidad[A]\\
+ \hfill \break
+$Y$=Voltaje [V]\\
+\hfill \break
+Representando los datos en plano cartesiano en base a escalas lineales, con la finalidad de obtener una nube de puntos entre los datos experimentales de la variable dependiente y la variable independiente.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen4.png}
+\caption{\centering Nube de puntos entre los diversos valores de la intensidad y el voltaje obtenido}
+\label{Figura5}
+\end{figure} 
+\hfill \break
+Trazando la curva de ajuste que mejor represente a la nube de puntos, dando como resultado un regresión lineal, cuya representación es una curva lineal perteneciente a una linea recta con la forma de la Ec.\ref{ec:5}\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen5.png}
+\caption{\centering Trazado de la curva lineal de ajuste en la nube de puntos}
+\label{Figura6}
+\end{figure}
+
+\hfill \break
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener Delta.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y  los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.\\
+\hfill \break
+\hfill \break
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Original\\
+\hline
+Test1 &  7.4 & -2.01e-14 & $V=7.4-2.01e-14I$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de la relación entre la variable independiente y la variable dependiente mediante el método de mínimos cuadrados}
+\label{Tabla8}
+\end{table}
+\hfill \break
+Graficando la correlación entre la pendiente B de la linea teórica y la intensidad, teniendo en cuenta que la pendiente B representa el valor de la resistencia interna en forma positiva.\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen6.png}
+\caption{\centering Correlación entre la resistencia interna y la intensidad}
+\label{Figura7}
+\end{figure}
+\hfill \break
+Aplicando la Ec.\ref{ec:14}, utilizando el valor de la pendiente B como positiva, la cual representa el valor de la resistencia interna (Ri) y el valor de la ordenada al origen A, la cual expresa el valor de la FEM, con la finalidad de determinar el valor de la corriente de cortocircuito ($I{cc}$).
+
+\hfill \break
+\textbf{Corriente de Cortocircuito} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} &  $I{cc}$[A]\\
+\hline
+Test1 & 3.67e+14\\
+\hline
+\end{tabular}
+\caption{\centering Valor de la Corriente de cortocircuito}
+\label{Tabla9}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva lineal original y de la curva lineal cuya ecuación fue determinada anteriormente mediante mínimos cuadrados, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado.\\
+
+\hfill \break
+\textbf{Sigma al Cuadrado} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 76.66\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado }
+\label{Tabla10}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.\\
+
+\hfill \break
+\textbf{Desviación de A y B} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 8.40 & 27.58\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica}
+\label{Tabla11}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.\\
+
+
+\hfill \break
+\textbf{Coeficiente De Correlación} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & -Inf\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica}
+\label{Tabla12}
+\end{table}
+
+
+
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{FUENTE DE TENSIÓN CONTINUA REAL}
+\hfill \break
+ Se evidencia de la Fig.\ref{Figura2} que todos los datos experimentales obtenidos forman una nube de puntos.\\
+ \hfill \break
+ \hfill \break
+ Asimismo, se observa que al graficar la curva lineal que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura3}, el comportamiento de los datos experimentales sigue la  ecuación de una linea recta con Ec.\ref{ec:5}, denotando que el voltaje esta disminuyendo cada vez que el amperaje esta incrementandose, dando a entender que su resistencia interna es constante durante todo el experimento y esta representada por la pendiente B de la linea teórica con un valor tomado como positivo de $2.54[\varOmega]$, tal y como se observa en la Fig.\ref{Figura4}\\
+\hfill \break
+\hfill \break
+ Asimismo se demuestra que la correlación entre el Voltaje(variable dependiente) y la Intensidad(variable independiente) es lineal, como también se logra determinar el valor de la FEM representada por la ordenada al origen A con un valor de $7.13[V]$ y el valor de la corriente de cortocircuito con $2.81[A]$ presente en la Tabla.\ref{Tabla3}.\\
+\hfill \break
+\hfill \break
+Presentando una ecuación linealizada $V = 7.13-2.54I$, presente en la Tabla.\ref{Tabla2}, con una gran desviación mayor a 6 en el parámetro A con el valor de $6.02$ y en B con un valor de $26.03$ en la Tabla.\ref{Tabla5}, además de un coeficiente de correlación negativo de $-0.99$ en la Tabla.\ref{Tabla6}, indicando los valores valores de la dependiente e independiente tienen tendencias contrarias.
+
+
+
+\subsection{FUENTE DE TENSIÓN CONTINUA IDEAL}
+\hfill \break
+ Se evidencia de la Fig.\ref{Figura5} que todos los datos experimentales obtenidos forman una nube de puntos.\\
+ \hfill \break
+ \hfill \break
+ Asimismo, se observa que al graficar la curva lineal que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura3}, el comportamiento de los datos experimentales sigue la  ecuación de una linea recta con Ec.\ref{ec:5}, denotando que el voltaje se mantiene constante durante todo el experimento, dando a entender que su resistencia interna es constante durante todo el experimento y esta representada por la pendiente B de la linea teórica con un valor tomado como positivo de $2.01e-14[\varOmega]$, tal y como se observa en la Fig.\ref{Figura7}\\
+\hfill \break
+\hfill \break
+ Asimismo se demuestra que la correlación entre el Voltaje(variable dependiente) y la Intensidad(variable independiente) es lineal, como también se logra determinar el valor de la FEM representada por la ordenada al origen A con un valor de $7.4[V]$ y el valor de la corriente de cortocircuito con $3.67e+14[A]$ presente en la Tabla.\ref{Tabla9}.\\
+\hfill \break
+\hfill \break
+Presentando una ecuación linealizada $V = 7.4-2.01e-14I$, presente en la Tabla.\ref{Tabla8}, con una gran desviación mayor a 8 en el parámetro A con el valor de $8.40$ y en B con un valor de $27.58$ en la Tabla.\ref{Tabla11}, además de un coeficiente de correlación infinito en la Tabla.\ref{Tabla12}.
+
+ 
+\section{Discusión}
+\label{Sec:Disc}
+\hfill \break
+Se puede inferir de los gráficos que representan los datos experimentales, que existe una correlación entre la variable dependiente e independiente. Además, se puede determinar si esta relación es directamente o inversamente proporcional, dependiendo de la ecuación de la curva.\\
+\hfill \break
+\hfill \break
+    En adición, al aplicar el método de mínimos cuadrados, es posible obtener la ecuación de una línea teórica con una ordenada al origen A, la cual representa el valor de la FEM y una pendiente B, la cual representa el valor de la resistencia interna (Ri).\\
+    \hfill \break
+    \hfill \break
+    Asimismo utilizando los valores de FEM y la resistencia interna es posible determinar el valor de la corriente de cortocircuito ($I_{cc}$).\\
+    \hfill \break
+    \hfill \break
+    Esta línea teórica representa la linea de ajuste en la nube de puntos en la correlación entre la variable independiente (Intensidad) y la variable dependiente (Voltaje).\\
+\hfill \break
+\hfill \break
+    Si los puntos de los datos experimentales están bien ajustados a la línea teórica, se sugiere que la correlación entre las variables es perfectamente lineal.\\
+\hfill \break
+\hfill \break
+Como en el caso de la Fuente de Tensión Continua Real con una ecuación linealizada $V = 7,13 -2,54I$, teniendo grandes desviaciones respecto al parámetro A conocido como ordenada con un valor de $6.02$ y al parámetro B con valor de $26.03$ en la Tabla.\ref{Tabla5}, teniendo un valor en la corriente de cortocircuito de $2.81$ en la Tabla.\ref{Tabla3} y un coeficiente de correlación negativo cercano a -1, indicando que la variable dependiente e independiente en cuanto a sus valores tienen tendencias contrarias.
+
+\section{Conclusiones}
+\label{Sec:Concl}
+\hfill \break
+Se concluyo que:
+\begin{enumerate}
+\item Los datos experimentales obtenidos durante el experimento de fuentes de tensión continua, presentan una nube de puntos con un comportamiento curvilíneo lineal tanto en la fuente de tensión ideal como en la real, presente en la Fig\ref{Figura2} y la Fig Fig\ref{Figura5}, evidenciando una correlación lineal entre la variable dependiente e independiente, cuya ecuación pertenece a la recta con Ec.\ref{ec:5}.
+
+\item La aplicación del método de mínimos cuadrados permite determinar la ecuación linealizada de la curva lineal, permitiendo hallar el valor de la FEM representado por la ordenada al origen A y el valor de la resistencia interna (Ri) representado por la pendiente B, como también sus desviaciones.
+ \hfill \break
+ \hfill \break
+Asimismo, es posible hallar el valor de la corriente de cortocircuito, utilizando el valor de la FEM y la resistencia interna, como también el valor del coeficiente de correlación de la linea teórica.
+ \hfill \break
+Como en el caso de:
+ \hfill \break
+ \hfill \break
+*Voltaje-Intensidad(Fuente de tensión continua real): Con una ecuación linealizada de $V = 7,13 - 2,54I$ con parámetros A y B en la Tabla.\ref{Tabla2}, con una gran desviación en A del $6.02$ y en B del $26.03$ en la Tabla.\ref{Tabla5}.\\
+\hfill \break
+\hfill \break
+Además de tener una corriente de cortocircuito con un valor de $2.81[A]$ en la Tabla.\ref{Tabla3} y un coeficiente de correlación del $-0.99$ en la Tabla.\ref{Tabla6}, indicando que la variable dependiente e independiente en cuanto a sus valores tienen tendencias contrarias.\\
+\hfill \break
+\hfill \break
+
+*Voltaje-Intensidad(Fuente de tensión continua ideal): Con una ecuación linealizada de $V = 7,4 - 2,01e-14I$ con parámetros A y B en la Tabla.\ref{Tabla8}, con una gran desviación en A del $8.40$ y en B del $27.58$ en la Tabla.\ref{Tabla11}.\\
+\hfill \break
+\hfill \break
+Además de tener una corriente de cortocircuito con un valor de $3.67e+14[A]$ en la Tabla.\ref{Tabla9} y un coeficiente de correlación de menos infinito en la Tabla.\ref{Tabla12}.\\
+
+\item Al obtener las ecuaciones linealizadas en ambos tests, se observa que tienen la forma de la ecuación de una recta, siendo la resistencia interna (Ri) la pendiente B y la FEM la ordenada al origen de la linea teórica, las cuales permanece constantes durante todo el experimento.
+\hfill \break
+Como en el caso de la:
+
+*Fuente de Tensión Continua Real: Con una FEM de $7.13$ y una Resistencia Interna (Ri) de $2.54$, representada gráficamente en la Fig.\ref{Figura4}.
+*Fuente de Tensión Continua Ideal:  Con una FEM de $7.4$ y una Resistencia Interna (Ri) de $2.01e-14$, representada gráficamente en la Fig.\ref{Figura7}.
+
+\section{Bibliografía}
+\printbibliography
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\end{document}
+%
+% ****** End of file apssamp.tex ******

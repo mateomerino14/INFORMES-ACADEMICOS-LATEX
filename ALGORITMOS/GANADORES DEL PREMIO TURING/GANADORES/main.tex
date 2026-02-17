@@ -1,0 +1,301 @@
+\documentclass[journal]{IEEEtran} % use the `journal` option for ITherm conference style
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{mathptmx}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{url}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,      % color de los enlaces internos (toc, figuras, etc.)
+    urlcolor=blue        % color de las URLs
+}
+
+
+\pagestyle{empty} % Elimina encabezados, pies de página y números de página
+\setlength{\parindent}{1em}
+% Configuración de márgenes y espacio entre columnas
+\setlength{\topmargin}{-19mm} % Ajuste para margen superior (19mm)
+\setlength{\textheight}{235.4mm} % Ajuste para altura del texto (279.4mm - 2*margenes superior e inferior)
+\setlength{\textwidth}{181.4mm} % Ajuste para ancho del texto (215.9mm - 2*margenes izquierdo y derecho)
+\setlength{\oddsidemargin}{-8.3mm} % Ajuste para margen izquierdo (17.3mm)
+\setlength{\evensidemargin}{-17.3mm} % Ajuste para margen derecho (17.3mm)
+\setlength{\columnsep}{4.22mm} % Espacio entre columnas
+
+\setlength{\parindent}{1em} % Sangría en la primera línea de cada párrafo
+\setlength{\parskip}{0pt} % Sin espacio extra entre párrafos
+\sloppy % Justificación para evitar desbordamientos
+
+\titleformat{\subsection}
+  {\itshape \fontsize{10pt}{12pt}\selectfont} % Estilo: cursiva, tamaño 10 puntos
+
+\title{\fontsize{24pt}{28pt}\selectfont Tres Ganadores del Premio Turing}
+
+\author{
+    \IEEEauthorblockN{\fontsize{11pt}{13pt}\selectfont Merino Vidal Mateo Alejandro}\\
+    \vspace{0.5em}
+    \IEEEauthorblockN{\fontsize{10pt}{12pt}\itshape Departamento de Informática,\\
+    Universidad Mayor de San Simón,\\
+    Cochabamba, Bolivia}\\
+    \vspace{0.5em}
+    \IEEEauthorblockN{\fontsize{9pt}{11pt}\texttt{\href{mailto:202301308@est.umss.edu}{\color{black}202301308@est.umss.edu}}}
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+    El presente articulo demuestra las contribuciones de tres destacados ganadores del Premio Turing, siendo uno de los mas grandes reconocimientos en el campo de la Informática.
+    Se realiza un análisis del trabajo de: Edsger Dijkstra, Robert Tarjan y Richard Karp, destacando las razonas claves por las que estas tres personalidades fueron reconocidas, como también una breve descripción de sus innovadoras contribuciones.
+\end{abstract}
+
+\section{Introducción}
+El Premio Turing es uno de los reconocimientos mas grandes en el campo de las Ciencias de la Computación, siendo equiparable al premio Nobel en diversos campos como la Física, Química, Medicina, Literatura, etc.\\
+Este galardón es entregado anualmente por la Association for Computing Machinery (ACM) a individuos cuyas contribuciones fueron tan importantes y significativas que cambiaron notablemente el rumbo de la computación a lo largo de la historia.
+\hfill \break
+\hfill \break
+El premio fue establecido en 1966 por la Association for Computing Machinery (ACM) en honor a Alan Turing, un matemático, lógico e informático británico cuyas ideas innovadoras, incluyendo la creación de la maquina de Turing, sentaron las bases para los principios actuales de la computación y la inteligencia artificial.
+\hfill \break
+\hfill \break
+Entre los distinguidos con este galardón, se encuentran tres importantes personalidades que cambiaron el rumbo de este fascinante campo con sus innovadores proyectos e investigaciones, los cuales establecieron nuevas bases, permitiendo a la computación alcanzar nuevos horizontes y progresar significativamente.
+\hfill \break
+\hfill \break
+Edsger W. Dijkstra, premiado en 1972, hizo avances significativos en varios campos de la computación como la teoría de algoritmos y la programación concurrente.
+Llegó a transformar la forma en que los programadores piensan sobre la claridad y escritura del código.
+\hfill \break
+\hfill \break
+Uno de sus más grandes logros fue el algoritmo de Dijkstra, que tuvo un gran impacto en varios campos de la computación, debido a su eficiencia y eficacia para resolver problemas de rutas en grafos.
+\hfill \break
+\hfill \break
+Robert E. Tarjan, premiado en 1986, contribuyó significativamente en el avance de la teoría de grafos y las estructuras de datos.
+\hfill \break
+\hfill \break
+No solo implemento nuevos algoritmos revolucionarios, sino que también fue el primero en demostrar el tiempo de ejecución óptimo que involucra la función inversa de Ackermann, que permitió establecer la eficiencia de ciertas estructuras de datos.
+\hfill \break
+\hfill \break
+Richard M. Karp, premiado en 1985, desarrolló notables avances en la teoría de algoritmos, problemas de optimización combinatoria y la teoría de la NP-Completitud.
+\hfill \break
+\hfill \break
+Sus investigaciones llegaron a aplicar diversos conceptos como la informática teórica, los algoritmos combinatorios, la probabilidad discreta y la biología computacional.
+\hfill \break
+\hfill \break
+Entre sus mas grandes logros, esta el desarrollo del algoritmo de Edmonds-Karp para la resolución de problemas de maximización en redes de flujo.
+
+\section{Desarrollo de contenidos}
+\subsection{Edsger Wybe Dijkstra}
+\subsubsection{Razones por las que Recibió el Premio Turing}
+\hfill \break
+ \indent Recibió el Premio Turing en 1972, en reconocimiento a sus notables proyectos que revolucionaron la teoría de algoritmos y la programación estructurada.
+\hfill \break
+\hfill \break
+Entre sus contribuciones mas sobresalientes se encuentra:
+
+\begin{enumerate}
+    \item Promover por primera vez el enfoque de programación estructurada, mejorando la legibilidad y claridad del código, influyendo en la creación de posteriores lenguajes de programación como C.
+    \hfill \break
+    \item Introducir el concepto de estructura jerárquica en la creación de sistemas operativos, permitiendo tener una mayor modularidad en la estructura, facilitando el mantenimiento y actualización de los mismos.
+    \hfill \break
+    \item Establecer las bases teóricas para la creación e implementación de sistemas concurrentes, brindando el desarrollo de conceptos fundamentales de cómo manejar la interacción y sincronización entre programas concurrentes.
+    \hfill \break
+    \item Implementar el algoritmo de Dijkstra, el cual gracias a su eficiencia y versatilidad ha sido imprescindible para la optimización de rutas en redes de transporte, telecomunicaciones, y sistemas de navegación.
+    \hfill \break
+    \item Implementar el algoritmo del banquero, permitiendo evitar el problema de interbloqueo (deadlock) en la asignación de recursos en sistemas operativos.
+    \hfill \break
+    \item Proporcionar una nueva herramienta denominada el “semáforo”, permitiendo la sincronización en sistemas concurrentes, mejorando su eficacia y seguridad.
+    \hfill \break
+    \item Ser un defensor de la programación estructurada, criticando el uso del GOTO y reemplazando su uso por condicionales y bucles, las cuales permitieron definir una estructura más legible en cuanto a la escritura del código.
+    \hfill \break
+    \item Idear la solución al problema de la exclusión mutua, evitando que múltiples procesos interfieran entre si, en el momento que estos deban acceder a recursos compartidos.
+
+\end{enumerate}
+
+
+\subsubsection{Descripción de sus Trabajos}
+\hfill \break
+\indent Realizó diversos y notables trabajos que permitieron el avance de la informática tanto en el marco teórico como en el practico.
+\hfill \break
+\hfill \break
+Llegó a desarrollar el primer compilador para el lenguaje de programación ALGOL 60 (Algorithmic Language 60), siendo uno de los primeros lenguajes de programación que introdujo el concepto de programación estructurada.\\
+El compilador traducía el código ALGOL 60 a un lenguaje intermedio y luego a código de máquina, optimizando los procesos para un mejor rendimiento.
+
+\hfill \break
+\hfill \break
+Mas tarde, creó el primer sistema operativo con estructura jerárquica, de niveles o capas, denominado THE(Technische Hogeschool, Eindhoven).
+Cada capa o nivel del sistema estaba encargado de tareas especificas como la gestión de procesos, la administración de recursos, etc.
+\hfill \break
+\hfill \break
+En 1965, dio lugar al primer articulo científico en el campo de la computación concurrente y la programación concurrente.
+Introduciendo conceptos fundamentales para el manejo de la ejecución simultanea de procesos.
+\hfill \break
+\hfill \break
+Posteriormente, implementó el algoritmo de Dijkstra, que permite encontrar eficientemente el camino mas corto de un nodo origen al resto de nodos en un grafo ponderado con pesos positivos.
+\hfill \break
+\hfill \break
+También, llego a implementar el algoritmo del Banquero, 
+que se encarga de la gestión en la asignación de recursos a diversos procesos, de forma que el sistema permanezca siempre en un estado seguro.
+\hfill \break
+\hfill \break
+Mas tarde, realizó la construcción de una herramienta denominada "semáforo", que en realidad es una variable o conjunto de variables utilizadas para coordinar múltiples procesadores y programas.
+\hfill \break
+\hfill \break
+Adicionalmente, ayudo al desarrollo e ilustración del concepto de abrazo mortal (deadlock) y su solución a través de semáforos y regiones de código con acceso exclusivo.
+\hfill \break
+\hfill \break
+Finalmente, al ser uno de los pioneros en la programación  distribuida, fue el primero en presentar una solución al problema de la exclusión mutua con el algoritmo del semáforo, el cual consiste en una serie de operaciones (como wait y signal) que controlan el acceso a los recursos compartidos.
+
+\subsection{Robert Endre Tarjan}
+
+\subsubsection{Razones por las que Recibió el Premio Turing}
+\indent Fue galardonado con el Premio Turing en 1986, en reconocimiento a sus 
+relevantes aportes que cambiaron el rumbo de la computación en teoría de grafos y las estructuras de datos.
+\hfill \break
+\hfill \break
+Entre sus contribuciones mas sobresalientes se encuentra:
+\begin{enumerate}
+    \item Desarrollar algoritmos importantes, como el algoritmo de componentes fuertemente conectados y el algoritmo de prueba de planaridad, los cuales optimizan la eficiencia en la resolución de problemas de grafos, como también llegaron a ser aplicados en el análisis de redes y el diseño de circuitos.
+    \hfill \break
+    \item Desarrollar innovadoras estructuras de datos como el Montículo de Fibonacci y el Árbol de Dispersión, las cuales mejoraron en cuanto a eficiencia varias operaciones básicas como la inserción, eliminación y búsqueda. Estas operaciones mejoraron la ejecución de algoritmos complejos.
+    \hfill \break
+    \item Realizar el análisis de la estructura de datos de conjunto disjunto, llegando a ser el primero en demostrar el tiempo de ejecución óptimo que involucra la función inversa de Ackermann.
+    \hfill \break
+    \item Contribuir en el desarrollo del algoritmo de selección de tiempo lineal, mediana de medianas, que fue ampliamente utilizado en la optimización de algoritmos de búsqueda.
+    \hfill \break
+    \item Realizar aportaciones en la investigación de la programación concurrente, incluyendo problemas complejos en la coordinación de diversos procesos, lo que permitió mejorar la eficiencia de sistemas concurrentes.
+
+\end{enumerate}
+
+\subsubsection{Descripción de sus trabajos}
+\hfill \break
+\indent Llevó a cabo diversos trabajos que marcaron un gran paso en el desarrollo y avance de la informática.
+\hfill \break
+\hfill \break
+Implemento el algoritmo de ancestros menos comunes fuera de línea de Tarjan, utilizado para encontrar el ancestro común mas cercano de dos nodos en un árbol, dentro de un escenario fuera de linea.
+\hfill \break
+\hfill \break
+También, desarrollo el  algoritmo de búsqueda de puentes de Tarjan, utilizado para identificar aristas cuyas eliminaciones aumentarían el numero de componentes conectados en el grafo (puentes).
+\hfill \break
+\hfill \break
+Adicionalmente, realizó el algoritmo de prueba de planaridad de Hopcroft-Tarjan, que permitió verificar la planaridad de un grafo en tiempo lineal.
+\hfill \break
+\hfill \break
+Además, llegó a ser uno de los cinco coautores del algoritmo de selección de tiempo lineal de mediana de medianas, utilizado para encontrar el k-esimo menor elemento en una lista de manera eficiente. 
+\hfill \break
+\hfill \break
+Posteriormente, llego a implementar varias estructuras de datos, entre las cuales esta el: 
+\hfill \break
+-Montículo de Fibonacci: Es una estructura de datos de montículos que permite realizar operaciones de inserción, disminución de clave y unión de montículos en un tiempo eficiente.
+\hfill \break
+-Árbol de dispersión (Splay Tree): Es un tipo de árbol binario de búsqueda autoajustable, en el que, cada vez que un nodo es accedido, el árbol se reorganiza mediante una serie de rotaciones, causando que el nodo accedido se mueva a la raíz.
+\hfill \break
+\hfill \break
+Finalmente, realizó el análisis de la estructura de datos de conjunto disjunto,
+mediante técnicas como la compresión de caminos y la unión por rango, demostrando 
+que el tiempo de ejecución promedio de estas operaciones es óptimo y se  describe a través de la función inversa de Ackermann.
+
+
+
+
+
+
+
+\subsection{Richard Manning Karp}
+
+\subsubsection{Razones por las que Recibió el Premio Turing}
+
+\indent Recibió el Premio Turing en 1985 en reconocimiento a sus contribuciones a la teoría de algoritmos, incluyendo 
+avances en la teoría de la NP-completitud, como también en el desarrollo de algoritmos eficientes para el flujo de red y problemas de optimización combinatoria.
+\hfill \break
+\hfill \break
+Entre sus contribuciones mas importantes se encuentra:
+\begin{enumerate}
+    \item Desarrollar algoritmos claves para la resolución de problemas de flujo en redes y de optimización combinatoria, permitiendo resolver de forma más eficiente problemas complejos en redes y telecomunicaciones.
+    \hfill \break
+    \item Demostrar el pensamiento de que algunos algoritmos que son eficientes en tiempos logaritmos, pueden entenderse de manera más precisa como computación en tiempo polinómico, fijando un estándar para la evaluación de eficiencia de los algoritmos.
+    \hfill \break
+    \item Establecer la metodología para comprobar que ciertos problemas son NP-Completos y presentar una lista de los 21 problemas NP-Completos, indicando que para este tipo de problemas es poco probable encontrar una solución eficiente, por lo que es más viable buscar soluciones aproximadas que se ejecuten en un tiempo razonable.
+    \hfill \break
+    \item Desarrollar Junto con Jack Edmonds el Algoritmo de Edmonds-Karp, para la resolución de problemas de maximización de redes de flujo, el cual llegó a ser muy utilizado en la distribución de recursos y optimización de la producción en fábricas.
+    \hfill \break
+    \item Desarrollar el algoritmo de búsqueda de caminos más cortos en redes, permitiendo resolver problemas de enrutamiento de redes de comunicación y optimización de rutas o trayectorias.
+    \hfill \break
+    \item Desarrollar junto con  Michael O. Rabin el Algoritmo Rabin-Karp de búsqueda de cadenas, utilizado en aplicaciones para la búsqueda de texto en grandes cantidades de datos de manera eficiente.
+\end{enumerate}
+
+
+
+\subsubsection{Descripción de sus trabajos}
+\hfill \break
+\indent Llevó a cabo múltiples proyectos e investigaciones que marcaron un hito en la historia de la informática.
+\hfill \break
+\hfill \break
+Desarrolló el concepto de NP-Completitud, que ayuda a identificar problemas para los cuales es difícil encontrar soluciones rápidas, como también facilita el proceso de comprobar si una solución dada es correcta.
+\hfill \break
+\hfill \break
+También, junto a Jack Edmonds idearon  el algoritmo Edmonds-Karp, siendo una implementación del algoritmo de Ford-Fulkerson para el calculo del flujo máximo en una red de flujo.
+\hfill \break
+\hfill \break
+En 1972 publicó su famosa lista de los 21 problemas NP-completos, que abarcaban problemas que según la teoría computacional eran NP-completos si cumplían la condición de pertenencia a NP y de la reducción polinómica.
+\hfill \break
+\hfill \break
+Finalmente, junto a Michael O. Rabin desarrollaron el Algoritmo Rabin-Karp de búsqueda de cadenas, que permite encontrar todas las ocurrencias de un patrón en un texto, utilizando técnicas de hasheo para una mayor eficiencia.
+\section{Conclusiones}
+Las contribuciones realizadas por Edsger Wybe Dijkstra, Robert Endre Tarjan y Richard Manning Karp marcaron un gran cambio en la historia de la informática, siendo utilizadas hasta el día de hoy.
+\hfill \break
+\hfill \break
+Edsger W. Dijkstra revolucionó la programación y la teoría de algoritmos gracias a sus innovaciones. Estableciendo el enfoque de programación estructurada,
+para la creación de lenguajes de programación mas legibles.
+Asimismo, implemento los algoritmos de Dijkstra  y del Banquero, usados 
+para la optimización de redes y gestión de recursos, como también desarrollo el concepto de semáforo para la sincronización de procesos.
+\hfill \break
+\hfill \break
+Robert E. Tarjan dejo una marca significativa en la teoría de grafos y las estructuras de datos. Sus algoritmos y estructuras de datos, como el algoritmo de componentes fuertemente conectados y el montículo de Fibonacci, mejoraron la eficiencia en el manejo de grafos y en la ejecución de algoritmos complejos.
+\hfill \break
+\hfill \break
+Richard M. Karp estableció nuevos horizontes en el campo de la complejidad computacional con su desarrollo del concepto de NP-completitud, permitiendo establecer estándares de medición en la eficiencia de los algoritmos.
+Sus algoritmos, incluyendo el de Edmonds-Karp y el Rabin-Karp, facilitaron la resolución de problemas en cuanto a redes de flujo y búsqueda de cadenas.
+
+
+\begin{thebibliography}{10}
+
+\bibitem{serna_montoya}
+E. Serna Montoya, \textit{Edsger Wybe Dijkstra}, Revista Digital Lámpsakos, no. 2, pp. 107-116, Colombia, Feb. 2009.
+
+\bibitem{dijkstra_website}
+E. W. Dijkstra, \textit{Edsger W. Dijkstra - Official Website}, [Online]. Available: \href{https://users.dcc.uchile.cl/\textasciitilde rbaeza/inf/dijkstra.html}{https://users.dcc.uchile.cl/\textasciitilde rbaeza/inf/dijkstra.html}. [Accessed: Aug. 17, 2024].
+
+\bibitem{dijkstra_wikipedia}
+E. W. Dijkstra, \textit{Edsger W. Dijkstra}, Wikipedia, The Free Encyclopedia, [Online]. Available: \href{https://en.wikipedia.org/wiki/Edsger_W._Dijkstra}{https://en.wikipedia.org/wiki/Edsger_W._Dijkstra}. [Accessed: Aug. 17, 2024].
+
+\bibitem{dijkstra_am_turing}
+\textit{ACM Turing Award - Edsger W. Dijkstra}, [Online]. Available: \href{https://amturing.acm.org/award_winners/dijkstra_1053701.cfm}{https://amturing.acm.org/award_winners/dijkstra_1053701.cfm}. [Accessed: Aug. 17, 2024].
+
+\bibitem{tarjan_acm}
+\textit{ACM Turing Award - Robert Tarjan}, [Online]. Available: \href{https://amturing.acm.org/award_winners/tarjan_1092048.cfm}{https://amturing.acm.org/award_winners/tarjan_1092048.cfm}. [Accessed: Aug. 17, 2024].
+
+\bibitem{tarjan_wikibrief}
+\textit{Robert Tarjan}, Wikibrief, [Online]. Available: \href{https://es.wikibrief.org/wiki/Robert_Tarjan}{https://es.wikibrief.org/wiki/Robert_Tarjan}. [Accessed: Aug. 17, 2024].
+
+\bibitem{tarjan_wikipedia}
+R. Tarjan, \textit{Robert Tarjan}, Wikipedia, The Free Encyclopedia, [Online]. Available: \href{https://en.wikipedia.org/wiki/Robert_Tarjan}{https://en.wikipedia.org/wiki/Robert_Tarjan}. [Accessed: Aug. 17, 2024].
+
+\bibitem{karp_acm}
+\textit{ACM Turing Award - Richard Karp}, [Online]. Available: \href{https://amturing.acm.org/award_winners/karp_3256708.cfm}{https://amturing.acm.org/award_winners/karp_3256708.cfm}. [Accessed: Aug. 17, 2024].
+
+\bibitem{karp_britannica}
+\textit{Richard Karp}, Encyclopedia Britannica, [Online]. Available: \href{https://www.britannica.com/biography/Richard-Karp}{https://www.britannica.com/biography/Richard-Karp}. [Accessed: Aug. 17, 2024].
+
+\bibitem{karp_wikipedia}
+R. M. Karp, \textit{Richard M. Karp}, Wikipedia, The Free Encyclopedia, [Online]. Available: \href{https://en.wikipedia.org/wiki/Richard_M._Karp}{https://en.wikipedia.org/wiki/Richard_M._Karp}. [Accessed: Aug. 17, 2024].
+
+\end{thebibliography}
+
+\end{document}

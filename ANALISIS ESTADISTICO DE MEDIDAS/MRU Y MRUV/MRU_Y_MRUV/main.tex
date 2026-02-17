@@ -1,0 +1,657 @@
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+\pagestyle{plain}
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{MRU Y MRUV}
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+\date{\today}
+
+\begin{abstract}
+\hfill \break
+La representación gráfica de los datos es una herramienta útil para comprender el comportamiento de un fenómeno determinista. En este trabajo, se busca determinar funciones de los fenómenos físicos MRU y MRUV, simulados durante el experimento del laboratorio de física general, a partir de los datos experimentales obtenidos durante el experimento, utilizando el método de mínimos cuadrados, con la finalidad de obtener la ecuación de la mejor recta a partir de los pares ordenados (x,y), es decir de los datos experimentales.\\
+Además, se implementa el método de linealización por cambio de variable para aquellas curvas no lineales, con el objetivo de obtener una ecuación de una recta teórica que atraviesa la nube de puntos en los diversos tests. Estos tests ayudan a determinar si la correlación es perfectamente lineal o no lineal, presentando cierta dispersión entre los datos.
+\begin{description}
+\item[Palabras clave]Gráfica, Escalas lineales, Escalas no lineales, Relación lineal, Relación no lineal, Linealización, Cambio de variable, Mínimos cuadrados, Velocidad, Aceleracion, Cinematica.  
+\end{description}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\label{sec:introduccion}
+\hfill \break
+La física es la ciencia que estudia los fenómenos naturales e intenta encontrar las leyes que los rigen. Para facilitar el análisis de los fenómenos y de los procesos físicos, éstos se suelen dividir en mecánicos, térmicos, electromagnéticos, ópticos, nucleares, cuánticos, etc.
+\hfill \break
+\hfill \break
+Dentro de la física, la mecánica es una parte fundamental porque estudia los movimientos y sus causas. Los conceptos y las leyes que formula la mecánica son básicos en todas las otras ramas de la física y también en la ingeniería, tal y como lo indica Albert Gras Martí \cite{Albert}.
+\hfill \break
+\hfill \break
+La mecánica se suele dividir en cinemática y en dinámica:
+
+\begin{itemize}
+\item \textbf{Cinemática:} Es la parte de la Mecánica que estudia el movimiento de los cuerpos, denominados, en sentido general, como partículas. Así, se puede definir la ‘partícula’ como todo cuerpo que posee una posición, sin considerar sus dimensiones.
+\item \textbf{Dinámica:} Parte de la Mecánica que estudia las causas que producen los movimientos y las leyes que los rigen.
+\end{itemize}
+\hfill \break
+Dentro de la cinemática, a la hora de realizar cálculos como al analizar un fenómeno físico se trabaja con magnitudes vectoriales y magnitudes escalares, tal y como lo expresa Ignacio Martín Bragado\cite{Ignacio}.
+\hfill \break
+\begin{itemize}
+\item \textbf{Magnitud Escalar:} Es toda magnitud que puede expresarse simplemente con un único numero. Por ejemplo, el peso o la altura de una persona es una magnitud escalar.
+\item \textbf{Magnitud Vectorial:} Es aquella medida para la cual necesitamos dar “algo mas que un solo numero”. Por ejemplo, para saber la velocidad del viento además de su intensidad, es decir, tantos kilómetros por hora, se requiere conocer su dirección y sentido, y así saber si viene del norte hacia el sur, etc...Este tipo de magnitudes se denominan vectores, las cuales tienen modulo, dirección y sentido.
+\end{itemize}
+\hfill \break
+Dentro de la cinemática existen conceptos claves para comprender el movimiento de los cuerpos y entre estos están la velocidad, distancia, tiempo y aceleración.
+\hfill \break
+\begin{itemize}
+\item \textbf{Velocidad:} Es una magnitud física que expresa la relación entre el espacio recorrido por un objeto, el tiempo empleado para ello y su dirección.
+\item \textbf{Distancia:} Se refiere a la trayectoria que recorre un objeto desde un punto A hasta un punto B, la longitud entre estos dos puntos se denomina distancia.
+\item \textbf{Tiempo:} Magnitud que sirve para medir la duración o la separación de uno o más acontecimientos.
+\item \textbf{Aceleración:} Es una magnitud derivada vectorial que nos indica la variación de velocidad por unidad de tiempo. 
+\end{itemize}
+\hfill \break
+El MRU (Movimiento Rectilíneo Uniforme) y el MRUV (Movimiento Rectilíneo Uniformemente Variado) son dos conceptos fundamentales en la cinemática, que estudia el movimiento de los objetos sin tener en cuenta las causas que lo producen, tal y como lo indica Liceo Miguel Rafael Prado\cite{Liceo}.
+\hfill \break
+\begin{itemize}
+\item \textbf{MRU:} Se refiere a un movimiento en línea recta en el que la velocidad es constante, es decir, que el objeto se desplaza a una velocidad constante sin acelerar ni frenar. En este tipo de movimiento, la distancia recorrida por el objeto es proporcional al tiempo transcurrido.
+\item \textbf{MRUV:} Se refiere a un movimiento en línea recta en el que la velocidad varía de manera uniforme, es decir, que el objeto se desplaza con una aceleración constante. En este tipo de movimiento, la distancia recorrida por el objeto es proporcional al cuadrado del tiempo transcurrido.
+\end{itemize}
+
+\section{Objetivo y planteamiento del problema}
+\hfill \break
+El presente trabajo busca determinar con mayor exactitud mediante la aplicación del método de mínimos cuadrados la pendiente conocida como parámetro B y la ordenada al origen como parámetro A en las ecuaciones linealizadas de los datos experimentales obtenidos durante el experimento de los fenómenos físicos simulados en el laboratorio de física general, aplicando los métodos de linealización por cambio de variable o propiedades de logaritmos a las diversas curvas no lineales en cada uno de los tests.
+\hfill \break
+\hfill \break
+Permitiendo obtener una línea recta que pasa lo más cerca posible de todos los datos experimentales obtenidos. Esta línea puede utilizarse para predecir los valores de una variable a partir de otra, o para hacer inferencias sobre la relación entre ellas.
+\hfill \break
+\hfill \break
+Asimismo, se llega a calcular los errores estimados del parámetro A y B, como también el coeficiente de correlación para saber el grado de ajuste de la recta a la nube de puntos en los diversos tests.
+\hfill \break
+\hfill \break
+Posteriormente, se procede a representar gráficamente la recta teórica de cada fenómeno físico simulado en el laboratorio de física general para una mejor observación de su ajuste a los puntos de los datos experimentales, como también de las desviaciones en el eje de las ordenadas Y respecto a la linea teórica y así determinar si existe una correlación lineal perfecta o no entre la variable dependiente e independiente.
+
+\section{Material y Procedimiento}
+\hfill \break
+\textbf{Material}
+\begin{enumerate}
+\item Masa o Perno
+\item Carril
+\item Deslizador
+\item Generador de chispas
+\item Soplador
+\end{enumerate}
+\begin{figure}[H]
+\centering \includegraphics[scale=0.390]{Imagen2.jpeg}\\
+\hfill \break
+\hfill \break
+\centering \includegraphics[scale=0.35]{Imagen1.jpeg}
+\caption{\centering Material utilizado durante el experimento}
+\label{Figura1}
+\end{figure}
+\hfill \break
+\textbf{Procedimiento}
+\begin{enumerate}
+\item Empezamos con nivelar el Sistema de flotación Lineal, luego realizamos un intento prendiendo el Impulsor de Aire y el Generador de Chispas para poder realizar correctamente el registro en la tira de papel.
+\item Luego nos cercioramos de que la tira de papel de registro estuviera bien instalada en la regla de chispeo y la banda de hule y el pasador metálico en el sistema de lanzamiento.
+\item Encendimos el Impulsor de Aire y el Generador de Chispas, dejamos la frecuencia de chispeo en 100 milisegundos.
+\item Preparamos el deslizaos para ser lanzado con el sistema de lanzamiento.Oprimimos momentáneamente el botón del control remoto del Generador de Chispas, para marcar el punto de referencia del movimiento, este punto nos indicaba en qué punto debíamos empezar a realizar nuestras mediciones.
+\item Para el caso de MRU, impulsamos el deslizador brevemente, para que este tome impulso y luego recorra el carril con velocidad constante.
+\item Para el caso de MRUV, se amarra el deslizador a un perno o masa, para que al momento de que caiga el perno el deslizador avance a través del carril con aceleración, variando a cada momento su velocidad.
+\end{enumerate}
+
+\section{Método}
+\label{sec:met}
+\hfill \break
+\textbf{Recta Teórica}
+\begin{gather}
+y=A+B \times x
+\label{ec:1}
+\end{gather} 
+\hfill \break
+\textbf{Relaciones Potenciales Simples}
+\begin{gather} 
+Parabola: y=a \times x^2 
+\label{ec:2}\\ \notag \\ 
+Hiperbola:y=a \times x^{-1}
+\label{ec:3} \\ \notag \\ 
+Cubica:y=a \times x^3
+\label{ec:4} \\ \notag \\ 
+Recta:y=a \times x^1
+\label{ec:5} 
+\end{gather}
+\hfill \break
+\textbf{Pendiente y Ordenada de la Recta}
+\begin{gather}
+A= \tfrac{\sum Yi \times \sum Xi^2-\sum Xi Yi  \times \sum Xi}{\Delta} 
+\label{ec:6} \\ \notag \\ 
+B= \tfrac{n \times \sum Xi Yi- \sum Xi \times \sum Yi}{\Delta}
+\label{ec:7} \\ \notag \\ 
+\Delta=n \sum Xi^2-(\sum Xi)^2
+\label{ec:8}
+\end{gather}
+\hfill \break
+\textbf{Desviación Individual}
+\begin{gather}
+d_i=Yi-Yi'
+\label{ec:9}
+\end{gather}
+\hfill \break
+\textbf{Errores Estimados para A y B}
+\begin{gather}
+\sigma^2=\tfrac{\sum d_i^2}{n-2}
+\label{ec:10} \\ \notag \\ 
+\sigma_A= \sqrt{\tfrac{\sigma^2 \sum Xi^2}{\Delta}}
+\label{ec:11} \\ \notag \\ 
+\sigma_B= \sqrt{\tfrac{\sigma^2 n}{\Delta}}
+\label{ec:12}
+\end{gather}
+\hfill \break
+\textbf{Coeficiente de correlación}
+\begin{gather}
+r=\tfrac{n(\sum XY)-(\sum X) (\sum Y)}{\sqrt{[n (\sum X^2)-(\sum X)^2] [n (\sum Y^2)-(\sum Y)^2]}}
+\label{ec:13}
+\end{gather}
+\hfill \break
+\textbf{Formula de MRUV}
+\begin{gather}
+V_F=V_O+a \times t
+\label{ec:14}
+\end{gather}
+
+\subsection{MRU}
+\hfill \break
+Obteniendo los datos experimentales de tiempo y distancia durante el experimento.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Tiempo[s] & Distancia [m]\\
+0.0 &  0.0\\
+\hline
+0.1 &  0.033\\
+\hline
+0.2 &   0.066\\
+\hline
+0.3 &   0.10\\
+\hline
+0.4 &   0.13\\
+\hline
+0.5 &   0.17\\
+\hline
+0.6 &   0.20\\
+\hline
+\end{tabular}
+\caption{\centering Datos experimentales obtenidos durante el experimento}
+\label{Datos1}
+\end{table}
+\hfill \break
+\hfill \break
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.\\
+ \hfill \break
+$X$= Tiempo[s]\\
+ \hfill \break
+$Y$=Distancia [m]\\
+\hfill \break
+Representando los datos en plano cartesiano en base a escalas lineales, con la finalidad de obtener una nube de puntos entre los datos experimentales de la variable dependiente y la variable independiente.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{MRU_Im1.png}
+\caption{\centering Nube de puntos entre el tiempo y los diversos valores de la distancia obtenidos}
+\label{Figura2}
+\end{figure} 
+\hfill \break
+Trazando la curva de ajuste que mejor represente a la nube de puntos, dando como resultado un regresion lineal, cuya representación es una curva lineal perteneciente a una linea recta con la forma de la Ec.\ref{ec:5}\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{MRU_Im2.png}
+\caption{\centering Trazado de la curva lineal en la nube de puntos}
+\label{Figura3}
+\end{figure}
+\hfill \break
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener Delta.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.\\
+\hfill \break
+\hfill \break
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Original\\
+\hline
+Test1 & -0.00064  & 0.34 & $X=-0.00064+0.34t$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente mediante el método de mínimos cuadrados}
+\label{Tabla1}
+\end{table}
+\hfill \break
+Graficando la correlación entre la pendiente B de la linea teórica que representa la velocidad y el tiempo.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Velocidad_MRU.png}
+\caption{\centering Correlación entre la velocidad y el tiempo}
+\label{Correlacion_MRU}
+\end{figure}
+\hfill \break
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva lineal original y de la curva lineal cuya ecuación fue determinada anteriormente mediante mínimos cuadrados, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado.\\
+
+\hfill \break
+\textbf{Sigma al Cuadrado} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 4.59e-06\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado }
+\label{Tabla2}
+\end{table}
+\hfill \break
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.\\
+
+\hfill \break
+\textbf{Desviación de A y B} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 0.0015 & 0.0040\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica}
+\label{Tabla3}
+\end{table}
+\hfill \break
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.\\
+
+\hfill \break
+\textbf{Coeficiente De Correlación} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & 0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica}
+\label{Tabla4}
+\end{table}
+
+\subsection{MRUV}
+\hfill \break
+Obteniendo los datos experimentales de tiempo y distancia durante el experimento.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Tiempo[s] & Distancia [m]\\
+0.0 &  0.0\\
+\hline
+0.1 &  0.024\\
+\hline
+0.2 &   0.048\\
+\hline
+0.3 &   0.072\\
+\hline
+0.4 &  0.096\\
+\hline
+0.5 &  0.12\\
+\hline
+0.6 &   0.144\\
+\hline
+0.7 &   0.168\\
+\hline
+0.8 &  0.192\\
+\hline
+0.9 &   0.216\\
+\hline
+1.0 &   0.24\\
+\hline
+\end{tabular}
+\caption{\centering Datos experimentales obtenidos durante el experimento}
+\label{Datos2}
+\end{table}
+\hfill \break
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.\\
+ \hfill \break
+$X$= Tiempo[s]\\
+ \hfill \break
+$Y$=Distancia [m]\\
+\hfill \break
+\hfill \break
+Representando los datos en el plano cartesiano en base a escalas lineales, con la finalidad de obtener una nube de puntos entre los datos experimentales de la variable dependiente y la variable independiente.\\
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.9]{MRUV_Im1.png}
+\caption{\centering Nube de puntos entre el tiempo y los diversos valores de la distancia obtenidos}
+\label{Figura4}
+\end{figure}
+\\ \\
+Trazando la curva de ajuste que mejor represente a la nube de puntos, dando como resultado una regresión no lineal, cuya representación es una curva no lineal perteneciente a una parábola con la forma de la Ec.\ref{ec:2}\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{MRUV_Im2.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos}
+\label{Figura5}
+\end{figure}
+\hfill \break
+Linealizando las curvas no lineales, mediante el método de cambio de variable, donde $z=t^2$, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.\\
+\hfill \break
+\hfill \break
+Trazando la linea teórica obtenida en los datos obtenidos experimentalmente con la finalidad de observar la distribucion de los datos y el grado de error cometido en cada uno de los tests.\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{MRUV_Im3.png}
+\caption{\centering Linealizacion de la curva no lineal}
+\label{Figura6}
+\end{figure} 
+\hfill \break
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener Delta.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.\\
+\hfill \break
+\hfill \break
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Original\\
+\hline
+Test1 & 0.0024  & 0.24 & $X=0.0024+0.24t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente mediante el método de mínimos cuadrados}
+\label{Tabla5}
+\end{table} 
+\hfill \break
+Multiplicando el valor de la pendiente B que representa la velocidad por dos, con la finalidad de obtener el valor de la aceleración.\\
+\hfill \break
+$a=0.48[m/s^2]$\\
+\hfill \break
+Aplicando Ec.\ref{ec:14}, utilizando los datos obtenidos experimentalmente del tiempo y la aceleración anteriormente calculada, con la finalidad de obtener la velocidad en cada intervalo de tiempo.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Tiempo[s] & Velocidad [m/s]\\
+0.0 &  0.0\\
+\hline
+0.1 &  0.048\\
+\hline
+0.2 &   0.096\\
+\hline
+0.3 &   0.14\\
+\hline
+0.4 &  0.19\\
+\hline
+0.5 &  0.24\\
+\hline
+0.6 &   0.29\\
+\hline
+0.7 &   0.34\\
+\hline
+0.8 &  0.38\\
+\hline
+0.9 &   0.43\\
+\hline
+1.0 &   0.48\\
+\hline
+\end{tabular}
+\caption{\centering Valor de la velocidad en cada intervalo de tiempo del experimento}
+\label{Velocidades_MRUV_Tabla}
+\end{table}
+\hfill \break
+Graficando la correlación entre los diversos valores de la velocidad y sus respectivos tiempos.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Velocidad_MRUV.png}
+\caption{\centering Correlación entre la velocidad y el tiempo}
+\label{Correlacion_MRUV}
+\end{figure}
+\hfill \break
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva lineal original y de la curva lineal cuya ecuación fue determinada anteriormente mediante mínimos cuadrados, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado.\\
+
+\hfill \break
+\textbf{Sigma al Cuadrado} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 0.00021\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado }
+\label{Tabla6}
+\end{table}
+\hfill \break
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.\\
+
+\hfill \break
+\textbf{Desviación de A y B} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 0.0063 & 0.013\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica}
+\label{Tabla7}
+\end{table}
+\hfill \break
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.\\
+
+\hfill \break
+\textbf{Coeficiente De Correlación} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & 0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica}
+\label{Tabla8}
+\end{table}
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{MRU}
+\hfill \break
+Se evidencia de la Fig.\ref{Figura2} que todos los datos experimentales obtenidos forman una nube de puntos.\\
+ \hfill \break
+ \hfill \break
+Asimismo, se observa que al graficar la curva lineal que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura3}, el comportamiento de los datos experimentales sigue la ecuación de una linea recta con Ec.\ref{ec:5}, denotando que el deslizador esta recorriendo la misma distancia cada 0.1s, dando a entender que su velocidad es constante durante todo el movimiento y esta representada por la pendiente B de la linea teorica con un valor de $0.34[m/s]$, tal y como se observa en la Fig.\ref{Correlacion_MRU}\\
+\hfill \break
+\hfill \break
+Asimismo se demuestra que la correlación entre la Distancia(variable dependiente) y el Tiempo(variable independiente) es lineal como también se observa que ambas variables son directamente proporcionales.\\
+\hfill \break
+\hfill \break
+Presentando una ecuación linealizada $X=-0,00064 + 0,34t$, presente en la Tabla.\ref{Tabla1}, con una mínima desviación menor a 1 en el parámetro A con el valor de $0.0015$ y en B con un valor de $0.0040$ en la Tabla.\ref{Tabla3}, además de un coeficiente de correlación de $0.99$ en la Tabla.\ref{Tabla4}, indicando que la linea teórica se ajusta muy bien a la nube de puntos de los datos experimentales.\\
+
+\subsection{MRUV}
+\hfill \break
+Se evidencia de la Fig.\ref{Figura4} que todos los datos experimentales obtenidos forman una nube de puntos.\\
+ \hfill \break
+ \hfill \break
+Asimismo, se observa que al graficar la curva no lineal que se ajuste mejor a la nube de puntos en la Fig.\ref{Figura5}, el comportamiento de los datos experimentales sigue la ecuación de una parábola con Ec.\ref{ec:2}, denotando que el deslizador esta recorriendo una mayor distancia pero en el mismo tiempo, dando a entender que esta acelerando, indicando que hay un aumento en su velocidad cada 0.1s.\\
+ \hfill \break
+\hfill \break
+La aceleración esta representada por el doble de la pendiente B de la linea teórica, dando como resultado una aceleración del $0.48[m/s^2]$, indicando que la velocidad aumentara a razón de 0.48 cada segundo, como se observa en la Tabla.\ref{Velocidades_MRUV_Tabla} y en la representación gráfica de la correlación velocidad-tiempo en la Fig.\ref{Correlacion_MRUV}.\\
+\hfill \break
+\hfill \break
+Asimismo se demuestra que la correlación entre la Distancia(variable dependiente) y el Tiempo(variable independiente) no es lineal como también se observa que ambas variables son directamente proporcionales, por lo cual se aplica el método de linealizacion por cambio de variable, dando como resultado una recta teórica con ordenada al origen conocido A y pendiente B, la cual al ser graficada en la Fig\ref{Figura6}, se observa que no todos los puntos están posicionados sobre esta, indicando que la correlación no es perfectamente lineal.\\
+\hfill \break
+\hfill \break
+Presentando una ecuacion linealizada $X = 0,0024 + 0,24t2$, presente en la Tabla.\ref{Tabla5}, con una mínima desviación menor a 1 en el parámetro A con el valor de $0.0063$ y en B con un valor de $0.013$ en la Tabla.\ref{Tabla7}, con un coeficiente de correlación de $0.99$ en la Tabla.\ref{Tabla8}, indicando que la linea teórica se ajusta muy bien a la nube de puntos de los datos experimentales.
+
+\section{Discusión}
+\label{Sec:Disc}
+\hfill \break
+Se puede inferir de los gráficos que representan los datos simulados, que existe una correlación entre la variable dependiente e independiente en cada uno de los tests realizados. Además, se puede determinar si esta relación es directamente o inversamente proporcional, dependiendo de la ecuación de la curva.\\
+\hfill \break
+\hfill \break
+En adición, al aplicar el método de linealización por cambio de variable, es posible obtener la ecuación de una línea teórica con una ordenada al origen A y una pendiente B. \\
+\hfill \break
+Esta línea teórica representa la forma linealizada de la curva no lineal trazada a través de las diferentes nubes de puntos para cada correlación entre la variable independiente y la variable dependiente en cada test. Si los puntos de datos están bien ajustados a la línea teórica, se sugiere que la correlación entre las variables es perfectamente lineal.\\
+\hfill \break
+\hfill \break
+Como en el caso del MRUV con una ecuación linealizada $X = 0,0024 + 0,24t2$, teniendo mínimas desviaciones respecto al parámetro A conocido como ordenada con un valor mínimo de $0.0063$ y al parámetro B con valor de $0.013$ en la Tabla.\ref{Tabla8}, teniendo un coeficiente de correlación cercano a 1 indicando que la linea teórica se ajusta muy bien a la nube de puntos formada por los datos experimentales.
+
+\section{Conclusiones}
+\label{Sec:Concl}
+\hfill \break
+Se concluyo que:
+\begin{enumerate}
+\item Los datos simulados obtenidos en MRU y MRUV, presentan nubes de puntos con comportamientos curvilíneos distintos presentes en la Fig\ref{Figura2}, Fig\ref{Figura4}, evidenciando correlaciones lineales o no lineales entre las variables dependientes e independientes, cuyas ecuaciones pertenecen a la parábola con Ec.\ref{ec:2} y la recta con Ec.\ref{ec:5}, indicando que las variables son directamente proporcionales.
+ \hfill \break
+\hfill \break
+Como en el caso de la correlación Distancia-Tiempo en MRU con Ec.\ref{ec:5}, en la cual se observa que la distancia es directamente proporcional al tiempo.
+\item La linealización de la correlación no lineal en MRUV se determina mediante la aplicación del método de cambio de variable, lo cual ayuda a determinar la ecuación linealizada de la curva no lineal, permitiendo hallar el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente mediante el método de mínimos cuadrados, como tambien sus desviaciones y el coeficiente de correlación de la linea teórica.
+Como en el caso de:
+ \hfill \break
+ \hfill \break
+*Distancia-Tiempo(MRU): Con su ecuación linealizada de $X = -0,00064 + 0,34t$ con parámetros A y B en la Tabla.\ref{Tabla1}, con una desviación mínima en A del $0.0015$ y en B del $0.0040$ en la Tabla.\ref{Tabla3}.\\
+\hfill \break
+\hfill \break
+Además de tener un coeficiente de correlación del $0.99$ en la Tabla.\ref{Tabla4}, indicando que la recta se ajusta bastante bien a la nube de puntos de los datos experimentales.\\
+\hfill \break
+\hfill \break
+*Distancia-Tiempo(MRUV): Con su ecuación linealizada de $X = 0,0024 + 0,24t2$ con parámetros A y B en la Tabla.\ref{Tabla5} con una mínima desviación en A del $0.0063$ y en B del $0.013$ en la Tabla.\ref{Tabla7}.
+\hfill \break
+\hfill \break
+Además, de tener un coeficiente de corelacion del $0.99$ en la Tabla.\ref{Tabla8}, indicando que la recta se ajusta bastante bien a la nube de puntos simulados.
+\hfill \break
+\item Muchas de las correlaciones al ser linealizadas demuestran no ser perfectamente lineales, ya que solo algunos de los puntos están sobre el trazado de la línea teórica, evidenciando una dispersión entre los datos simulados respecto a la misma.
+Como en el caso de la correlación:
+\hfill \break
+\hfill \break
+*Distancia-Tiempo(MRU): Representado gráficamente en la Fig.\ref{Figura3}.
+\hfill \break
+\hfill \break
+*Distancia-Tiempo(MRUV): Representado gráficamente en la Fig.\ref{Figura6}.
+\end{enumerate}
+\section{Bibliografía}
+\printbibliography
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\end{document}

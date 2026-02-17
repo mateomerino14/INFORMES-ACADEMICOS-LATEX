@@ -1,0 +1,509 @@
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+
+% Configuración de párrafos: sin sangría y con espacio entre párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex}
+\pagestyle{plain}
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{GRÁFICOS Y ECUACIONES}
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+\date{\today}
+
+\begin{abstract}
+\hfill \break
+La representación gráfica de los datos es una herramienta útil para comprender el comportamiento de un fenómeno determinista. En este trabajo, se presenta una metodología para encontrar las relaciones funcionales entre variables dependientes e independientes mediante análisis de laboratorio. Esto permite determinar, de manera gráfica, una ecuación característica para las relaciones lineales y/o no lineales. Además, se implementa el método de linealización por cambio de variable o logaritmos de base 10 para aquellas curvas no lineales, con el objetivo de obtener una ecuación de una recta teórica que atraviesa la nube de puntos en los diversos tests. Estos tests ayudan a determinar si la correlación es perfectamente lineal o no lineal, presentando cierta dispersión entre los datos. Por ejemplo, en el test 1 de Posición vs Tiempo, se puede observar una correlación lineal no perfecta en la Fig.\ref{Figura5}
+
+\begin{description}
+\item[Palabras clave]Gráfica, Escalas lineales, Escalas no lineales, Relación lineal, Relación no lineal, Linealización, Cambio de variable. 
+\end{description}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\label{sec:introduccion}
+Los datos presentados en este informe, son una extensión del trabajo de propagación de errores, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, presentado durante el curso de laboratorio de física general del departamento de Física, cabe mencionar que se trabajo con análisis básicos para la presentación final de datos, mediante representaciones gráficas linealizadas.
+
+En física, de manera experimental generalmente se trabaja con dos variables; una dependiente y una independiente.
+\begin{itemize}
+\item \textbf{Variable Dependiente:} Es el factor que se ve modificado o influenciado por una variable independiente, es una variable inestable y es la que el investigador pretende medir. Se localiza en el eje de la ordenada (eje "Y").
+\item \textbf{Variable Independiente:} Es el factor que el investigador quiere poner a prueba para demostrar una hipótesis. También es una característica, condición, cualidad o hecho que tiene la potencialidad de alterar otras variables dependientes. Se localiza en el eje de la abscisa (eje "X").
+\end{itemize}
+Asimismo, la física también trata sobre las relaciones entre cantidades observadas. 
+
+Establecer estas relaciones permite que podamos anticipar lo que ocurrirá con una cantidad cuando la otra varia de una forma determinada. Una forma básica para establecer la relación entre dos cantidades medidas es representarlas mediante un gráfico.
+\begin{itemize}
+\item \textbf{Gráfico:} Es una representación visual de una serie de datos estadísticos. Es una herramienta muy eficaz, ya que:
+- Capta la atención del lector;
+- Presenta la información de forma sencilla, clara y precisa;
+- No induce a error;
+- Facilita la comparación de datos y destaca las tendencias y las diferencias;
+\end{itemize}
+La comprensión de un gráfico estadístico se puede entender como "las habilidades de los lectores de gráficos para interpretar el significado de gráficos creados por otros o por ellos mismos". 
+
+Esta visión supone entender la función y utilidad de cada elemento que constituye el gráfico estadístico con el que se esté trabajando, tal y como indican Arteaga Pedro, Diaz Levicoy Danilo y Batanero Carmen\cite{Arteaga}.
+
+Toda gráfica depende del tipo de escala en la que exprese sus resultados, teniendo las escalas lineales y las no lineales.
+\begin{itemize}
+\item \textbf{Escala Lineal:} Son aquellas en las que las distancias iguales representan cantidades iguales.
+\item \textbf{Escala No Lineal:} Son aquellas que se contribuyen en base a un patrón de comportamiento que hace que distancias iguales no representan cantidades iguales.
+\end{itemize}
+
+Una forma de determinar si puede existir o no dependencia entre variables, y en caso de haberla deducir de qué tipo puede ser, es gráficamente representando los pares de valores observados. A dicho gráfico se le llama nube de puntos o diagrama de dispersión, tal y como expresa BD\cite{BD}.
+
+El objetivo de un modelo de regresión es tratar de explicar la relación que existe entre una variable dependiente (variable respuesta) "Y", con un conjunto de variables independientes (variables explicativas) "X1,..., Xn".
+
+En un modelo de regresión lineal simple se trata de explicar la relación que existe entre la variable respuesta Y y una única variable explicativa X, tal y como lo explica Crujeiras\cite{Crujeiras}.
+
+Al determinar la relación entre dos variables, esta puede llegar a ser lineal o no lineal.
+
+\begin{itemize}
+\item \textbf{Relación Lineal:} Cuando las variables dependientes e independientes tienen una tasa de cambio constante con respecto a la otra. La relación se llama lineal porque su gráfica es una línea recta.
+\item \textbf{Relación No Lineal:} Cuando los aumentos/disminuciones entre las variables dependientes y las independientes no se dan con la misma intensidad.
+\end{itemize}
+Cuando de la representación de datos no se obtienen tendencias lineales, entonces no es posible encontrar el gráfico de la ecuación de la relación no lineal, razón por la cual se busca un método para linealizar, entre los cuales están el cambio de variable y linealizacion por logaritmos.
+\begin{itemize}
+\item \textbf{Cambio de Variable:} Consiste en sumir un modelo para el comportamiento de los datos, es decir estimar o predeterminar el valor del parámetro "b" de la relación no lineal, seguidamente realizar el cambio de variable. Si el valor de "b" es el adecuado, la nueva gráfica sera lineal, caso contrario la gráfica no sera lineal.
+\item \textbf{Linealizacion por Logaritmos:} Consiste en aplicar logaritmos a ambos miembros de la ecuación y aplicar las propiedades de logaritmos.
+\end{itemize}
+
+\section{Objetivo y planteamiento del problema}
+
+El presente trabajo busca determinar las relaciones lineales entre las variables Posición-Tiempo y Presión-Volumen, para poder determinar si los datos simulados presentan una relación lineal perfecta o no.
+
+Por lo cual, se procede a identificar las variables dependientes e independientes en cada matriz de datos, para luego representar gráficamente los datos simulados obtenidos mediante varios histogramas.
+
+Posteriormente se analiza si la relación entre las variables es lineal o no lineal. En caso de una relación no lineal, se procede a analizar el comportamiento o la forma de la correlación formada por el conjunto de datos entre las dos variables para determinar el tipo de curva del que se trata y así determinar la ecuación que mejor se ajuste a la relación, para después aplicar métodos de linealizacion mediante el cambio de variable o propiedades de logaritmos, con la finalidad de determinar la ecuación linealizada de las curvas no lineales con ordenada al origen conocida como parámetro A y la pendiente como parámetro B.
+
+Asimismo se procede a interpretar el comportamiento de la gráfica, en otras palabras que esta sucediendo en el fenómeno que esta describiendo la gráfica, como en el caso de la gráfica Posición-Tiempo de la Fig.\ref{Figura2}, del cual se evidencia que la partícula esta en contante movimiento, es decir que se encuentra en MRUV y que a medida que el tiempo se incrementa, la distancia también, por lo que son directamente proporcionales.
+
+\section{Método}
+\label{sec:met}
+\textbf{Relación Potencial Simple}
+\begin{gather}
+y=a \times x^b
+\label{ec:1}
+\end{gather} 
+
+\textbf{Relación Exponencial Directa}
+\begin{gather} 
+Parabola: y=a \times x^2 
+\label{ec:2}\\ \notag \\ 
+Hiperbola:y=a \times x^{-1}
+\label{ec:3} \\ \notag \\ 
+Cubica:y=a \times x^3
+\label{ec:4} \\ \notag \\ 
+Recta:y=a \times x^1
+\label{ec:5} 
+\end{gather}
+
+\textbf{Pendiente de la Recta}
+\begin{gather}
+B= \tfrac{\Delta x}{\Delta z}
+\label{ec:6}
+\end{gather}
+
+\textbf{Linealizacion por logaritmos}
+\begin{gather}
+log(y)=log(a)+b \times log(x)
+\label{ec:7}
+\end{gather}
+
+\subsection{Relación Posición-Tiempo}
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.
+
+$X$= Tiempo[s]
+
+$Y$=Distancia [m]:X1,X2,X3,X4,X5
+
+Representando los datos en sistemas cartesianos en base a escalas lineales en cada test, con la finalidad de obtener una nube de puntos entre los datos experimentales de las variables dependientes y la variable independiente.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen1.png}
+\caption{\centering Nube de puntos entre el tiempo y los diferentes conjuntos de datos experimentales de las distancias tomadas en cada test}
+\label{Figura1}
+\end{figure} 
+
+Trazando la curva de ajuste que mejor represente a la nube de puntos en cada test, dando como resultado múltiples regresiones no lineales, cuya representación es una curva no lineal perteneciente a una parábola con la forma de la Ec.\ref{ec:2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen7.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test1 y el test2}
+\label{Figura2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen8.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test3 y el test4}
+\label{Figura3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics [scale=0.7]{Imagen9.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test5}
+\label{Figura4}
+\end{figure}
+
+Linealizando las curvas no lineales, mediante el método de cambio de variable, donde $z=t^2$, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.
+
+Trazando la linea teórica obtenida en los datos obtenidos experimentalmente con la finalidad de observar la distribucion de los datos y el grado de error cometido en cada uno de los tests.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen13.png}
+\caption{\centering Linealizacion de las curvas del test1 y el test2}
+\label{Figura5}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen14.png}
+\caption{\centering Linealizacion de las curvas del test3 y el test4}
+\label{Figura6}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen15.png}
+\caption{\centering Linealizacion de la curva del test5}
+\label{Figura7}
+\end{figure}
+
+Obteniendo a partir de las gráficas linealizadas las ecuaciones en cada test de la forma Ec.\ref{ec:5}, utilizando la ecuación Ec.\ref{ec:6} para calcular B y la gráfica linealizada para determinar A.
+
+\textbf{Ecuación Linealizada} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & 0.54  & 3.38 & $X=0.54+3.38z$ & $X=0.54+3.38t^2$\\
+\hline
+Test2 &  0.078 & 7.51  & $X=0.078+7.51z$ & $X=0.078+7.51t^2$\\
+\hline
+Test3 & -1.23  & 9.36 & $X=0.078+7.51z$ & $X=0.078+7.51t^2$\\
+\hline
+Test4 & 0.64  & 9.73 & $X=0.64+9.73z$ & $X=0.64+9.73t^2$\\
+\hline
+Test5 & -0.0084  &  8.31 & $X=-0.0084+8.31z$ & $X=-0.0084+8.31t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test}
+\label{Tabla1}
+\end{table}
+
+\subsection{Relación Posición-Tiempo N°2}
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.
+
+$X$= Tiempo[s]
+
+$Y$=Distancia [m]:X1,X2,X3,X4,X5
+
+Representando los datos en sistemas cartesianos en base a escalas lineales en cada test, con la finalidad de obtener una nube de puntos entre los datos experimentales de las variables dependientes y la variable independiente.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen2.png}
+\caption{\centering Nube de puntos entre el tiempo y los diferentes conjuntos de datos experimentales de las distancias tomadas en cada test}
+\label{Figura8}
+\end{figure} 
+
+Trazando la curva de ajuste que mejor represente a la nube de puntos en cada test, dando como resultado múltiples regresiones no lineales, cuya representación es una curva no lineal perteneciente a una parábola con la forma de la Ec.\ref{ec:2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen4.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test1 y el test2}
+\label{Figura9}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen5.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test3 y el test4}
+\label{Figura10}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics [scale=0.7]{Imagen6.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test5}
+\label{Figura11}
+\end{figure}
+
+Linealizando las curvas no lineales, mediante la aplicación de propiedades de logaritmos a través de la Ec.\ref{ec:7}, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.
+
+Trazando la linea teórica obtenida en los datos obtenidos experimentalmente con la finalidad de observar la distribucion de los datos y el grado de error cometido en cada uno de los tests.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen16.png}
+\caption{\centering Linealizacion de las curvas del test1 y el test2}
+\label{Figura12}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen17.png}
+\caption{\centering Linealizacion de las curvas del test3 y el test4}
+\label{Figura13}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen18.png}
+\caption{\centering Linealizacion de la curva del test5}
+\label{Figura14}
+\end{figure}
+
+Obteniendo a partir de las gráficas linealizadas las ecuaciones en cada test de la forma Ec.\ref{ec:5}, utilizando la ecuación Ec.\ref{ec:6} para calcular B y la gráfica linealizada para determinar A.
+
+\textbf{Ecuación Linealizada} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & 0.57  & 2.00 & $X=0.57+2.00z$ & $X=0.57+2.00t^2$\\
+\hline
+Test2 &  0.92 & 2.00 & $X=0.92+2.00z$ & $X=0.92+2.00t^2$\\
+\hline
+Test3 & 0.87  & 2.00 & $X=0.87+ 2.00z$ & $X=0.87+ 2.00t^2$\\
+\hline
+Test4 & 1.01 & 1.99 & $X=1.01+1.99z$ & $X=1.01+1.99t^2$\\
+\hline
+Test5 & 1.15  &  2.00 & $X=1.15+2.00z$ & $X=1.15+2.00t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test}
+\label{Tabla2}
+\end{table}
+
+\subsection{Relación Presión-Volumen}
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.
+
+$X$= Volumen[L]
+
+$Y$=Presión [atm]:P1,P2,P3,P4,P5
+
+Representando los datos en sistemas cartesianos en base a escalas lineales en cada test, con la finalidad de obtener una nube de puntos entre los datos experimentales de las variables dependientes y la variable independiente.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen3.png}
+\caption{\centering Nube de puntos entre el volumen y los diferentes conjuntos de datos experimentales de las presiones tomados en cada test}
+\label{Figura15}
+\end{figure} 
+
+Trazando la curva de ajuste que mejor represente a la nube de puntos en cada test, dando como resultado múltiples regresiones no lineales, cuya representación es una curva no lineal perteneciente a una hipérbole con la forma de la Ec.\ref{ec:3}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen10.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test1 y el test2}
+\label{Figura16}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen11.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test3 y el test4}
+\label{Figura17}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics [scale=0.7]{Imagen12.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test5}
+\label{Figura18}
+\end{figure}
+
+Linealizando las curvas no lineales, mediante el método de cambio de variable, donde $z=V^{-1}$, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.
+
+Trazando la linea teórica obtenida en los datos obtenidos experimentalmente con la finalidad de observar la distribucion de los datos y el grado de error cometido en cada uno de los tests.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen19.png}
+\caption{\centering Linealizacion de las curvas del test1 y el test2}
+\label{Figura19}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen20.png}
+\caption{\centering Linealizacion de las curvas del test3 y el test4}
+\label{Figura20}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen21.png}
+\caption{\centering Linealizacion de la curva del test5}
+\label{Figura21}
+\end{figure}
+
+\textbf{Ecuación Linealizada} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & -0.0047  & 2.17 & $P=-0.0047+2.17z$ & $P=-0.0047+2.17/V$\\
+\hline
+Test2 &  -0.0066 & 0.52 & $P=-0.0066+0.52z$ & $P=-0.0066+0.52/V$\\
+\hline
+Test3 & 0.010  & 2.24 & $P=0.010+ 2.24z$ & $P=0.010+ 2.24/V$\\
+\hline
+Test4 & -0.022 &  2.25 & $P=-0.022+2.25z$ & $P=-0.022+2.25/V$\\
+\hline
+Test5 & -0.034  &  2.79 & $P=-0.034+2.79z$ & $P=-0.034+2.79/V$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test}
+\label{Tabla3}
+\end{table}
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{Relación Posición-Tiempo}
+Se evidencia de la Fig.\ref{Figura1} que todos los tests poseen diversas nubes de puntos.
+
+Asimismo, se observa que al graficar las curvas no lineales que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura2}, Fig.\ref{Figura3}, Fig.\ref{Figura4}, el comportamiento de los datos simulados sigue la ecuación de una parábola con Ec.\ref{ec:2} en cada uno de los tests.
+
+Demostrando que la correlación en cada uno de los tests entre la Distancia(variable dependiente) y el Tiempo(variable independiente) no es lineal como también se observa que ambas variables son directamente proporcionales, por lo cual se aplica el método de linealizacion por cambio de variable, dando como resultado una recta teórica con ordenada al origen conocido A y pendiente B en cada uno de los tests, la cual al ser graficada en la Fig\ref{Figura5},Fig\ref{Figura6},Fig\ref{Figura7}, se observa en cada test que no todos los puntos están posicionados sobre esta, indicando que la correlación en cada test no es perfectamente lineal.
+
+Cada uno de los tests presenta ecuaciones linealizadas, con ordenada al origen A y pendiente B distintos, presentes en la Tabla.\ref{Tabla1}.
+
+\subsection{Relación Posición-Tiempo N°2}
+Se evidencia de la Fig.\ref{Figura8} que todos los tests poseen diversas nubes de puntos.
+
+Asimismo, se observa que al graficar las curvas no lineales que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura9}, Fig.\ref{Figura10}, Fig.\ref{Figura11}, el comportamiento de los datos simulados sigue la ecuación de una parábola con Ec.\ref{ec:2} en cada uno de los tests.
+
+Demostrando que la correlación en cada uno de los tests entre la Distancia(variable dependiente) y el Tiempo(variable independiente) no es lineal como también se observa que ambas variables son directamente proporcionales, por lo cual se aplica el método de linealizacion por propiedad de logaritmos de base 10, dando como resultado una recta teórica con ordenada al origen conocido A y pendiente B en cada uno de los tests, la cual al ser graficada en la Fig\ref{Figura12},Fig\ref{Figura13},Fig\ref{Figura14}, se observa en cada test que no todos los puntos están posicionados sobre esta, indicando que la correlación en cada test no es perfectamente lineal.
+
+Cada uno de los tests presenta ecuaciones linealizadas, con ordenada al origen A y pendiente B distintos, presentes en la Tabla.\ref{Tabla2}.
+
+\subsection{Relación Presión-Volumen}
+Se evidencia de la Fig.\ref{Figura15} que todos los tests poseen diversas nubes de puntos.
+
+Asimismo, se observa que al graficar las curvas no lineales que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura16}, Fig.\ref{Figura17}, Fig.\ref{Figura18}, el comportamiento de los datos simulados sigue la ecuación de una hipérbola con Ec.\ref{ec:3} en cada uno de los tests.
+
+Demostrando que la correlación en cada uno de los tests entre la Presión(variable dependiente) y el Volumen(variable independiente) no es lineal como también se observa que ambas variables son inversamente proporcionales, por lo cual se aplica el método de linealizacion por cambio de variable, dando como resultado una recta teórica con ordenada al origen conocido A y pendiente B en cada uno de los tests, la cual al ser graficada en la Fig\ref{Figura19},Fig\ref{Figura20},Fig\ref{Figura21}, se observa en cada test que no todos los puntos están posicionados sobre esta, indicando que la correlación en cada test no es perfectamente lineal.
+
+Cada uno de los tests presenta ecuaciones linealizadas, con ordenada al origen A y pendiente B distintos, presentes en la Tabla.\ref{Tabla3}.
+
+\section{Discusión}
+\label{Sec:Disc}
+Se puede inferir de los gráficos que representan los datos simulados, que existe una corelación entre la variable dependiente e independiente en cada uno de los tests realizados. Además, se puede determinar si esta relación es directamente o inversamente proporcional, dependiendo de la ecuacion de la curva.
+
+En adición, al aplicar el método de linealización por cambio de variable o mediante el uso de logaritmos de base 10, es posible obtener la ecuación de una línea teórica con una ordenada al origen A y una pendiente B. Esta línea teórica representa la forma linealizada de la curva no lineal trazada a través de las diferentes nubes de puntos para cada corelación entre la variable independiente y la variable dependiente en cada test. Si los puntos de datos están bien ajustados a la línea teórica, se sugiere que la corelación entre las variables es perfectamente lineal.
+
+Es importante destacar que en muchos casos se evidencia una dispersión en los datos simulados en relación a la línea teórica obtenida mediante el método de linealización. Esto indica que la relación entre las variables no es completamente lineal y que existen otros factores que influyen en la variabilidad de los datos. Por lo tanto, se debe tener precaución al interpretar los resultados y considerar otros análisis estadísticos para determinar la significancia de la corelación entre las variables.
+
+Como en el caso del test5 de la corelacion Posicion-Tiempo Nº2 en la Fig\ref{Figura14}, del cual se evidencia que no todos los puntos estan sobre la linea teorica, dando a entender que no es una corelacion perfectamente lineal.
+
+\section{Conclusiones}
+\label{Sec:Concl}
+Se concluyo que:
+\begin{enumerate}
+\item Los datos simulados obtenidos en cada matriz, presentan nubes de puntos con comportamientos curvilíneos distintos presentes en la Fig\ref{Figura1}, Fig\ref{Figura8}, Fig\ref{Figura15} , evidenciando correlaciones no lineales entre las variables dependientes e independientes, cuyas ecuaciones pertenecen a la parábola con Ec.\ref{ec:2} y la hipérbola con Ec.\ref{ec:3}, indicando si las variables son directamente o inversamente proporcionales.
+
+Como en el caso de la correlación Presión-Volumen con Ec.\ref{ec:3}, en la cual se observa que la presión es inversamente proporcional al volumen.
+
+\item La linealización de las correlaciones no lineales se determina mediante la aplicación del método de cambio de variable o propiedades de logaritmos de base 10, los cuales ayudan e determinar la ecuación linealizada de las curvas no lineales.
+Como en el caso de la correlación:
+
+*Posición-Tiempo: En el test1, con su ecuación linealizada de $X = 0,54 + 3,38t^2$ con parámetros A y B en la Tabla.\ref{Tabla1}.
+
+*Posición-Tiempo (Nº2): En el test4, con su ecuación linealizada $X = 1,01 + 1,99t^2$ con parámetros A y B en la Tabla.\ref{Tabla2}.
+
+*Presión-Volumen: En el test3, con su ecuación linealizada $P = 0,010 + 2,24/V$ con parámetros A y B en la Tabla.\ref{Tabla3}.
+
+\item Muchas de las correlaciones al ser linealizadas demuestran no ser perfectamente lineales, ya que solo algunos de los puntos están sobre el trazado de la línea teórica, evidenciando una dispersión entre los datos simulados respecto a la misma.
+Como en el caso de la correlación:
+
+*Posición-Tiempo: En el test5, representado gráficamente en la Fig.\ref{Figura7}
+
+*Posición-Tiempo (Nº2): En el test2, representado gráficamente en la Fig.\ref{Figura12}
+
+*Presión-Volumen: En el test1, representado gráficamente en la Fig.\ref{Figura19}
+
+\end{enumerate}
+
+\section{Bibliografía}
+\printbibliography
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\end{document}

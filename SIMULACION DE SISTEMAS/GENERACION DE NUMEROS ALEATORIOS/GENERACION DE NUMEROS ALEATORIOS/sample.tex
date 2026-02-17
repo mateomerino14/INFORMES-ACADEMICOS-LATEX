@@ -1,0 +1,599 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To select a journal, use its code for the 
+% journal= option in the \documentclass command.
+% The journal codes for this template are:
+% 
+% Journal of Law and Courts: jlc
+% Macroeconomic Dynamics: mdy
+% State Politics & Policy Quarterly: spq
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[
+  journal=small,
+  manuscript=ARTICULO-CIENTIFICO,  % Use a - if you need a space e.g. "research-article"
+  year=2025
+]{cup-journal}
+\usepackage{adjustbox}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amssymb} 
+\usepackage[nopatch]{microtype}
+\usepackage{booktabs}
+\usepackage{multirow}
+\title{Generación de Números Aleatorios}
+
+\author{Merino Vidal Mateo Alejandro}
+\affiliation{Universidad Mayor de San Simón \\ 
+\texttt{Cochabamba, Bolivia }\\  
+\texttt{202301308@est.umss.edu}}
+
+\keywords{[generador,aleatoriedad,periodo,semilla]} 
+
+\begin{document}
+\small 
+\begin{abstract}
+El presente trabajo se realizó mediante el análisis sistemático del comportamiento de diversos generadores de números aleatorios, estudiando tanto sus propiedades fundamentales como su naturaleza, con el fin de determinar su longitud de período y evaluar su calidad. Este enfoque permitió establecer criterios claros al momento de seleccionar un generador, asegurando así que este sea el adecuado para cada contexto de aplicación.
+\end{abstract}
+
+\section{Introducción}
+En la actualidad, los sistemas informáticos requieren de valores aleatorios para diversos procesos, especialmente en el tema de simulaciones, con el fin de poder tomar diferentes caminos en un proceso y modelar escenarios complejos de la vida real. 
+\hfill \break
+\hfill \break
+La generación de números aleatorios es un tema que hoy en día es aplicado a diversos campos, especialmente en la criptografía y la seguridad informática, permitiendo encriptar datos o crear valores útiles como llaves o keys, garantizando la seguridad en cuanto a la transmisión de la información.
+\hfill \break
+\hfill \break
+Un ejemplo de su aplicación es la conexión cliente-servidor en el desarrollo web, ya que durante el proceso de sincronización, la información debe viajar de forma segura para evitar que esta misma sea interceptada, por lo que es necesario encriptarla y generar una llave o key para descifrarla, basada en la combinación de los números aleatorios generados tanto por el cliente como el servidor.
+\hfill \break
+\hfill \break
+Alrededor del mundo, existen múltiples fuentes de números aleatorios, pero cada uno cuenta con un nivel de calidad con respecto a su aleatoriedad. Sin embargo, los generadores más puros se encuentran en la naturaleza, sobre todo en diversos fenómenos como el ruido atmosférico o el decaimiento radiactivo, debido a su comportamiento impredecible, ya que no existe un patrón. Por lo tanto, se considera a la propia naturaleza como un generador de números aleatorios puro. 
+\hfill \break
+\hfill \break
+La informática ha tratado de replicar estos resultados, pero al no poder integrar fuentes naturales de forma práctica en todos los sistemas, se optó por el desarrollo de generadores pseudoaleatorios. Estos parten de una fórmula matemática o algoritmo, a partir de una semilla inicial, para generar una secuencia de números considerada impredecible, al menos hasta que se logre encontrar un patrón o rasgo simétrico en su comportamiento.
+
+
+
+\section{Antecedentes}
+La aleatoriedad es una característica de los fenómenos que ha estado presente en la vida del ser humano desde hace siglos. Inicialmente,
+al ser un campo desconocido y de interés para su análisis, se plantearon diversos métodos para estudiarlo como el lanzamiento de monedas, dados o la extracción de bolas de un recipiente, siendo efectivos en su época.
+\hfill \break
+\hfill \break
+Sin embargo, debido a que estos métodos clásicos eran demasiado lentos e ineficientes, se optó por tomar un nuevo rumbo aprovechando los avances de la computación. Esto surgió de la necesidad de que los ordenadores imitaran el azar para realizar cálculos complejos, lo que llevó a los científicos a desarrollar las primeras fórmulas matemáticas capaces de generar secuencias de números que, a simple vista, parecían aleatorias. Este desarrollo marcó el nacimiento de los generadores pseudoaleatorios, que se convirtieron en la base fundamental de la aleatoriedad en la computación.
+\hfill \break
+\hfill \break
+Cabe recalcar que, a diferencia del azar puro de la naturaleza, los generadores pesudoaleatorios dependen de una "semilla" o valor inicial. Si se usa la misma semilla, se obtendrá exactamente la misma secuencia de números, lo que los hace deterministas, pero si la semilla es desconocida, la secuencia resulta impredecible para la mayoría de las aplicaciones practicas.
+\hfill \break
+\hfill \break
+A medida que paso el tiempo, la creciente dependencia de los sistemas informáticos exigió que estos generadores fueran más rápidos, eficientes y, sobre todo, más difíciles de predecir. Esto llevo a crear una serie de pruebas y estándares de calidad para poder determinar que tan "aleatorio" es un generador en realidad.
+Estas pruebas buscan detectar patrones, repeticiones o sesgos en las secuencias numéricas que podrían revelar su origen artificial.
+\hfill \break
+\hfill \break
+Fue esta necesidad constante de mejorar y validar la calidad del azar computacional la que dio origen a diversas investigaciones a lo largo de la historia con el objetivo de encontrar un equilibrio entre la velocidad, la eficiencia y la aleatoriedad verdadera.
+\hfill \break
+\hfill \break
+Gracias a esto, surgieron diferentes familias de algoritmos, cada una con sus propias ventajas y limitaciones. Algunos se optimizaron para ser extremadamente rápidos en simulaciones que requieren millones de valores, mientras que otros se enfocaron en la seguridad, priorizando la imposibilidad de predecir el siguiente número incluso conociendo parte de la secuencia. Esta especialización permitió adaptar los generadores a necesidades específicas, desde videojuegos hasta transacciones bancarias.
+\hfill \break
+\hfill \break
+Hoy en día, con el auge de la inteligencia artificial y el aprendizaje automático, la demanda de números aleatorios de alta calidad es elevada, ya que los sistemas los utilizan para inicializar parámetros, realizar muestreos y añadir ruido que prevenga el sobre-ajuste.
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\section{Marco Teórico}
+\subsection{Probabilidad y Estadística}
+La estadística es una ciencia por naturaleza experimental que se ha desarrollado a lo largo del tiempo, brindando aportes significativos en múltiples áreas como la medicina, la economía y la tecnología.
+Gracias a ella, es posible aplicar métodos científicos para recopilar, organizar, resumir y analizar datos, lo que permite identificar patrones y extraer conclusiones válidas.
+\hfill \break
+\hfill \break
+Al trabajar con situaciones al azar, se da la aparición de diversos eventos, que ayudan a reconocer cuándo un resultado influye en otro o cuándo suceden de forma aislada. Estos sucesos pueden ser independientes o dependientes.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Eventos dependientes:} Sucesos en los que el resultado de uno influye directamente en el otro. Es decir, lo que ocurra primero afecta la probabilidad de lo que pase después. En este tipo de eventos existe una relación que obliga a considerar ambos sucesos de manera conjunta.
+    \hfill \break
+    \item \textbf{Eventos independientes:} Son sucesos en los que el resultado de uno no cambia la probabilidad del otro. Cada acontecimiento ocurre sin que el anterior o posterior lo modifique. Se caracterizan porque pueden analizarse de forma aislada sin alterar el cálculo de probabilidades.
+\end{itemize}
+\vspace{0.2cm}
+La distribución de probabilidad sirve para mostrar cómo se reparten las posibilidades en una variable. Más allá de los números, ayuda a imaginar distintos escenarios y a darles sentido a los resultados.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Distribución de probabilidad:} Forma en que se reparten las probabilidades entre los diferentes resultados de una variable. Permite saber qué tan posible es cada valor en un fenómeno aleatorio.
+\end{itemize}
+\vspace{0.2cm}
+Dentro de estas representaciones se encuentran las distribuciones uniformes y no uniformes, que se diferencian por la forma en que se comportan. En las primeras, todo tiene la misma oportunidad de suceder, mientras que en las segundas hay resultados que aparecen más seguido que otros.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Distribución uniforme:} Es aquella en la que todos los resultados posibles tienen la misma probabilidad de ocurrir, permitiendo representar una situación justa y equilibrada.
+    \hfill \break
+    \item \textbf{Distribución no uniforme:} Es aquella en donde algunos resultados son más probables que otros, permitiendo reflejar mejor fenómenos de la vida real, donde no todo ocurre con la misma frecuencia.
+\end{itemize}
+\vspace{0.2cm}
+Cuando los resultados empiezan a seguir un orden más marcado, aparece la famosa campana de Gauss o distribución normal, cuya característica es que la mayoría de los valores se concentran alrededor del punto central o esperanza matemática.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Distribución normal:} Se caracteriza por su forma simétrica con la mayoría de los valores concentrados en el centro.
+\end{itemize}
+\vspace{0.2cm}
+Cabe mencionar que también existen diversos teoremas matemáticos que ayudan a calcular probabilidades, siendo uno de ellos el teorema de Bayes, el cual permite ajustar nuestras ideas conforme surge nueva información.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Teorema de Bayes:} Es una regla matemática de la probabilidad condicional que parte de una probabilidad inicial o previa y la ajusta conforme se dispone de nueva evidencia, permitiendo así obtener una probabilidad actualizada o posterior.
+\end{itemize}
+\subsection{Fuentes Generadoras De Números Aleatorios}
+Una forma de comunicarse es a través de los números, ya que estos componen un lenguaje con mayor formalidad y precisión. A diferencia de las palabras, que pueden tener múltiples interpretaciones, los números ofrecen un sistema estructurado y universal que permite transmitir información de manera clara y sin ambigüedades.
+\hfill \break
+\hfill \break
+Al momento de modelar un sistema se requiere de números asociados a la incertidumbre, ya que se busca representar dicho sistema a través de un modelo, manteniendo su esencia, considerando siempre el factor de aleatoriedad.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Aleatoriedad:} Propiedad de un proceso cuyos resultados individuales son impredecibles y no siguen un patrón específico. Sin embargo, al repetirse numerosas veces, estos muestran regularidades estadísticas. Por ejemplo, al lanzar una moneda no podemos saber si caerá cara o cruz en un intento particular, pero tras cientos de lanzamientos observaremos que ambas caras aparecen en proporciones muy similares.
+    \hfill \break
+    \item \textbf{Sistema:} Conjunto de elementos interrelacionados que trabajan conjuntamente para lograr un objetivo común.
+\end{itemize}
+\vspace{0.2cm}
+Debido a esto, se buscan fuentes generadoras de números aleatorios que sean formales, es decir, que estén definidas matemáticamente y algoritmicamente, representando expresiones puras de aleatoriedad. Sin embargo, al modelar un sistema, se buscan estas expresiones, lo cual es complejo, ya que si se detecta algún patrón de comportamiento en la supuesta aleatoriedad, entonces dejan de considerarse verdaderamente números aleatorios y pierden sus propiedades fundamentales.
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Patron:} Regularidad o repetición observable en una secuencia de números que hace que los resultados sean predecibles y no independientes.
+\end{itemize}
+\vspace{0.2cm}
+Dentro de las definiciones matemáticas, se requieren relaciones recursivas mediante fórmulas definidas en sus propios términos, lo que permite que sean programables. Estas relaciones de recurrencia se utilizan con la expectativa de generar números aleatorios que funcionen como verdaderos generadores de números aleatorios.
+\hfill \break
+\hfill \break
+Estas fórmulas deben cumplir con ciertas características para ser consideradas fuentes válidas de generación de números aleatorios:
+\vspace{0.2cm}
+\begin{itemize}
+    \item \textbf{Complejidad:} Una característica clave es cuán complejas son las funciones construidas como fuentes generadoras; se espera que sean lo más sencillas posibles.
+    \hfill \break
+    \item \textbf{Programables:} Deben poder implementarse en código en un lenguaje de programación. Esto es importante, ya que no todos los problemas son modelables de manera directa.
+    \hfill \break
+    \item \textbf{Consumo equilibrado de recursos de cómputo:} Al definir estas funciones de manera recursiva, es fundamental considerar los recursos que consumen durante su ejecución. Lo ideal es que el consumo sea equilibrado.
+    \hfill \break
+    \item \textbf{Análisis de resultados:} Los valores obtenidos deben ser no solo correctos, sino también reproducibles, lo que permite tener control sobre el sistema.
+    \hfill \break
+    \item \textbf{Larga periodicidad:} Mientras más largo sea el período, mejor; este concepto está directamente relacionado con las relaciones de recurrencia.
+    \hfill \break
+    \item \textbf{Independencia y uniformidad:} Se refieren al ámbito estadístico, propio de las probabilidades condicionales, como en el teorema de Bayes. 
+\end{itemize}
+
+\subsection{Tipos de Generadores de Números Aleatorios}
+\subsubsection{Generador Congruencial Mixto}
+\vspace{0.2cm}
+El generador congruencial mixto (GCM) es uno de los métodos más empleados para la generación de números pseudoaleatorios debido a su facilidad de implementación. Se define formalmente mediante la siguiente expresión:
+
+\[
+X_{n+1} = (aX_n + c) \mod m \, ; \, X_{0}
+\]
+
+donde:
+\begin{itemize}
+    \item $X_0$: valor inicial o semilla.
+    \item $a$: multiplicador.
+    \item $c$: incremento.
+    \item $m$: módulo.
+\end{itemize}
+\hfill \break
+El valor inicial $X_0$ da inicio a la secuencia, mientras que los parámetros $a$, $c$ y $m$ determinan la calidad y longitud del período del generador. Estos parámetros deben ser escogidos cuidadosamente, ya que de ellos depende la capacidad del generador para producir secuencias con propiedades cercanas a la verdadera aleatoriedad.
+
+\paragraph{Propiedades fundamentales:}
+Para asegurar que el generador tenga una buena calidad, debe cumplir con un conjunto de propiedades, que son las siguientes:
+\begin{enumerate}
+    \item El valor $c$ y el módulo $m$ deben ser primos relativos (coprimos).
+    \vspace{0.2cm}
+    \item Todo número primo que divida a $m$ también debe dividir a $a - 1$.
+    \vspace{0.2cm}
+    \item Si $m$ es múltiplo de 4, entonces $a - 1$ también debe ser múltiplo de 4.
+\end{enumerate}
+\vspace{0.2cm}
+Cabe mencionar que la tercera condición es de carácter \textbf{condicional}. Esto significa que si la premisa es falsa pero la consecuencia es cierta, la propiedad se sigue considerando válida. En lógica, esto se refleja mediante la tabla de verdad de la implicación ($P \Rightarrow Q$):
+\vspace{0.2cm}
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$P$ & $Q$ & $P \Rightarrow Q$ \\
+\midrule
+V & V & V \\
+V & F & F \\
+F & V & V \\
+F & F & V \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.5cm}
+\paragraph{Ejemplo práctico:}
+Si se toman los valores $a=5$, $c=7$, $m=10$ y $X_0=2$, el generador está definido como:
+
+\[
+X_{n+1} = (5X_n + 7) \mod 10 \, ; \, X_{0}=2
+\]
+
+Construyendo la tabla de valores se obtiene:
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+$n$ & $X_n$ & $aX_n + c$ & $X_{n+1}$ & $(aX_n + c)/m$ \\
+\midrule
+0 & 2 & 17 & 7 & $17/10 = 1.7$ \\
+1 & 7 & 42 & 2 & $42/10 = 4.2$ \\
+2 & 2 & 17 & 7 & $17/10 = 1.7$ \\
+3 & 7 & 42 & 2 & $42/10 = 4.2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.2cm}
+Se puede ver que la secuencia empieza a repetirse con un período de 2. Esto muestra que el generador no crea números totalmente aleatorios, sino una serie determinada que solo da la impresión de ser aleatoria por intervalos.
+
+\paragraph{Verificación de propiedades:}
+\begin{enumerate}
+    \item \textbf{Primalidad entre $c$ y $m$:} (CUMPLE) \\
+    $c=7$, $m=10=2\cdot 5$. No hay factores comunes, por lo tanto, son primos relativos. 
+    \vspace{0.2cm}
+    \item \textbf{Primos de $m$ dividen a $a-1$:} (NO CUMPLE)\\
+    Los primos que dividen a $m=10$ son $\{2,5\}$. \\
+    $a-1=5-1=4$. Es divisible entre $2$, pero no entre $5$. 
+    \vspace{0.2cm}
+    \item \textbf{Condición condicional (si $m$ es múltiplo de 4, entonces $a-1$ también debe serlo):} (CUMPLE)\\
+    $m=10$ no es múltiplo de 4 (premisa falsa). \\
+    $a-1=4$ sí es múltiplo de 4 (consecuencia verdadera). \\
+    Como esta propiedad es condicional, se cumple según la tabla de verdad del implicador ($P \Rightarrow Q$). 
+\end{enumerate}
+\vspace{0.2cm}
+
+\paragraph{Limitaciones:}
+El generador congruencial mixto presenta algunas limitaciones generadas por su propia definición:
+\begin{itemize}
+    \item Los valores generados están restringidos al rango $[0, m]$, ya que dependen de la operación módulo.
+    \item Siempre existe la presencia de un período, lo que implica que, tarde o temprano, la secuencia se repetirá.
+    \item En períodos cortos, la calidad del generador disminuye significativamente, ya que aparecen patrones evidentes en la secuencia.
+\end{itemize}
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\subsubsection{Generador Congruencial Multiplicativo}
+\vspace{0.2cm}
+El generador congruencial multiplicativo (GCMu) es una variación del generador congruencial mixto, con la diferencia de que elimina el término de incremento $c$, quedando definido únicamente por la multiplicación. Se expresa formalmente como:
+
+\[
+X_{n+1} = (aX_n) \mod m \, ; \, X_{0}
+\]
+
+donde:
+\begin{itemize}
+    \item $X_0$: valor inicial o semilla.
+    \item $a$: multiplicador.
+    \item $m$: módulo.
+\end{itemize}
+\hfill \break
+El valor inicial $X_0$ determina el inicio de la secuencia y, al igual que en el generador mixto, la calidad y longitud del período dependen directamente de los parámetros elegidos. En este caso, la ausencia del término $c$ hace que la semilla y el multiplicador adquieran mayor importancia.
+
+\paragraph{Propiedades fundamentales:}
+Para que el generador congruencial multiplicativo produzca secuencias de buena calidad, debe cumplir con un conjunto de propiedades:
+\begin{enumerate}
+    \item La semilla $X_0$ debe ser un número impar, no divisible entre 2 ni entre 5, y además debe ser relativamente primo con respecto a $m$.
+    \vspace{0.2cm}
+    \item El valor del multiplicador $a$ se obtiene de la relación:
+    \[
+    a = 200t \pm p
+    \]
+    donde $t \in \mathbb{Z}^+$ y $p$ pertenece al conjunto de primos específicos
+    \[
+    P = \{3,11,13,19,21,27,29,37,51,57,61,67,69,77,83,93\}.
+    \]
+    \vspace{0.2cm}
+    \item El valor del período con $m = 10^d$ se determina de la siguiente forma:
+    \begin{itemize}
+        \item Si $d \geq 5$: el período es $5 \cdot 10^{d-2}$.
+        \item Si $d < 5$: el período se calcula como el mínimo común múltiplo de los valores $\lambda(p_i^{d_i})$, según la factorización de $m$.
+    \end{itemize}
+\end{enumerate}
+
+\paragraph{Ejemplo práctico:}
+Sea $a=3$, $m=100$ y $X_0=17$. El generador queda definido como:
+
+\[
+X_{n+1} = (3X_n) \mod 100 \, ; \, X_{0}=17
+\]
+
+\paragraph{Verificación de propiedades:}
+\begin{enumerate}
+    \item \textbf{Condición sobre la semilla $X_0$:} (CUMPLE) \\
+    La semilla $X_0=17$ es un número impar, no divisible entre 2 ni entre 5, y además es relativamente primo con respecto a $m=100$. 
+    \vspace{0.2cm}
+    
+    \item \textbf{Forma del multiplicador $a$:} (CUMPLE) \\
+    El valor de $a=3$ proviene de la relación $a=200t \pm p$, donde $t=0$ y $p=3$. De este modo, se cumple con la regla establecida.
+    \vspace{0.2cm}
+    
+    \item \textbf{Determinación del período:} (CUMPLE) \\
+    Para $m=10^2=100$, se tiene $d=2$, y como $d<5$, el período se calcula como el mínimo común múltiplo de los valores $\lambda(p_i^{d_i})$:
+    \[
+    \text{Período} = \text{mcm}\{\lambda(2^2), \lambda(5^2)\}
+    \]
+    \[
+    \lambda(2^2) = (2-1)\cdot 2^{2-1} = 2
+    \]
+    \[
+    \lambda(5^2) = (5-1)\cdot 5^{2-1} = 20
+    \]
+    \[
+    \Rightarrow \text{Período} = \text{mcm}\{2,20\} = 20
+    \]
+    Por lo tanto, la secuencia generada tendrá un período de 20 antes de repetirse.
+\end{enumerate}
+
+
+\paragraph{Limitaciones:}
+El generador congruencial multiplicativo también presenta limitaciones importantes:
+\begin{itemize}
+    \item La elección de la semilla es más estricta: debe cumplir condiciones de imparidad y coprimalidad con $m$.
+    \item Si los parámetros no se eligen adecuadamente, el período puede ser muy corto, reduciendo la calidad de la secuencia.
+    \item Al no contar con el incremento $c$, la estructura del generador puede ser menos flexible que en el caso mixto.
+\end{itemize}
+
+
+\section{Descripción del Problema}
+La generación de números aleatorios en la informática no proviene de fenómenos naturales, sino de algoritmos diseñados para imitar el azar. Estos algoritmos, conocidos como generadores pseudoaleatorios, producen secuencias numéricas que aparentan ser impredecibles, pero que en realidad están determinadas por parámetros iniciales. 
+\hfill \break
+\hfill \break
+El problema surge porque no todos los generadores ofrecen la misma calidad: algunos logran secuencias con períodos largos y buena distribución, mientras que otros generan ciclos cortos o patrones evidentes que limitan su utilidad. Esto significa que la elección de los parámetros (semilla, multiplicador, incremento y módulo) puede marcar la diferencia entre un generador confiable y uno deficiente.
+\hfill \break
+\hfill \break
+En el caso de los generadores congruenciales, ampliamente usados por su sencillez, resulta fundamental verificar si cumplen con ciertas propiedades matemáticas que garantizan períodos máximos y una distribución adecuada. Sin este análisis, los resultados producidos pueden perder aleatoriedad y afectar negativamente a cualquier aplicación que dependa de ellos. 
+\hfill \break
+\hfill \break
+De este modo, se trata de comprender las condiciones bajo las cuales estos generadores funcionan correctamente, así como las limitaciones que presentan cuando dichas condiciones no se cumplen.
+\section{Objetivos}
+\begin{itemize}
+    \item Analizar el comportamiento de diferentes generadores de números aleatorios, observando cómo varían sus resultados en función de los parámetros iniciales y del tipo de generador empleado.  
+    \hfill \break
+    \item Verificar el cumplimiento de las propiedades matemáticas de los generadores congruenciales mixto y multiplicativo, determinando en qué medida estas garantizan la calidad de las secuencias producidas.  
+    \hfill \break
+    \item Construir ejemplos prácticos de cada generador, desarrollando tablas de valores que permitan visualizar la secuencia generada y la aparición de patrones o repeticiones.  
+    \hfill \break
+    \item Evaluar la longitud del período en cada caso, identificando cuándo la secuencia alcanza un ciclo repetitivo y cómo este factor afecta en la aleatoriedad.  
+    \hfill \break
+    \item Analizar e interpretar los resultados obtenidos a partir de las secuencias generadas, utilizando gráficas y aplicando conceptos de probabilidad y estadística para estudiar el comportamiento de la distribución producida por el generador.
+\end{itemize}
+
+
+\section{Desarrollo de la Solución}
+\subsection{Metodología e implementación}
+
+Para este trabajo se desarrolló un \textit{modelo de simulación} en \textbf{R}, ejecutado en \textbf{RStudio} y documentado en \LaTeX. El objetivo fue observar el comportamiento de distintos generadores de números pseudoaleatorios bajo un mismo marco experimental y con salidas reproducibles. 
+\hfill \break
+\hfill \break
+La implementación se organizó en dos clases independientes (usando \texttt{setRefClass}): 
+\begin{itemize}
+    \item \textbf{GeneradorCongruencialMixto} (\(X_{n+1}=(aX_n+c)\bmod m\))
+    \vspace{0.2cm}
+    \item \textbf{GeneradorCongruencialMultiplicativo} (\(X_{n+1}=(aX_n)\bmod m\))
+\end{itemize}
+\hfill \break
+\hfill \break
+Cada clase expone un conjunto común de métodos, más algunos específicos:
+\begin{itemize}
+    \item \texttt{generarNumeros(N)}: Produce la secuencia \(X_0,\ldots,X_N\) y su versión normalizada \(u_n=X_n/m\). Además, genera de forma automática un \textit{plot} de líneas con marcadores para visualizar la trayectoria de \(u_n\) a lo largo del tiempo.
+    \vspace{0.2cm}
+    \item \texttt{propiedad\_I()}, \texttt{propiedad\_II()}, \texttt{propiedad\_III()}: Verifican, una por una, las condiciones teóricas de validez de cada generador (coprimalidad, forma del multiplicador, condición condicional, etc.).
+    \vspace{0.2cm}
+    \item \texttt{evaluarCalidad()}: Resume el estado de las tres propiedades (\textit{CUMPLE}/\textit{NO CUMPLE}) e informa si, en conjunto, el generador es apto para alcanzar período máximo bajo los parámetros provistos.
+\end{itemize}
+\hfill \break
+\hfill \break
+Además, se añadieron rutinas específicas por tipo de generador:
+\begin{itemize}
+    \item \textbf{Mixto}: Detección del \textbf{período} y del \textbf{preperíodo} \emph{dentro} de los \(N\) valores generados, mediante un registro de ocurrencias (\textit{hash}) que identifica el primer re\-ingreso a un estado; así se mide la longitud del ciclo (\(\lambda\)) y del tramo transitorio (\(\mu\)), incluso cuando el ciclo no empieza en \(X_0\).
+    \vspace{0.2cm}
+    \item \textbf{Multiplicativo}: Cálculo teórico del período cuando \(m=10^d\) (vía función \(\lambda\) de Carmichael y \(\mathrm{mcm}\)), y, en general, la misma detección empírica del ciclo en la muestra generada.
+\end{itemize}
+\hfill \break
+\hfill \break
+El programa principal (\texttt{main}) solicita al usuario: tipo de generador, parámetros (\(a,c,m,X_0\)) y el vector de corridas \(N\) (por ejemplo, \texttt{1,3,5,10,30,50,100,300,500,1000,3000,5000,10000}). Para cada \(N\), el sistema:
+\begin{enumerate}
+    \item Genera y muestra la secuencia (con el mismo formato de tablas usado en el informe).
+    \item Gráfica \(u_n\) para apreciar patrones y densidad en \([0,1)\).
+    \item Intenta detectar (si aparece dentro de la muestra) el período y el preperíodo.
+    \item Registra en consola la evaluación de las propiedades.
+\end{enumerate}
+
+Este esquema permitió comparar, bajo idénticas condiciones, la \textbf{uniformidad visual} de \(u_n\), la \textbf{presencia de bandas} o patrones, y la \textbf{longitud de los ciclos} observables en cada generador. Más adelante se incluyen las figuras y capturas de las corridas seleccionadas para ambos casos.
+
+
+
+\subsection{Generador Congruencial Mixto}
+
+\subsection*{1. Definición del modelo}
+Se implementó el generador congruencial mixto (GCM),
+\[
+X_{n+1}=(aX_n+c)\bmod m,\qquad u_n=\frac{X_n}{m},
+\]
+con métodos para: (i) verificar sus tres propiedades teóricas, (ii) generar \(N\) valores, (iii) graficar la serie \(u_n\) y (iv) detectar, dentro de los \(N\) valores generados, el \textit{período} (si aparece) y el \textit{preperíodo}.
+
+\subsection*{2. Parámetros y verificación previa}
+Para las corridas principales se usó \(a=21\), \(c=37\), \(m=1000\) y \(X_0=5\). Con estos valores:
+\begin{itemize}
+  \item \(c\) y \(m\) son coprimos.
+  \item Los primos de \(m\) (\(2\) y \(5\)) dividen a \(a-1=20\).
+  \item Como \(m\) es múltiplo de \(4\), también lo es \(a-1\).
+\end{itemize}
+Por lo tanto, el generador \textbf{cumple las tres propiedades} y es de \textbf{período completo} (\(m=1000\)).
+
+\subsection*{3. Corridas y colección de datos}
+Se ejecutaron corridas con \(N\in\{1,3,5,10,30,50,100,300,500,1000,3000,5000,10000\}\).
+En cada \(N\) se registró la secuencia \(X_n\), la normalizada \(u_n\) y, si ocurría dentro de los \(N\) valores, el período detectado y el preperíodo.
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1.4\textwidth]{mixto1.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1.\textwidth]{mixto2.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{mixto3.png}
+\end{figure}
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{mixto4.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{mixto6.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{mixto9.png}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\subsection*{4. Resultados y gráficas}
+En corridas largas (\(N=10000\)) el programa detectó \textbf{período \(=1000\)} y \textbf{preperíodo \(=0\)} (el ciclo inicia desde la semilla). La gráfica de \(u_n\) muestra un “serrucho” denso que rellena de forma bastante uniforme el intervalo \([0,1)\).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{mixto1000.png}
+  \caption{Comportamiento de \(u_n=X_n/m\) para \(N=10000\) (GCM).}
+\end{figure}
+
+\subsection*{5. Validación}
+\begin{itemize}
+  \item \textbf{Propiedades:} las tres condiciones se cumplen.
+  \item \textbf{Ciclo:} con \(N\geq 1000\) se observa claramente la repetición con período \(1000\) y preperíodo \(0\).
+  \item \textbf{Inspección visual:} la dispersión de \(u_n\) es homogénea; no se aprecian “bandas” horizontales marcadas.
+\end{itemize}
+
+\subsection*{6. Experimentación e interpretación}
+Con pocos \(N\) el ciclo no se alcanza y la serie luce “saltada”. Al crecer \(N\), la trayectoria va \emph{llenando} \([0,1)\) y alrededor de \(N\approx 1000\) se hace evidente la repetición.
+
+% =========================================================
+% DESARROLLO: GENERADOR CONGRUENCIAL MULTIPLICATIVO
+% =========================================================
+\subsection{Generador Congruencial Multiplicativo}
+
+\subsection*{1. Definición del modelo}
+Se implementó el generador congruencial multiplicativo (GCMu),
+\[
+X_{n+1}=(aX_n)\bmod m,\qquad u_n=\frac{X_n}{m},
+\]
+con los mismos módulos del software que en el caso mixto: verificación de propiedades, generación de \(N\) valores, graficación de \(u_n\) y detección de período/preperíodo \emph{dentro} de los \(N\) valores generados.
+
+\subsection*{2. Parámetros y verificación previa}
+Para las corridas principales se usó \(a=203\), \(m=2000\) y \(X_0=17\).
+\begin{itemize}
+  \item La semilla es impar y coprima con \(m\).
+  \item El multiplicador verifica la forma \(a=200t\pm p\) (con \(t=1\), \(p=3\)).
+  \item La regla especial del período para \(m=10^d\) \textbf{no aplica} (aquí \(m\neq 10^d\)); por tanto, el ciclo se estudia empíricamente en las corridas.
+\end{itemize}
+
+\subsection*{3. Corridas y colección de datos}
+Se ejecutaron corridas con \(N\in\{1,3,5,10,30,50,100,300,500,1000,3000,5000,10000\}\).
+En cada \(N\) se guardó \(X_n\), \(u_n\) y—si aparecía dentro de los \(N\) valores—período y preperíodo.
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1.4\textwidth]{multi1.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1.\textwidth]{multi2.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{multi3.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{multi4.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{multi6.png}
+\end{figure}
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{multi10.png}
+\end{figure}
+
+
+\subsection*{4. Resultados y gráficas}
+En corridas grandes, la gráfica de \(u_n\) exhibe \textbf{bandas horizontales} (estrías), típicas de ciertos multiplicativos con módulo compuesto. Aunque el comportamiento es pseudoaleatorio, la estructura visual es más marcada que en el caso mixto.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{multiplicativo.png}
+  \caption{Comportamiento de \(u_n=X_n/m\) para \(N=10000\) (GCMu).}
+\end{figure}
+
+\subsection*{5. Validación}
+\begin{itemize}
+  \item \textbf{Propiedades:} la semilla y el multiplicador cumplen las condiciones exigidas.
+  \item \textbf{Ciclo:} la detección del período depende de \(m\) y del tamaño \(N\); no siempre se cierra el ciclo dentro de las corridas consideradas.
+  \item \textbf{Inspección visual:} las bandas indican que la secuencia visita niveles discretos con mayor regularidad; conviene tenerlo presente cuando se requiera mayor uniformidad.
+\end{itemize}
+
+\subsection*{6. Experimentación e interpretación}
+Con pocos \(N\) no se observa el cierre de ciclo. Al aumentar \(N\), se mantiene el patrón en bandas, lo que sugiere una estructura interna más fuerte que en el caso mixto. Más adelante se incluirán las capturas de todas las corridas para este generador.
+
+
+
+
+\section{Conclusiones}
+\begin{itemize}
+    \item El estudio de los generadores congruenciales permitió comprender cómo es posible imitar la aleatoriedad mediante fórmulas matemáticas, mostrando que aunque las secuencias aparentan ser impredecibles, en realidad están determinadas por parámetros iniciales.  
+    \hfill \break
+    \item Se verificó que la calidad del generador depende directamente del cumplimiento de ciertas propiedades matemáticas. En el caso del generador congruencial mixto, el no cumplimiento de alguna condición reduce el período y evidencia patrones repetitivos.  
+    \hfill \break
+    \item En el generador congruencial multiplicativo se demostró que la elección adecuada de la semilla y del multiplicador es fundamental, ya que de ello depende que la secuencia alcance un período más largo y una distribución más equilibrada.  
+    \hfill \break
+    \item Los ejemplos prácticos realizados confirmaron que, si bien estos generadores no producen números verdaderamente aleatorios, permiten obtener secuencias útiles en simulaciones y aplicaciones computacionales, siempre y cuando se escojan correctamente los parámetros.  
+    \hfill \break
+    \item El análisis apoyado en tablas y gráficas facilitó la identificación de patrones, ciclos y distribuciones, lo que hizo más clara la relación entre la teoría matemática de los generadores y los resultados experimentales obtenidos.  
+\end{itemize}
+
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\section{Bibliografía}
+\begin{thebibliography}{99}
+
+\bibitem{garcia2024}
+García Gómez, José Alfredo; Martínez De La Cruz, Miguel Ángel; Jauregui Wade, Lucila; Valles Rivera, Diana; Sánchez Vasconcelos, Ángel Gabriel. (2024). \textit{Importancia del uso de los generadores de números pseudoaleatorios en los contenidos de la asignatura de simulación}. Innovación y Desarrollo Tecnológico, Vol. 16, Núm. 3. Instituto Tecnológico de Villahermosa.  
+
+\bibitem{sciencedirect}
+ScienceDirect. (s.f.). \textit{Random Number Generation}. Recuperado de: \url{https://www.sciencedirect.com/topics/computer-science/random-number-generation}  
+
+\bibitem{dojo2021}
+The Dojo. (2021). \textit{Generadores de números aleatorios y su importancia para el desarrollo}. Blog The Dojo. Recuperado de: \url{https://blog.thedojo.mx/2021/12/07/generadores-de-numeros-aleatorios-y-su-importancia-para-el-desarrollo.html}  
+
+\bibitem{batanero1992}
+Batanero, C.; Estepa, A.; Godino, J. D. (1992). Análisis exploratorio de datos: sus posibilidades en la enseñanza secundaria. \textit{Suma}, 9, 25-31.  
+
+\bibitem{bennett1993}
+Bennett, D. (1993). \textit{The development of the mathematical concept of randomness; educational implications}. Doctoral Thesis, New York University. (DAI n. 931 7657).  
+
+\end{thebibliography}
+
+\end{document}

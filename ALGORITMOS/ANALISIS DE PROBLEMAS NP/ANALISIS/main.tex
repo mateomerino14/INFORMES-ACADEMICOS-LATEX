@@ -1,0 +1,594 @@
+\documentclass[journal]{IEEEtran} % use the `journal` option for ITherm conference style
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{mathptmx}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{caption}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,      % color de los enlaces internos (toc, figuras, etc.)
+    urlcolor=blue        % color de las URLs
+}
+
+
+\pagestyle{empty} % Elimina encabezados, pies de página y números de página
+\setlength{\parindent}{1em}
+% Configuración de márgenes y espacio entre columnas
+\setlength{\topmargin}{-19mm} % Ajuste para margen superior (19mm)
+\setlength{\textheight}{235.4mm} % Ajuste para altura del texto (279.4mm - 2*margenes superior e inferior)
+\setlength{\textwidth}{181.4mm} % Ajuste para ancho del texto (215.9mm - 2*margenes izquierdo y derecho)
+\setlength{\oddsidemargin}{-8.3mm} % Ajuste para margen izquierdo (17.3mm)
+\setlength{\evensidemargin}{-17.3mm} % Ajuste para margen derecho (17.3mm)
+\setlength{\columnsep}{4.22mm} % Espacio entre columnas
+
+\setlength{\parindent}{1em} % Sangría en la primera línea de cada párrafo
+\setlength{\parskip}{0pt} % Sin espacio extra entre párrafos
+\sloppy % Justificación para evitar desbordamientos
+
+\titleformat{\subsection}
+  {\itshape \fontsize{10pt}{12pt}\selectfont} % Estilo: cursiva, tamaño 10 puntos
+
+\title{\fontsize{24pt}{28pt}\selectfont Maquina de Turing y su Relación con el Problema del Milenio ``P=NP"}
+
+\author{
+    \IEEEauthorblockN{\fontsize{11pt}{13pt}\selectfont Merino Vidal Mateo Alejandro}\\
+    \vspace{0.5em}
+    \IEEEauthorblockN{\fontsize{10pt}{12pt}\itshape Departamento de Informática,\\
+    Universidad Mayor de San Simón,\\
+    Cochabamba, Bolivia}\\
+    \vspace{0.5em}
+    \IEEEauthorblockN{\fontsize{9pt}{11pt}\texttt{\href{mailto:202301308@est.umss.edu}{\color{black}202301308@est.umss.edu}}}
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+ El presente articulo demuestra los conceptos fundamentales y desarrollos realizados con respecto a la Maquina de Turing, centrándose en su modelo determinista(DTM) y no determinista(NTM).
+ Se detalla la historia de como surgieron estas maquinas como también su comportamiento y las descripciones de cada variante.
+Además, se demuestra como estos modelos llegan a relacionarse con el problema del milenio sobre como los problemas P son iguales a los problemas NP, que implica esto y si es una teoría valida o no en base a diversos fundamentos.
+\end{abstract}
+
+\section{Introducción}
+
+La computación es una disciplina que se encarga del estudio de la resolución de problemas a través de una herramienta denominada computadora.
+\hfill \break
+\hfill \break
+Sin embargo, esta área estuvo en constante evolución a lo largo de la historia, desarrollándose en base a diversas aportaciones, elaboradas por notables personalidades.
+\hfill \break
+Uno de los mas importantes conceptos fue la Maquina de Turing, siendo un modelo teórico diseñado en 1936 por Alan Turing, que ayudo a desarrollar una mayor comprensión sobre el concepto de computación y algoritmo.
+\hfill \break
+\hfill \break
+En esencia era una maquina programable capaz de resolver cualquier problema que pudiera ser descrito en base a un conjunto de pasos o instrucciones denominado algoritmo.
+\hfill \break
+Se considera a esta misma como el precursor histórico de los modernos computadores, destacando mucho por su sencillez y sus grandiosas posibilidades en cuanto a sus configuraciones.
+\hfill \break
+\hfill \break
+Años después, con la finalidad de comprender aun mas a profundidad los límites en torno a que pueden calcular las maquinas, Alan Turing desarrollo un nuevo modelo de la Maquina de Turing denominado Maquina de Turing No Determinista(NTM), nombrando al modelo original como Maquina de Turing Determinista(DTM).
+\hfill \break
+\hfill \break
+Ambos modelos permitieron desarrollar 
+la teoría de la complejidad computacional, teniendo una relación estrecha con el problema del milenio ``P=NP", el cual menciona que si todo problema para el cual puede verificarse una solución rápidamente, también puede ser resuelto con la misma rapidez.
+\hfill \break
+\hfill \break
+La máquina de Turing Determinista (DTM) es capaz de resolver problemas en tiempo polinómico y está relacionada con la clase de problemas P. Por otro lado, la máquina de Turing No Determinista (NTM) puede explorar múltiples soluciones simultáneamente hasta encontrar una correcta y está asociada con la clase de problemas NP.
+\hfill \break
+\hfill \break
+A pesar de haber realizado diversos avances, no se llego a demostrar la validez del problema ``P=NP", siendo tratado por muchas personalidades como una conjetura cuya validez es desconocida y que quizás se pueda demostrar a futuro.
+\hfill \break
+\hfill \break
+Una de estas personalidades que se dedico a tratar de resolver este enigma durante su vida fue Stephen Cook, quien desarrollo la teoría de la Completitud, proponiendo que dentro de los problemas NP hay problemas NP-Completos, siendo estos los problemas mas difíciles y claves dentro de los NP, ya que si se encontraba la solución en tiempo polinómico para uno de estos significaba encontrar la llave maestra para la resolución de todos los demás problemas en la clase NP.
+\hfill \break
+\hfill \break
+El impacto que tendría demostrar la validez de esta teoría seria enorme en la evolución de la humanidad, no solo abarcando esta área, sino todas en general, ya que resolver un problema NP implicaría desarrollar nuevas tecnologías con algoritmos mas eficientes, lo que mejoraría su aplicación en diversas áreas como la medicina e industria.
+
+\section{Desarrollo de contenidos}
+
+\subsection{Maquina Turing}
+\vspace{0.8em}
+\subsubsection{Definición Conceptual}
+\vspace{0.8em}
+La Máquina de Turing es un modelo teórico y matemático a la vez, es decir que en realidad es una representación abstracta de un sistema, sin necesidad de realizar una experimentación física.
+Este sistema se basa en las leyes y propiedades matemáticas para definir diversos estados y reglas especificas que ayudan a procesar la información.
+
+Esta compuesta por diversas partes esenciales, siendo entre estas:
+
+\begin{enumerate}
+    \item Cabezal: Se desplaza a la izquierda o derecha a lo largo de la cinta, permitiendo realizar operaciones de lectura y escritura de símbolos en la celda actual.
+    \hfill \break
+    \item Cinta: Es infinita y esta dividida en varias celdas, las cuales pueden contener un símbolo de un conjunto finito de símbolos.
+    \hfill \break
+    \item Estado: Representa el estado actual en el que se encuentra la maquina, influyendo en como se procesan los símbolos en la cinta como también que decisiones se toman.
+    \hfill \break
+    \item Función de Transición: Determina como la maquina cambia de un estado a otro, esto implica definir:\\
+    -Que símbolo escribir en la cinta.\\
+    -Cual sera el nuevo estado actual de la maquina.\\
+    -En que dirección se moverá el cabezal.
+    \hfill \break
+    \item Alfabeto de Símbolos: Es el conjunto de simbolos que la maquina puede usar en la cinta.
+    \hfill \break
+    \item Estado de Aceptación: Es un estado especial en el que la maquina termina su ejecución y indica que la entrada ha sido valida o aceptada.
+    \hfill \break
+    \item Estado de Rechazo: Es otro estado especial en el que la maquina termina su ejecución y indica que la entrada ha sido rechazada.
+    \hfill \break
+    \item Unidad de Control: Coordina el funcionamiento de la maquina de a cuerdo a las instrucciones definidas en la tabla de transición.
+\end{enumerate}
+\hfill \break
+Todo esto fue introducido en 1936 por Alan Turing, quien produjo este modelo como resultado de querer observar los limites de lo que una maquina puede o no puede hacer, demostrando que sus capacidades no son absolutas en varios aspectos.
+\vspace{0.8em}
+\subsubsection{Definición Matematica}
+\vspace{0.8em}
+Una Maquina de Turing se define formalmente como una séxtuple, que esta conformada como:
+
+\begin{equation}
+M = (Q, \Sigma, \Gamma, \delta, q_0, F)
+\end{equation}
+
+donde:
+
+\begin{itemize}
+    \item $Q$: Es el conjunto finito de estados, donde cada uno representa una configuración interna de la maquina.
+    Estos estados están denotados como $q_{0}, q_{1}, q_{2}, q_{3}, \ldots$
+    \hfill \break
+    \item $\Sigma$: Es el alfabeto, definido como conjunto finito de símbolos de entrada que la máquina puede leer de la cinta. No incluye el espacio en blanco que suele estar representado por $\square$.
+    \hfill \break
+    \item $\Gamma$: Es el alfabeto de cinta, que incluye todos los símbolos del alfabeto de entrada $\Sigma$ más el símbolo blanco $\square$. Representa todos los símbolos que la máquina es capaz de escribir en la cinta.
+    \hfill \break
+    \item $\delta$: Es la función de transición, la cual esta definida como:
+    \begin{equation}
+\delta = Q \times \Gamma \to Q \times \Gamma \times \{L, R\}
+\end{equation}
+    donde:
+    \vspace{0.8em}
+    \begin{itemize}
+        \item $Q$ es el conjunto de estados.
+        \item $\Gamma$ es el alfabeto de cinta.
+        \item $L$ y $R$ representan los movimientos del cabezal de lectura/escritura hacia la izquierda o la derecha.
+        \item $\times$ es el producto cartesiano.
+    \end{itemize}
+    \vspace{0.8em}
+    La función $\delta$ toma un par $(q, \gamma)$, donde $q$ es el estado actual y $\gamma$ es el símbolo en la cinta, y retorna un triplete $(q', \gamma', D)$, donde $q'$ es el nuevo estado, $\gamma'$ es el símbolo a escribir, y $D$ es la dirección del cabezal hacia la derecha o izquierda.
+    \hfill \break
+    \item $q_0$: El estado inicial, es el estado con el que comienza la maquina.
+    \hfill \break
+    \item $F$: Es el conjunto de estados de aceptación. 
+    Es decir, cuando la maquina alcanza uno de estos estados, su proceso termina y se acepta la entrada.
+\end{itemize}
+
+\vspace{0.8em}
+\subsubsection{Utilidades}
+\vspace{0.8em}
+La Maquina de Turing permitió realizar diversos avances en la computación, teniendo muchas utilidades, siendo las mas destacadas:
+\begin{enumerate}
+    \item Ayudar a un mejor análisis de los algoritmos, ya que permite simular la ejecución de estos y visualizar paso a paso como los datos de entrada se van transformando con cada transición de estados.
+    \hfill \break
+    \item Permitir comprender fundamentalmente como operan las computadoras, ya que al ser el modelo de donde se desarrollaron los ordenadores actuales, este nos brinda un análisis básico de cómo una computadora guarda datos, lee instrucciones, y toma decisiones paso a paso.
+    \hfill \break
+    \item Permitir analizar si se puede 
+    resolver un problema mediante un algoritmo para todos los posibles casos de entrada.\\
+    En caso de que si sea posible, se determina al problema como decidible, caso contrario como indecidible. 
+    \hfill \break
+    \item Permitir medir la cantidad de pasos necesarios para resolver un problema en función de los datos de entrada.
+    Esto ayuda a calcular la complejidad temporal que tiene cada algoritmo.
+    \hfill \break
+    \item Facilitar la demostración de que un lenguaje de programación es Turing Completo, ya que si este puede realizar un programa que simule el funcionamiento de esta maquina, entonces puede expresar cualquier operación que sea computacionalmente posible.
+\end{enumerate}
+\vspace{0.8em}
+\subsubsection{Funcionamiento}
+\vspace{0.8em}
+La maquina de Turing es capaz de realizar tres operaciones básicas cuando su cabezal está sobre la cinta: leer el símbolo en la celda actual, editar el símbolo por un nuevo valor y mover la cinta hacia la izquierda o derecha para leer o editar una celda adyacente. Cada símbolo leído puede estar asociado con una acción específica.\\
+Por ejemplo, si el símbolo es un 1, la máquina puede escribir un 0 en su lugar y mover el cabezal hacia la derecha; si el símbolo es un 0, la máquina puede cambiarlo por un 1. 
+\hfill \break
+\hfill \break
+Como se puede observar en la fig.\ref{fig:mi_figura}, este proceso cambia los valores de 0 a 1 y viceversa, conocido como inversión, debido a que altera los valores binarios en la cinta.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.48\textwidth]{maquina.png}
+\captionsetup{justification=centering} % Centra el texto del caption
+  \caption{Proceso de Inversión}
+  \label{fig:mi_figura}
+\end{figure}
+
+\subsubsection{Tipos de Maquinas}
+\vspace{0.8em}
+\noindent  \textbf{-Máquina de Turing Determinista (DTM)}
+\hfill \break
+\hfill \break
+Representa el modelo original donde comenzó todo, implementado por Alan Turing en 1936, introducido en su articulo "On Computable Numbers, with an Application to the Entscheidungsproblem".
+\hfill \break
+\hfill \break
+Se lo conoce como un modelo determinista, debido a que cada uno de los resultados son predecibles y están determinados únicamente por las condiciones iniciales y el conjunto de reglas que se aplican.
+\hfill \break
+\hfill \break
+En otras palabras, para cada combinación de estado y símbolo en la cinta, existe una regla especifica de transición que determina:
+\begin{itemize}
+    \item El siguiente estado.
+    \item El símbolo a escribir en la cinta.
+    \item A que dirección gira el cabezal (izquierda o derecha).
+\end{itemize}
+\hfill \break
+A continuación se puede observar un ejemplo de entendimiento sobre el funcionamiento de este modelo de la Maquina de Turing.
+\hfill \break
+\hfill \break
+Objetivo: Incrementar un Número Binario en 1.
+\hfill \break
+Definiciones de la Máquina de Turing:
+\begin{itemize}
+    \item {Estado Inicial}: \(q_0\)
+    \item {Estado Final (Aceptación)}: \(q_2\)
+    \item {Estado de Rechazo}: Ninguno
+    \item {Símbolos Usados en la Entrada}: \{0, 1\}
+    \item {Alfabeto de la Cinta}: \{0, 1, B\}
+    \item {Símbolo de Espacio en Blanco}: \(B\)
+     \item {Símbolo de movimiento del cabezal a la izquierda}: \(L\)
+      \item {Símbolo de movimiento del cabezal a la derecha}: \(R\)
+      \item {Símbolo de Stop, es decir que no se realizaran mas operaciones}: \(S\)
+\end{itemize}
+\vspace{0.8em}
+Tabla de Transición:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Estado} & \textbf{Símbolo} & \textbf{Nuevo} & \textbf{Movimiento} & \textbf{Nuevo} \\
+\textbf{Actual} & \textbf{Leído} & \textbf{Símbolo} & \textbf{del Cabezal} & \textbf{Estado} \\
+\hline
+\(q_0\) & 1 & 1 & R & \(q_0\) \\
+\(q_0\) & 0 & 0 & R & \(q_0\) \\
+\(q_0\) & B & B & L & \(q_1\) \\
+\(q_1\) & 1 & 0 & L & \(q_1\) \\
+\(q_1\) & 0 & 1 & S & \(q_2\) \\
+\(q_1\) & B & 1 & S & \(q_2\) \\
+\hline
+\end{tabular}
+\end{center}
+\hfill \break
+\hfill \break
+*Ejemplo de entrada: \(1011\)
+
+\begin{itemize}
+    \item Inicial: \textbf{1}011 \quad (Estado: \(q_0\), Cabezal en el dígito \(1\))
+    
+    \item Estado \(q_0\), Dígito leído \(1\): Mueve a la derecha.
+        \begin{itemize}
+            \item \(1\textbf{0}11\) \quad (Estado: \(q_0\), Cabezal en dígito \(0\): Mueve a la derecha)
+            \item \(10\textbf{1}1\) \quad (Estado: \(q_0\), Cabezal en el dígito \(1\):Mueve a la derecha)
+            \item \(101\textbf{1}\) \quad (Estado: \(q_0\), Cabezal en el dígito \(1\): Mueve a la derecha)
+            \item \(1011\textbf{B}\) \quad (Estado: \(q_0\), Cabezal en el símbolo \(B\))
+        \end{itemize}
+    
+    \item Estado \(q_0\), Símbolo leído \(B\): Pasa al estado \(q_1\), mueve a la izquierda.
+        \begin{itemize}
+            \item \(101\textbf{1}B\) \quad (Estado: \(q_1\), Cabezal en el dígito \(1\))
+        \end{itemize}
+    
+    \item Estado \(q_1\), Dígito leído \(1\): Cambia a \(0\), mueve a la izquierda.
+        \begin{itemize}
+            \item \(10\textbf{1}0B\) \quad (Estado: \(q_1\), Cabezal en el dígito \(1\): Cambia a 0 y mueve a la izquierda)
+            \item \(1\textbf{0}00B\) \quad (Estado: \(q_1\), Cabezal en el dígito \(0\))
+        \end{itemize}
+    
+    \item Estado \(q_1\), Dígito leído \(0\): Cambia a \(1\), pasa al estado de aceptación \(q_2\) y finaliza la ejecución.
+\end{itemize}
+
+*Resultado final: \(1100\)
+
+\vspace{0.8em}
+\noindent  \textbf{-Maquina de Turing No Determinista(NTM)}
+\hfill \break
+\hfill \break
+Representa la extensión del concepto aplicado en el modelo original, realizado igualmente por Alan Turing en 1938, introducido en su articulo "Systems of Logic Based on Ordinals".
+\hfill \break
+\hfill \break
+Se lo conoce como un modelo no determinista, gracias a que el resultado no se puede predecir con certeza, debido a la existencia de múltiples opciones o posibilidades a tomar.
+\hfill \break
+\hfill \break
+Es decir, que para un mismo estado, se tiene la posibilidad de tomar múltiples decisiones y explorar diversas alternativas de solución hasta encontrar una que sea correcta o caso contrario que todas sean erróneas.\\
+La búsqueda de diversas soluciones se realiza de forma simultanea, permitiendo tener una mayor eficiencia en la resolución de problemas.
+\hfill \break
+\hfill \break
+A continuación se puede analizar un ejemplo de entendimiento sobre el
+funcionamiento de este modelo extendido de la Maquina de Turing.
+\hfill \break
+\hfill \break
+Objetivo: Determinar si una cadena tiene al menos dos unos y un cero. 
+\hfill \break
+Definiciones de la Máquina de Turing:
+\begin{itemize}
+    \item {Estado Inicial}: \(q_0\)
+    \item {Estado Final (Aceptación)}: \(q_f\)
+    \item {Estado de Rechazo}: \(q_r\)
+    \item {Símbolos Usados en la Entrada}: \{0, 1\}
+    \item {Alfabeto de la Cinta}: \{0, 1, B\}
+    \item {Símbolo de Espacio en Blanco}: \(B\)
+    \item {Símbolo de movimiento del cabezal a la izquierda}: \(L\)
+    \item {Símbolo de movimiento del cabezal a la derecha}: \(R\)
+    \item {Símbolo de Stop, es decir que no se realizarán más operaciones}: \(S\)
+\end{itemize}
+
+\vspace{0.8em}
+Tabla de Transición:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Estado} & \textbf{Símbolo} & \textbf{Nuevo} & \textbf{Movimiento} & \textbf{Nuevo} \\
+\textbf{Actual} & \textbf{Leído} & \textbf{Símbolo} & \textbf{del Cabezal} & \textbf{Estado} \\
+\hline
+\(q_0\) & 1 & 1 & R & \(q_1\) \\
+\(q_0\) & 0 & 0 & R & \(q_5\) \\
+\(q_0\) & 1 & 1 & R & \(q_3\) \\
+\hline
+\(q_1\) & 1 & 1 & R & \(q_2\) \\
+\(q_1\) & 0 & 0 & R & \(q_1\) \\
+\(q_1\) & B & B & S & \(q_r\) \\
+\hline
+\(q_2\) & 1 & 1 & R & \(q_2\) \\
+\(q_2\) & 0 & 0 & S & \(q_f\) \\
+\(q_2\) & B & B & S & \(q_r\) \\
+\hline
+\(q_3\) & 1 & 1 & R & \(q_3\) \\
+\(q_3\) & 0 & 0 & R & \(q_4\) \\
+\(q_3\) & B & B & S & \(q_r\) \\
+\hline
+\(q_4\) & 1 & 1 & S & \(q_f\) \\
+\(q_4\) & 0 & 0 & R & \(q_4\) \\
+\(q_4\) & B & B & S & \(q_r\) \\
+\hline
+\(q_5\) & 0 & 0 & R & \(q_5\) \\
+\(q_5\) & 1 & 1 & R & \(q_6\) \\
+\(q_5\) & B & B & S & \(q_r\) \\
+\hline
+\(q_6\) & 0 & 0 & R & \(q_6\) \\
+\(q_6\) & 1 & 1 & S & \(q_f\) \\
+\(q_6\) & B & B & S & \(q_r\) \\
+\hline
+\end{tabular}
+\end{center}
+
+\hfill \break
+\hfill \break
+*Ejemplo de entrada: \(10101\)
+\hfill \break
+\hfill \break
+Camino A (Aceptación)
+\begin{itemize}
+    \item Inicial: \textbf{1}110 \quad (Estado: \(q_0\), Cabezal en el dígito \(1\))
+    
+    \item Estado \(q_0\), Dígito leído \(1\): Pasa al estado \(q_1\) y mueve a la derecha.
+        \begin{itemize}
+            \item \(1\textbf{1}10\) \quad (Estado: \(q_1\), Cabezal en el dígito \(1\): Pasa al estado \(q_2\) y se mueve a la derecha)
+            \item \(11\textbf{1}0\) \quad (Estado: \(q_2\), Cabezal en el dígito \(1\): Mueve a la derecha)
+            \item \(111\textbf{0}\) \quad (Estado: \(q_2\), Cabezal en el dígito \(0\): Pasa al estado de aceptación \(q_f\) y finaliza la ejecución)
+        \end{itemize}
+    
+\end{itemize}
+
+*Resultado final: Aceptado
+\hfill \break
+\hfill \break
+Camino B (Rechazo)
+\begin{itemize}
+    \item Inicial: \textbf{1}110 \quad (Estado: \(q_0\), Cabezal en el dígito \(1\))
+    
+    \item Estado \(q_0\), Dígito leído \(1\): Pasa al estado \(q_3\) y se mueve a la derecha.
+        \begin{itemize}
+            \item \(1\textbf{1}10\) \quad (Estado: \(q_3\), Cabezal en el dígito \(1\): Mueve a la derecha)
+            \item \(11\textbf{1}0\) \quad (Estado: \(q_3\), Cabezal en el dígito \(1\): Mueve a la derecha)
+            \item \(111\textbf{0}\) \quad (Estado: \(q_3\), Cabezal en el dígito \(0\): Pasa al estado \(q_4\) y se mueve a la derecha)
+            \item \(1110\textbf{B}\) \quad (Estado: \(q_4\), Cabezal en el símbolo \(B\))
+        \end{itemize}
+    
+    \item Estado \(q_4\), Símbolo leído \(B\): Pasa al estado de rechazo \(q_r\) y finaliza la ejecución.
+\end{itemize}
+
+*Resultado final: Rechazado
+
+\vspace{0.8em}
+\hfill \break
+\noindent  \textbf{-Maquina de Turing con cinta infinita a ambos lados}
+\hfill \break
+\hfill \break
+Representa un modelo de la Maquina de Turing donde la cinta llega a ser infinita en ambos lados, ya no solo en el lado derecho.
+\hfill \break
+Esto permite eliminar la necesidad de considerar el borde de la cinta en la simulación de problemas.
+
+
+\vspace{0.8em}
+\hfill \break
+\noindent  \textbf{-Maquina de Turing con Cinta Multiplista}
+\hfill \break
+\hfill \break
+Representa un modelo de la Maquina de Turing donde cada celda perteneciente a la cinta, ahora contiene subceldas.
+Esto permite contener múltiples símbolos, denominados como n-tuplas ordenadas.
+\hfill \break
+Gracias a esta estructura, es posible representar información mas compleja en una celda, permitiendo simplificar algunos problemas al evitar la necesidad de utilizar múltiples celdas.
+
+
+\vspace{0.8em}
+\hfill \break
+\noindent  \textbf{-Maquina de Turing Multicinta}
+\hfill \break
+\hfill \break
+Representa un modelo de la Maquina de Turing que posee múltiples cintas y cabezales de lectura/escritura.
+Cada cinta es finita en ambas direcciones y la acción a realizar depende del símbolo leído y de las reglas definidas en cada cabezal.
+\hfill \break
+Esta estructura, permite procesar múltiples partes de la entrada y realizar varias operaciones complejas de forma mas eficiente. 
+
+\vspace{0.8em}
+\hfill \break
+\noindent  \textbf{-Maquinas de Turing Multidimensional}
+\hfill \break
+\hfill \break
+Representa un modelo de la Maquina de Turing que tiene una cinta, la cual se extiende infinitamente en mas de una dimensión, por ejemplo una configuración bidimensional.
+\hfill \break
+Gracias a la capacidad de esta estructura de moverse en múltiples dimensiones, es posible realizar problemas que son usuales en un espacio multidimensional, como las grillas.  
+\vspace{0.8em}
+\hfill \break
+\noindent  \textbf{-Maquina de Turing Universal}
+\hfill \break
+\hfill \break
+Representa un modelo, capaz de simular el comportamiento de cualquier otra Maquina de Tuing.
+Esto es posible, gracias a una codificación adecuada, que transforma las instrucciones y datos de la maquina que se quiere simular en un formato que la Maquina de Turing Universal puede entender.
+\hfill \break
+\hfill \break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Problemas P}
+\vspace{0.8em}
+Cuando se mide la dificultad al momento de hallar la solución a un problema, como también determinar la eficiencia de una solución obtenida, existe una palabra clave denominada Polinomial y representa uno de los muchos resultados que es posible obtener.
+\hfill \break
+\hfill \break
+La clase P (Tiempo Polinómico) contiene a todo ejercicio, cuya solución es fácil y pueda ser resuelto por una Maquina de Turing Determinista en un tiempo Polinomial.\\
+En otras palabras, se considera que un problema cualquiera esta dentro de la clase P, si existe un algoritmo que lo resuelva y que su tiempo de ejecución sea de orden polinómico.
+\hfill \break
+\hfill \break
+Esta clasificación surgió como parte de la teoría de la complejidad computacional en la década de 1960, cuando se decidió clasificar a los problemas en base a la cantidad de tiempo necesario para resolverlos, en función del tamaño de entrada.
+\hfill \break
+\hfill \break
+Además, esta clase de ejercicios es considerada como un subconjunto de los problemas NP, ya que si un problema 
+puede ser resuelto en tiempo polinómico, también puede ser verificado en dicho tiempo.
+\vspace{0.8em}
+\subsubsection{Problemas NP}
+\vspace{0.8em}
+Sus siglas proviene  de "tiempo no determinista polinomial", un problema pertenece a esta clase si su solución puede ser verificada por una Maquina de Turing Determinista en tiempo polinomial, pero esta misma solución es muy difícil de encontrar.
+Por lo cual, se utiliza una Maquina de Turing No Determinista, con el propósito de encontrar la solución de forma eficiente, en un tiempo polinómico. Esto es posible, gracias a que esta maquina puede explorar todas las alternativas de solución simultáneamente, hasta encontrar una valida.
+\hfill \break
+\hfill \break
+Sin embargo, buscar todas las alternativas de solución, implica consumir una gran cantidad de recursos, siendo inviable para las computadoras actuales, las cuales a pesar de que puedan explorar múltiples alternativas de solución, continúan siendo limitadas por la cantidad de tiempo y memoria disponibles.
+\hfill \break
+\hfill \break
+En términos mas simples, encontrar la solución a un problema NP podría requerir millones de años y grandes recursos, pero que una vez encontrada dicha solución, es fácil comprobar si es correcta o no.
+
+\vspace{0.8em}
+\subsubsection{Problemas NP-Completos}
+\vspace{0.8em}
+La clase o categoría de este tipo de ejercicios es considerada como un subconjunto en el universo  de los problemas NP.
+\hfill \break
+\hfill \break
+El concepto de problema NP-Completo fue formalizado por Stephen Cook en 1971, a través de su articulo "The Complexity of Theorem-Proving Procedures", definiendo a este tipo de problemas como los mas difíciles dentro de los NP, pero que si se llegaba a encontrar la solución para alguno de estos, esta misma serviría como una llave maestra para la resolución de los demás problemas NP, ya que por propiedad todo problema NP puede ser reducido en tiempo polinomial a un problema NP-Completo.
+\hfill \break
+\hfill \break
+En términos mas sencillos, implicaba que si existía un algoritmo que solucionaba eficientemente alguno de los problemas NP-Completos, entonces existía un algoritmo para resolver de forma eficiente todos los demás problemas NP.
+\hfill \break
+\hfill \break
+Todo este concepto realizado por Stephen Cook, seria ampliado por Richard Karp, que en 1972 a traves de su articulo  "Reducibility Among Combinatorial Problems", definiría una lista de los 21 problemas NP-Completos.
+Entre estos problemas, los mas destacados serian:
+\hfill \break
+\begin{enumerate}
+    \item Satisfacibilidad Booleana (SAT): Dado un conjunto de variables booleanas y una fórmula en lógica proposicional, se busca determinar si existe alguna asignación de valores que haga verdadera la fórmula.
+    \hfill \break
+    \item Problema de la mochila (Knapsack Problem): Se trata de seleccionar un subconjunto de ítems, cada uno con un peso y un valor, de modo que se maximice el valor total sin exceder un peso máximo permitido.
+    \hfill \break
+    \item Problema del Vendedor Viajero (TSP): Consiste en encontrar el recorrido más corto que permita a un vendedor viajar a través de un conjunto de ciudades, visitando cada una solo una vez y regresando al punto de partida.
+    \hfill \break
+    \item Problema del Conjunto Independiente (Independent Set Problem): Se busca un subconjunto de vértices donde no exista una arista entre ellos.
+    \hfill \break
+    \item Problema del Coloreado de Grafos (Graph Coloring Problem): Consiste en determinar si es posible asignar colores a los vértices de un grafo de tal forma que no haya dos vértices adyacentes con el mismo color, usando un número mínimo de colores.
+    
+\end{enumerate}
+
+\subsection{Teoría "P=NP"}
+\vspace{0.8em}
+Considerado como un problema del milenio, ya que a pesar de haber sido desarrollado por un gran numero de notables personalidades, no se llego a demostrar la validez de esta conjetura.
+\hfill \break
+\hfill \break
+La complejidad exponencial, representada como \( O(2^n) \) o \( O(n!) \), describe problemas donde el tiempo de ejecución de un algoritmo crece exponencialmente con el tamaño de la entrada. Muchos de los problemas de la clase NP son considerados como intratables para una gran cantidad de datos de entrada, ya que sus soluciones son de complejidad exponencial.
+\hfill \break
+\hfill \break
+Demostrar la validez de la hipótesis "P=NP" implicaría que las clases de problemas P y NP son equivalentes, es decir, que cualquier problema cuya solución pueda ser verificada en tiempo polinómico también puede ser resuelto en dicho tiempo.
+Esto permitiria que muchos de los problemas que actualmente requieren tiempo exponencial para resolverse puedan ser resueltos en tiempo polinómico, es decir, en \( O(n^k) \) para algún \( k \).
+\hfill \break
+\hfill \break
+Sin embargo, hasta el día de hoy, esta teoría no ha sido confirmada, lo que fortalece la idea de que la clase P podría no ser igual a la clase NP. Esto sugiere que existen problemas que no se pueden resolver de manera eficiente, aunque sus soluciones pueden ser verificadas de forma rápida mediante una Maquina de Turing Determinista.
+\hfill \break
+\hfill \break
+El impacto que tendría validar esta teoría seria enorme en torno a la evolución humana, ya que permitiría desarrollar nuevos programas con algoritmos mas eficientes, mejorando su aplicación en diversas áreas del mundo como la medicina, industria y logística.\\
+No obstante, conllevaría una gran desventaja, ya que el método de cifrado que utilizan muchos sistemas de criptografía dependen de problemas que actualmente son difíciles de resolver en un tiempo razonable.
+\section{Conclusiones}
+\begin{itemize}
+    \item La maquina de Turing, tanto en su versión determinista como no determinista, fue fundamental en el desarrollo de la complejidad computacional, permitiendo obtener una mejor comprensión sobre los limites, en relación a lo que pueden calcular las maquinas.
+    \hfill \break
+    \item La clasificación de problemas en clases P,NP,NP-Completos, proporciona una estructura para entender la dificultad de resolver distintos problemas y como se relacionan todos estos tipos de problemas entre si.
+    \hfill \break
+    \item La demostración del problema P=NP seria un logro sin precedentes, permitiendo revolucionar la eficiencia de los algoritmos y, por ende, el desarrollo tecnológico en diversos campos como la medicina, industria y logística. Sin embargo, esto también podría afectar negativamente a la seguridad de muchos sistemas criptográficos.
+    \hfill \break
+    \item Aunque se haya realizado un estudio exhaustivo sobre la validez de la conjetura P=NP a lo largo de la historia, aún no se ha podido demostrar. \\
+    Esto mantiene abierta la posibilidad de que los problemas NP podrían ser inherentemente más difíciles de resolver que de verificar, dando a entender que algunos problemas nunca podrán resolverse eficientemente, a pesar de ser comprobables rápidamente.
+
+\end{itemize}
+\begin{thebibliography}{10}
+
+\bibitem{gonzalez}
+A. J. González, \textit{NP-Completitud}, ELO320: Estructura de Datos y Algoritmos, 1er. Sem., 2002.
+
+\bibitem{platzi_website}
+\textit{P vs NP: El problema más difícil de todos los tiempos}, [Online]. Available: \href{https://platzi.com/blog/p-vs-np-problema-dificil-viajes-tiempo/}{https://platzi.com/blog/p-vs-np-problema-dificil-viajes-tiempo/}. [Accessed: Aug. 25, 2024].
+
+\bibitem{niboe_website}
+\textit{La complejidad del problema del milenio P vs NP y un algoritmo para su solución}, [Online]. Available: \href{https://niboe.info/p-vs-np/}{https://niboe.info/p-vs-np/}. [Accessed: Aug. 25, 2024].
+
+\bibitem{technology_review}
+\textit{P vs NP: El dilema matemático que creó la complejidad computacional}, [Online]. Available: \href{https://www.technologyreview.es/s/13775/p-vs-np-el-dilema-matematico-que-creo-la-complejidad-computacional}{https://www.technologyreview.es/s/13775/p-vs-np-el-dilema-matematico-que-creo-la-complejidad-computacional}. [Accessed: Aug. 25, 2024].
+
+\bibitem{bbva}
+\textit{P versus NP: He ahí el dilema}, [Online]. Available: \href{https://www.bbva.com/es/p-versus-np-he-ahi-dilema/}{https://www.bbva.com/es/p-versus-np-he-ahi-dilema/}. [Accessed: Aug. 25, 2024].
+
+\bibitem{universidad_sevilla}
+\textit{P vs NP o la utilidad de los matemáticos en juego}, [Online]. Available: \href{https://institucional.us.es/blogimus/2022/03/pnp-o-la-utilidad-de-los-matematicos-en-juego/}{https://institucional.us.es/blogimus/2022/03/pnp-o-la-utilidad-de-los-matematicos-en-juego/}. [Accessed: Aug. 25, 2024].
+
+\bibitem{formatalent_website}
+\textit{¿Qué es una máquina de Turing y cómo funciona?}, [Online]. Available: \href{https://formatalent.com/que-es-una-maquina-de-turing-y-como-funciona/}{https://formatalent.com/que-es-una-maquina-de-turing-y-como-funciona/}. [Accessed: Aug. 25, 2024].
+
+\bibitem{psicologia_website}
+\textit{Máquina de Turing}, [Online]. Available: \href{https://psicologiaymente.com/cultura/maquina-de-turing}{https://psicologiaymente.com/cultura/maquina-de-turing}. [Accessed: Aug. 25, 2024].
+
+\bibitem{turing_bootcamp}
+\textit{Máquinas de Turing}, [Online]. Available: \url{https://bootcampai.medium.com/m%C3%A1quinas-de-turing-c329ccc270f}. [Accessed: Aug. 25, 2024].
+
+\bibitem{revista_boliviana}
+\textit{Artículo en Revista Boliviana de Ciencias Sociales}, [Online]. Available: \href{http://www.revistasbolivianas.ciencia.bo/scielo.php?lng=es&pid=S2415-23232016000100004&script=sci_arttext}{http://www.revistasbolivianas.ciencia.bo/scielo.php?lng=es&pid=S2415-23232016000100004&script=sci_arttext}. [Accessed: Aug. 25, 2024].
+
+\bibitem{pgtc_compl}
+\textit{Problemas de Grafos y Tratabilidad Computacional}, [Online]. Available: \href{https://www.ic.fcen.uba.ar/~mlin/docs/PGTC/pgtc_compl.pdf}{https://www.ic.fcen.uba.ar/~mlin/docs/PGTC/pgtc_compl.pdf}. [Accessed: Aug. 25, 2024].
+
+\bibitem{maquina_turing}
+\textit{Maquina de Turing}, [Online]. Available: \href{https://www.matesfacil.com/automatas-lenguajes/Maquina-Turing.html}{https://www.matesfacil.com/automatas-lenguajes/Maquina-Turing.html}. [Accessed: Aug. 30, 2024].
+
+\bibitem{muy_interesante}
+\textit{¿Qué es una Máquina de Turing y por qué es tan importante en el mundo de la computación?}, [Online]. Available: \href{https://www.muyinteresante.com/ciencia/63158.html#google_vignettem}{https://www.muyinteresante.com/ciencia/63158.html#google_vignettem}. [Accessed: Aug. 30, 2024].
+\end{thebibliography}
+\end{document}

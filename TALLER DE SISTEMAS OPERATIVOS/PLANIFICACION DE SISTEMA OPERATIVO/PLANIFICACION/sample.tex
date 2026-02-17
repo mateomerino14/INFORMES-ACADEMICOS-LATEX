@@ -1,0 +1,352 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To select a journal, use its code for the 
+% journal= option in the \documentclass command.
+% The journal codes for this template are:
+% 
+% Journal of Law and Courts: jlc
+% Macroeconomic Dynamics: mdy
+% State Politics & Policy Quarterly: spq
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[
+  journal=small,
+  manuscript=ARTICULO-CIENTIFICO,  % Use a - if you need a space e.g. "research-article"
+  year=2025
+]{cup-journal}
+
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage[nopatch]{microtype}
+\usepackage{booktabs}
+
+\title{Planificación SO}
+
+\author{Merino Vidal Mateo Alejandro}
+\affiliation{Universidad Mayor de San Simón \\ 
+\texttt{Cochabamba, Bolivia }\\  
+\texttt{202301308@est.umss.edu}}
+
+\keywords{proceso, comando, cambio de contexto, usuario} 
+
+\begin{document}
+
+\begin{abstract}
+El presente informe tiene como objetivo ejecutar múltiples comandos de consola, monitoreo de sistema y redirecciones o background desde la perspectiva del usuario privilegiado (root) y no privilegiado (mint). Su propósito es observar cómo el planificador de Linux maneja múltiples procesos, cómo la prioridad afecta el acceso a la CPU y cómo se miden los cambios de contexto.\\
+Para ello, se utilizó una distribución de Linux denominada "Linux Mint".
+\end{abstract}
+
+\section{Introducción}
+Los sistemas operativos de hoy en día cuentan con una planificación de procesos, que permite garantizar el uso eficiente de los recursos.
+Esto es imprescindible en entornos donde se deben realizar múltiples tareas, en donde cada una compite por el tiempo de CPU.\\
+Linux implementa tres políticas principales de planificación de procesos según el estándar POSIX:
+\hfill \break
+\hfill \break
+\fbox{
+    \begin{minipage}{1.0\textwidth}
+        \textbf{SCHED\_FIFO}: Asigna prioridades estáticas, un proceso con esta planificación es más importante que otro normal. Una vez que este proceso llega a la CPU, lo acapara indefinidamente hasta que termine o sea desplazado por otro aún más prioritario. \\
+        
+        \textbf{SCHED\_RR}: Similar al FIFO, pero con asignación por turnos (Round Robin) entre procesos de igual prioridad, limitando su tiempo de ejecución. \\
+        
+        \textbf{SCHED\_OTHER}: Es la política estándar utilizada por Linux. Combina un enfoque de Round Robin con un sistema de prioridades dinámicas, es decir, que asigna mayores quantums de CPU a los procesos que han consumido menos recursos recientemente. \\
+        
+        \textbf{SCHED\_YIELD}: No es una política de planificación en sí misma, sino un bit adicional, que afecta a las otras 3 políticas de planificación, causando que un proceso ceda la CPU a cualquier otro que se encuentre preparado, solo durante el próximo ciclo de planificación.
+    \end{minipage}
+}
+\hfill \break
+\hfill \break
+La gestión de tareas se puede realizar mediante diversos comandos en consola, los cuales permiten administrar de manera efectiva los recursos del sistema. Estos comandos no solo permiten iniciar o detener los procesos, sino también modificar sus características, como su prioridad. \\ Estando entre estos:
+\hfill \break
+\hfill \break
+\fbox{
+    \begin{minipage}{1.0\textwidth}
+        \textbf{yes > /dev/null \&: }Ejecuta el comando yes que genera una cadena de texto infinita, que por defecto es "y", generando una salida infinita en segundo plano gracias al símbolo \&.
+        Ademas, esa salida se redirige a /dev/null para evitar que se muestre en la pantalla.\\
+        Esto da como resultado la creación de un nuevo proceso en segundo plano que se ejecuta independientemente de la terminal.
+        \\
+        \textbf{nice -n r yes > /dev/null \&:} Ejecuta el comando "yes > /dev/null", asignándole una prioridad específica mediante el valor r, que representa un número entero entre -20 y 19. Este valor determina la prioridad del proceso en la planificación de la CPU, donde -20 es la mayor prioridad y 19 la menor.
+        \\
+        
+        \textbf{kill <PID>:} Permite la finalización de un proceso, requiriendo simplemente su PID.
+        \\
+        
+         \textbf{kill \%r:} Se utiliza para enviar una señal de terminación al trabajo número r en segundo plano dentro de la sesión actual del terminal. El valor r corresponde al identificador de trabajo asignado por el shell, el cual puede consultarse con el comando jobs.
+    \end{minipage}
+}
+\hfill \break
+\hfill \break
+Además, es posible monitorear la ejecución de los procesos mediante el comando "top", que muestra una lista dinámica de los mismos, permitiendo ver información detallada sobre su estado, consumo de recursos y posicionamiento por prioridad.
+\hfill \break
+\hfill \break
+También, se puede usar el comando "cat /proc/stat" para visualizar los cambios de contexto, que nos proporcionan información detallada sobre el uso del CPU, incluyendo también las interrupciones.
+
+
+\section{Desarrollo}
+\vspace{0.9em}
+Para el presente trabajo, se tuvieron que seguir una serie de instrucciones, que consistieron en la ejecución de diversos comandos por consola, usando la distribucion "Linux Mint", la cual fue virtualizada mediante el programa Virtual Box.
+
+\subsection{Procedimiento}
+\hfill \break
+Se inicia sesión como usuario sin privilegios (mint), se ejecuta el comando "top" para visualizar la lista dinámica de procesos en ejecución y como estos están organizados.
+Tal y como se observa en la Fig~\ref{1}, es posible observar varias secciones o detalles de cada proceso, estando entre estos:
+\begin{itemize}
+    \item \textbf{PID}: Identificador único del proceso.
+    \item \textbf{USER}: Usuario que inició el proceso.
+    \item \textbf{PR} (Priority): Prioridad del proceso. Un valor más bajo indica mayor prioridad.
+    \item \textbf{NI} (Nice value): Valor de "niceness", que influye en la prioridad del proceso. Valores negativos aumentan prioridad, positivos la reducen.
+    \item \textbf{VIRT} (Virtual Memory): Memoria virtual total utilizada por el proceso (en KB).
+    \item \textbf{RES} (Resident Memory): Memoria física utilizada por el proceso sin incluir la memoria intercambiada.
+    \item \textbf{SHR} (Shared Memory): Memoria compartida utilizada con otros procesos.
+    \item \textbf{S} (State): Estado del proceso:
+    \begin{itemize}
+        \item \textbf{R} → Running (Ejecutándose)
+        \item \textbf{S} → Sleeping (Durmiendo, esperando recursos)
+        \item \textbf{D} → Disk sleep (Esperando I/O)
+        \item \textbf{Z} → Zombie (Finalizado, pero aún en la tabla de procesos)
+        \item \textbf{T} → Stopped (Detenido)
+    \end{itemize}
+    \item \textbf{\%CPU}: Porcentaje de uso de CPU por el proceso.
+    \item \textbf{\%MEM}: Porcentaje de memoria RAM utilizada por el proceso.
+    \item \textbf{TIME+}: Tiempo total de CPU utilizado desde que se inició el proceso.
+    \item \textbf{COMMAND}: Nombre del comando o programa que ejecuta el proceso.
+\end{itemize}
+\hfill \break
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{1.png}
+    \caption{Lista dinámica de procesos (mint)}
+    \label{1}
+\end{figure}
+\hfill \break
+Se inicia sesión como usuario con privilegios (root) mediante el comando "sudo -i". Luego, al ejecutar "yes > /dev/null \&", se crea un nuevo proceso. Como resultado, se obtiene [1] 2042, donde 1 representa el número de tarea asignado por el intérprete de comandos bash a la tarea que se esta ejecutando en background y 2042 el PID del proceso, tal como se observa en la Fig~\ref{2}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{2.png}
+    \caption{Creación del primer proceso (root)}
+    \label{2}
+\end{figure}
+\hfill \break
+Se vuelve a ingresar el comando "top" en la sesión de usuario no privilegiado (mint), con la finalidad de verificar la correcta creación del nuevo proceso con PID 2042.\\
+Tal y como se observa en Fig~\ref{3}, este nuevo proceso ocupa los primeros lugares en la lista dinámica de procesos, debido a que el comando "top" los ordena, por defecto, según su uso de CPU. En este caso, el proceso 2042 presenta un valor de 97.0\% en cuanto al uso del CPU, posicionándose en primer lugar.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{3.png}
+    \caption{Visualización del proceso en la lista dinámica (mint)}
+    \label{3}
+\end{figure}
+
+\hfill \break
+\hfill \break
+El orden de los procesos en la lista dinámica que muestra el comando "top" cambia constantemente debido a que el planificador de Linux sigue el estándar POSIX y utiliza políticas dinámicas como SCHED\_OTHER. Esta política ajusta automáticamente el tiempo de CPU asignado a cada proceso en función de los recursos que ha consumido recientemente. Los procesos que han utilizado menos recursos reciben un mayor quantum, mientras que aquellos que han consumido más recursos ven reducido su quantum. Esto evita que un solo proceso monopolice la CPU, incluso si inicialmente aparece en primer lugar. Además, las reglas de POSIX (SCHED\_FIFO, SCHED\_RR y SCHED\_OTHER) y la gestión jerárquica de procesos (padre-hijo) garantizan un equilibrio entre el rendimiento del sistema y una distribución justa de los recursos.
+\hfill \break \hfill \break 
+Tal como se observa en la Fig.~\ref{4}, el proceso 2042, al consumir una gran cantidad de recursos de la CPU, fue penalizado o suspendido temporalmente. Como resultado, se le asignó un menor quantum de tiempo, lo que permitió que otros procesos, como el proceso 1320, recibieran más quantum y consumieran más recursos de la CPU, causando un cambio en el orden de la lista. En este caso, el proceso 1320 subio al primer lugar, mientras que el proceso 2042 descendió al segundo.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{4.png}
+    \caption{Cambio de posición del proceso (mint)}
+    \label{4}
+\end{figure}
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+Se regresa a la sesión del usuario con privilegios (root) y se ejecuta el comando "nice -n -15 yes > /dev/null \&", que crea y ejecuta un nuevo proceso con una prioridad nice de -15. Cabe recalcar que, en Linux, la prioridad de los procesos varía de -20 a 19, donde el valor más bajo indica la mayor prioridad.
+\hfill \break 
+\hfill \break 
+Como resultado, se obtiene [2] 2109 con una prioridad nice de -15, donde 2 representa el número de tarea asignado por el intérprete de comandos bash a la tarea que se esta ejecutando en background y 2109 el PID del proceso, tal como se observa en la Fig~\ref{5}.
+\hfill \break 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{5.png}
+    \caption{Creación del segundo proceso con prioridad (root)}
+    \label{5}
+\end{figure}
+\hfill \break 
+Se vuelve a ejecutar el comando "top" en la sesión de usuario no privilegiado (mint), con la finalidad de verificar la correcta creación del nuevo proceso con PID 2109 y una prioridad nice de -15.\\
+Tal y como se observa en la Fig~\ref{6}, este nuevo proceso ocupa los primeros lugares en la lista dinámica de procesos, debido a que el comando "top" los ordena, por defecto, según su uso de CPU. En este caso, el proceso 2109 presenta un valor de 99.9\% en cuanto al uso del CPU, posicionándose en primer lugar.
+\hfill \break
+\hfill \break
+Teniendo en cuenta los valores de las columnas PID, PRI, NI, \%CPU, se puede concluir que:
+
+\begin{itemize}
+    \item En Linux, cada proceso tiene dos valores de prioridad: PR (prioridad real del kernel) y NI (ajuste de nice). El usuario puede modificar el valor NI (-20 a 19), donde los números más negativos tienen mas prioridad. El kernel convierte este NI en PR (0 a 139), donde 0 es la máxima prioridad. \\
+    Como se observa en la imagen, al asignar NI=-15 al proceso 2109, el kernel le dio PR=5 (alta prioridad), mientras que el proceso 2042 con NI=0 recibió PR=20 (prioridad normal).
+\hfill \break
+  \item El proceso 2109 obtuvo mayor prioridad debido al valor nice asignado, mostrando PR=5 y NI=-15, mientras que el proceso estándar 2042 presentó PR=20 y NI=0. Esto demuestra que los valores negativos de nice aumentan considerablemente la prioridad del proceso, permitiéndole acceder con más frecuencia a la CPU.
+\hfill \break  
+  \item El proceso 2109 con un valor NI de -15 consumió el 99.9\% de la CPU, mientras que el proceso 2042 con un NI de 0 solo alcanzó un 4.1\% de uso. 
+  Dando a entender que Linux da mas privilegio a los procesos con mas prioridad, incluso si esto limita a los demás.
+\end{itemize}
+\hfill \break 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{6.png}
+    \caption{Visualización del proceso con prioridad en la lista dinámica (mint)}
+    \label{6}
+\end{figure}
+\hfill \break 
+Se regresa a la sesión del usuario privilegiado (root) y se ejecuta el comando "kill \%1" para dar finalización al proceso 2042 que es el primer trabajo en segundo plano , ya que el numero que acompaña al modulo se refiere al indice de trabajo. Esto nos da como resultado una confirmación de que el proceso ha terminado, tal y como se observa en la Fig~\ref{7}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.96\textwidth]{2000.png}
+    \caption{Finalización del primer proceso (root)}
+    \label{7}
+\end{figure}
+\hfill \break 
+\hfill \break 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+Se vuelve a ejecutar el comando "top" en la sesión de usuario no privilegiado (mint) para confirmar que el proceso 2042 ya no se esta ejecutando, como se observa en la Fig.~\ref{8}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{8.png}
+    \caption{Verificación de la finalización del primer proceso (mint)}
+    \label{8}
+\end{figure}
+\hfill \break 
+\hfill \break 
+Se regresa a la sesión del usuario privilegiado (root) y se ejecuta el comando "kill \%2" para dar finalización al proceso 2109 que es el segundo trabajo en segundo plano , ya que el numero que acompaña al modulo se refiere al indice de trabajo. Esto nos da como resultado una confirmación de que el proceso ha terminado, tal y como se observa en la Fig~\ref{9}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{100.png}
+    \caption{Finalización del segundo proceso (root)}
+    \label{9}
+\end{figure}
+\hfill \break 
+\hfill \break 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+Se vuelve a ejecutar el comando "top" en la sesión de usuario no privilegiado (mint) para confirmar que el proceso 2109 ya no se esta ejecutando, como se observa en la Fig.~\ref{10}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{10.png}
+    \caption{Verificación de la finalización del segundo proceso (mint)}
+    \label{10}
+\end{figure}
+\hfill \break 
+\hfill \break 
+Se accede a la sesión de usuario privilegiado (root) y se ejecutan los comandos "kill \%1" y "kill \%2". Como se muestra en la Fig.~\ref{30000}, no es posible eliminar procesos que ya han finalizado, ya que el índice utilizado en ambos casos, que corresponden al número junto al módulo, hacen referencia a trabajos inexistentes.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{30000.png}
+    \caption{Finalización de un proceso ya terminado}
+    \label{30000}
+\end{figure}
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break  
+Se regresa a la sesión de usuario privilegiado (root) y se crean múltiples procesos con distintas prioridades nice, mediante la ejecución del comando "nice -n r yes > /dev/null \&" con distintos valores de r, tal y como se observa en la Fig.~\ref{11}.\\
+Esto da como resultado múltiples procesos creados, como: [1] 2126 - nice (15), [2] 2127 - nice (-5), [3] 2128 - nice (10), [4] 2129 - nice (7) y [5] 2130 - nice (-2).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{11.png}
+    \caption{Creación de múltiples procesos con prioridad (root)}
+    \label{11}
+\end{figure}
+\hfill \break  
+Se vuelve a ejecutar el comando top en la sesión de usuario no privilegiado (mint) para verificar la correcta creación de los nuevos procesos: 2126, 2127, 2128, 2129 y 2130, como se muestra en la Fig.~\ref{12}.\\
+Se puede observar varios detalles de los procesos recién creados:
+
+\begin{itemize}
+  \item PID 2127: Prioridad alta (PR=15, NI=-5), consume 60.3\% del CPU (el más exigente).\\
+  
+  \item PID 2130: Prioridad media (PR=18, NI=-2), usa 30.6\% del CPU.\\
+  
+  \item PIDs 2128, 2129, 2126: Prioridades bajas (PR=27 a 35, NI=7 a -15), con uso mínimo de CPU (0 a 3.9\%).
+\end{itemize}
+\hfill \break  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{12.png}
+    \caption{Visualización de los procesos creados (mint)}
+    \label{12}
+\end{figure}
+\hfill \break  
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+\hfill \break 
+Se ejecuta el comando "nice -n r yes > /dev/null \&" con distintos valores de r en la sesión de usuario no privilegiado (mint).\\
+Como se observa en la Fig.~\ref{13}, es posible crear procesos con distintos valores de nice. Sin embargo, dado que el usuario mint no tiene privilegios, no puede crear procesos con valores de nice menores a 0. En este caso, si se intenta crear el proceso 2146 con nice = -15, el sistema lo crea, pero asignándole un valor de nice = 0 por defecto, debido a la falta de acceso.\\
+Esto nos da como resultado los procesos creados: [7] 2146 - nice (0), [8] 2147 - nice (15), [9] 2148 - nice (0).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{13.png}
+    \caption{Creación de múltiples procesos con prioridad (mint)}
+    \label{13}
+\end{figure}
+\hfill \break  
+\hfill \break 
+\hfill \break 
+\hfill \break
+\hfill \break
+Se vuelve a ingresar el comando "top" en la sesión de usuario no privilegiado (mint), con la finalidad de verificar la correcta creación de los nuevos procesos:  2146, 2147 y 2148.
+Tal y como se observa en la Fig~\ref{14}, estos nuevos procesos ocupan los primeros lugares de la lista dinámica de procesos.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{14.png}
+    \caption{Visualización de los procesos creados (mint)}
+    \label{14}
+\end{figure}
+\hfill \break 
+Se ejecuta el comando  "kill <PID>" con distintos valores de <PID> en la sesión del usuario no privilegiado (mint), con el fin de terminar los procesos 2146, 2147 y 2148. Tras la finalización de cada proceso, se obtiene una confirmación de que el proceso se ha terminado con éxito, tal como se observa en la Fig.~\ref{15}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{15.png}
+    \caption{Finalización de los procesos creados (mint)}
+    \label{15}
+\end{figure}
+\hfill \break 
+\hfill \break 
+\hfill \break 
+Se vuelve a ejecutar el comando "kill <PID>" en la sesión del usuario no privilegiado (mint) con el fin de finalizar el proceso 10 iniciado por root. Sin embargo, dado que este proceso no fue iniciado por el propio usuario mint y este no es privilegiado, no se puede eliminar, como se observa en la Fig.~\ref{16}.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{16.png}
+    \caption{Finalización de proceso del usuario "root" (mint)}
+    \label{16}
+\end{figure}
+\hfill \break 
+Se ejecuta el comando "cat /proc/stat" en la sesión del usuario no privilegiado (mint), lo que permite observar los cambios de contexto ocurridos durante la ejecución y finalización de los procesos. Como se muestra en la Fig.~\ref{17}, el sistema ha registrado un total de 9.739.135 cambios de contexto. Este valor refleja la cantidad de veces que la CPU ha cambiado entre procesos, lo que indica la actividad y carga del sistema desde el último reinicio.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{17.png}
+    \caption{Visualización de los cambios de contexto (mint)}
+    \label{17}
+\end{figure}
+
+
+\end{document}

@@ -1,0 +1,434 @@
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+
+\pagestyle{plain}
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{LEY DE OHM}
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+\date{\today}
+
+\begin{abstract}
+\hfill \break
+La representación gráfica de los datos es una herramienta útil para comprender el comportamiento de un fenómeno determinista. En este trabajo, se busca demostrar la ley de ohm y la correlación entre las variables intensidad y voltaje, a partir de los datos experimentales obtenidos durante la simulación en el laboratorio de física general, utilizando el método de mínimos cuadrados, con la finalidad de obtener la ecuación de la mejor recta a partir de los pares ordenados (x,y), es decir de los datos experimentales.\\
+Además, se implementa el trazado de la linea de ajuste a través de los puntos experimentales.
+Esto ayuda a determinar si la correlación entre las variables es lineal o no, presentando cierta dispersión entre los datos.
+\begin{description}
+\item[Palabras clave]Gráfica, Escalas lineales, Escalas no lineales, Relación lineal, Relación no lineal, Mínimos cuadrados, Intensidad, Voltaje, Resistencia.
+\end{description}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\label{sec:introduccion}
+\hfill \break
+La electricidad es una forma de energía que tiene su origen en el movimiento de pequeñas partículas llamadas electrones, ubicados en la capa externa de los átomos que hay en la superficie de un material conductor, tal y como lo expresa la Organización de Servicio - SEAT \cite{SEAT}.
+\hfill \break
+\begin{itemize}
+\item \textbf{Átomo:} Es la porción más pequeña de la materia y está compuesto por un núcleo donde se encuentran otras partículas, como los protones (con carga eléctrica positiva) y los neutrones (sin carga).
+\hfill \break
+\hfill \break
+Alrededor del núcleo giran en órbitas los electrones, que tienen carga negativa y hay tantos electrones como protones, por lo que el átomo se encuentra equilibrado eléctricamente.
+\end{itemize}
+\hfill \break
+El movimiento disperso de los electrones libres de un átomo a otro es normalmente igual en todas direcciones, de manera que ninguna parte del material en particular gana ni pierde electrones. 
+\hfill \break
+\hfill \break
+Cuando la mayor parte del movimiento de los electrones se produce en la misma dirección, de manera que parte del material pierde electrones mientras que la otra parte los gana, el movimiento neto o flujo se denomina flujo de corriente, tal y como lo expresa Agustín Rela \cite{Agustín}.
+\hfill \break
+\hfill \break
+El movimiento de las cargas eléctricas a través de un medio conductor se conoce como corriente eléctrica y se origina en poner en contacto dos elementos entre los que hay una diferencia de potencial.
+\hfill \break
+\hfill \break
+Asimismo, la corriente eléctrica de acuerdo al sentido en la que fluye, se clasifica en corriente eléctrica continua y corriente alterna.
+\begin{itemize}
+\item \textbf{Corriente eléctrica continua:} Es aquella que fluye de un punto a otro siempre en el mismo sentido.
+\hfill \break
+\hfill \break
+La corriente de una pila o batería es del tipo continuo.
+\item \textbf{Corriente alterna:} Es aquella que fluye de un punto a otro cambiando de sentido periódicamente. 
+\hfill \break
+\hfill \break
+La electricidad comercial a gran escala procede de generadores que producen corriente alterna.
+\end{itemize}
+\hfill \break
+La ley de Ohm es una teoría básica para explicar cómo se comporta la electricidad, utilizando tres conceptos fundamentales: intensidad, voltaje y resistencia, tal y como lo indican Héctor Hugo Torres Ortega y Rubén Estrada Marmolejo \cite{Hector}.
+\begin{itemize}
+\item \textbf{Intensidad:} Es la circulación de electrones que va de un punto a otro. Su unidad de medición son los amperios. 
+\item \textbf{Voltaje:} Es la fuerza que deja a los electrones tener movimiento a través del material conductor. Su unidad de medición son los voltios.
+\item \textbf{Resistencia:} Es la obstrucción que se le presenta a los electrones dentro de un conducto. Su unidad de medición son los ohmios.
+\end{itemize}
+\hfill \break
+La ley de Ohm establece que la diferencia de potencial (V) que aplicamos entre los extremos de un conductor determinado es proporcional a la intensidad de la corriente (I) que circula por el citado conductor.
+\hfill \break
+\hfill \break
+Ohm completó la ley introduciendo la noción de resistencia eléctrica (R); que es el factor de proporcionalidad que aparece en la relación entre: (V)(I).\\
+\hfill \break
+Dando como resultado la ecuación:\\
+\hfill \break
+$V=R \times I $
+
+\section{Objetivo y planteamiento del problema}
+\hfill \break
+El presente trabajo busca determinar mediante la aplicación del método de mínimos cuadrados la pendiente conocida como parámetro B y la ordenada al origen como parámetro A en la ecuación lineal de los datos experimentales obtenidos durante el experimento de la ley de Ohm.\\
+\hfill \break
+Permitiendo hallar el valor de la Resistencia, representada por el valor de la pendiente B en la ecuación lineal.\\
+\hfill \break
+Asimismo, se llega a calcular los errores estimados del parámetro A y B, como también el coeficiente de correlación para saber el grado de ajuste de la recta a la nube de puntos experimentales.\\
+\hfill \break
+Posteriormente, se procede a representar gráficamente la recta teórica de la ecuación lineal obtenida a partir de los datos del experimento realizado en el laboratorio de física general para una mejor observación de su ajuste a los puntos de los datos experimentales, como también de las desviaciones en el eje de las ordenadas Y respecto a la linea teórica y así determinar si existe una correlación lineal perfecta o no entre la variable dependiente e independiente.\\
+
+\section{Material y Procedimiento}
+\hfill \break
+\textbf{Material}
+\begin{enumerate}
+\item Una fuente de corriente continua
+\item Amperímetro
+\item Voltímetro
+\item Cables de conexión
+\item Resistencia
+\end{enumerate}
+
+\begin{figure}[H]
+\centering \includegraphics[scale=0.50]{Material1.jpeg}\\
+\hfill \break
+\hfill \break
+\centering \includegraphics[scale=0.50]{Material2.jpeg}
+\caption{\centering Material utilizado durante el experimento}
+\label{Figura1}
+\end{figure}
+
+\hfill \break
+\textbf{Procedimiento}
+\begin{enumerate}
+\item Conectar con un cable el positivo de la fuente de corriente con el amperímetro.
+\item Conectar el amperímetro con un extremo de la resistencia y conectar con otro cable la resistencia con el negativo de la fuente.
+\item Conectar el voltímetro a los dos extremos de la resistencia.
+\item Encender la fuente de corriente e ir graduando la intensidad de corriente con varios valores, el amperímetro dará las respectivas lecturas de la corriente que circula por la resistencia.
+\hfill \break
+\hfill \break
+Para cada valor de la intensidad de corriente el voltímetro asignara un valor de la caída de tensión.
+\end{enumerate}
+
+\section{Método}
+\label{sec:met}
+\hfill \break
+\textbf{Recta Teórica}
+\begin{gather}
+y=A+B \times x
+\label{ec:1}
+\end{gather} 
+
+\hfill \break
+\textbf{Relaciones Potenciales Simples}
+\begin{gather} 
+Parabola: y=a \times x^2 
+\label{ec:2}\\ \notag \\ 
+Hiperbola:y=a \times x^{-1}
+\label{ec:3} \\ \notag \\ 
+Cubica:y=a \times x^3
+\label{ec:4} \\ \notag \\ 
+Recta:y=a \times x^1
+\label{ec:5} 
+\end{gather}
+
+\hfill \break
+\textbf{Pendiente y Ordenada de la Recta}
+\begin{gather}
+A= \tfrac{\sum Yi \times \sum Xi^2-\sum Xi Yi \times \sum Xi}{\Delta} 
+\label{ec:6} \\ \notag \\ 
+B= \tfrac{n \times \sum Xi Yi- \sum Xi \times \sum Yi}{\Delta}
+\label{ec:7} \\ \notag \\ 
+\Delta=n \sum Xi^2-(\sum Xi)^2
+\label{ec:8}
+\end{gather}
+
+\hfill \break
+\textbf{Desviación Individual}
+\begin{gather}
+d_i=Yi-Yi'
+\label{ec:9}
+\end{gather}
+
+\hfill \break
+\textbf{Errores Estimados para A y B}
+\begin{gather}
+\sigma^2=\tfrac{\sum d_i^2}{n-2}
+\label{ec:10} \\ \notag \\ 
+\sigma_A= \sqrt{\tfrac{\sigma^2 \sum Xi^2}{\Delta}}
+\label{ec:11} \\ \notag \\ 
+\sigma_B= \sqrt{\tfrac{\sigma^2 n}{\Delta}}
+\label{ec:12}
+\end{gather}
+
+\hfill \break
+\textbf{Coeficiente de correlación}
+\begin{gather}
+r=\tfrac{n(\sum XY)-(\sum X) (\sum Y)}{\sqrt{[n (\sum X^2)-(\sum X)^2] [n (\sum Y^2)-(\sum Y)^2]}}
+\label{ec:13}
+\end{gather}
+
+\subsection{LEY DE OHM}
+\hfill \break
+Obteniendo los datos experimentales de intensidad y voltaje durante el experimento.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Intensidad[A] & Voltaje[V]\\
+\hline
+0.10 & 1.00\\
+\hline
+0.20 & 1.90\\
+\hline
+0.40 & 4.10\\
+\hline
+0.60 & 6.80\\
+\hline
+0.80 & 8.90\\
+\hline
+1.00 & 11.10\\
+\hline
+1.10 & 12.00\\
+\hline
+\end{tabular}
+\caption{\centering Datos experimentales obtenidos durante el experimento}
+\label{Datos1}
+\end{table}
+
+\hfill \break
+\hfill \break
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.\\
+ \hfill \break
+$X$= Intensidad[A]\\
+ \hfill \break
+$Y$=Voltaje [V]\\
+\hfill \break
+Representando los datos en plano cartesiano en base a escalas lineales, con la finalidad de obtener una nube de puntos entre los datos experimentales de la variable dependiente y la variable independiente.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen1.png}
+\caption{\centering Nube de puntos entre los diversos valores de la intensidad y el voltaje obtenido}
+\label{Figura2}
+\end{figure} 
+
+\hfill \break
+Trazando la curva de ajuste que mejor represente a la nube de puntos, dando como resultado un regresión lineal, cuya representación es una curva lineal perteneciente a una linea recta con la forma de la Ec.\ref{ec:5}\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen2.png}
+\caption{\centering Trazado de la curva lineal de ajuste en la nube de puntos}
+\label{Figura3}
+\end{figure}
+
+\hfill \break
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener Delta.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y los datos en la variable dependiente Y y la variable independiente X de la curva lineal, con la finalidad de obtener el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.\\
+\hfill \break
+\hfill \break
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Original\\
+\hline
+Test1 & -0.22 & 11.27 & $V=-0.22+11.27I$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de la relación entre la variable independiente y la variable dependiente mediante el método de mínimos cuadrados}
+\label{Tabla1}
+\end{table}
+
+\hfill \break
+Graficando la correlación entre la pendiente B de la linea teórica y la intensidad, teniendo en cuenta que la pendiente B representa el valor de la resistencia.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Imagen3.png}
+\caption{\centering Correlación entre la resistencia y la intensidad}
+\label{Correlacion_Ohm}
+\end{figure}
+
+\hfill \break
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva lineal original y de la curva lineal cuya ecuación fue determinada anteriormente mediante mínimos cuadrados, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.\\
+\hfill \break
+\hfill \break
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado.\\
+
+\hfill \break
+\textbf{Sigma al Cuadrado} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} & $\sigma^2$\\
+\hline
+Test1 & 0.22\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado }
+\label{Tabla2}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.\\
+
+\hfill \break
+\textbf{Desviación de A y B} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{Test} & Desviación de A & Desviación de B\\
+\hline
+Test1 & 0.35 & 0.50\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica}
+\label{Tabla3}
+\end{table}
+
+\hfill \break
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.\\
+
+\hfill \break
+\textbf{Coeficiente De Correlación} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} & $r$\\
+\hline
+Test1 & 0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica}
+\label{Tabla4}
+\end{table}
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{LEY DE OHM}
+\hfill \break
+Se evidencia de la Fig.\ref{Figura2} que todos los datos experimentales obtenidos forman una nube de puntos.\\
+ \hfill \break
+ \hfill \break
+Asimismo, se observa que al graficar la curva lineal que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura3}, el comportamiento de los datos experimentales sigue la ecuación de una linea recta con Ec.\ref{ec:5}, denotando que el voltaje esta incrementándose aproximadamente 1 voltio cada 0.1 amperios, dando a entender que su resistencia es constante durante todo el experimento y esta representada por la pendiente B de la linea teórica con un valor de $11.27[\varOmega]$, tal y como se observa en la Fig.\ref{Correlacion_Ohm}\\
+\hfill \break
+\hfill \break
+Asimismo se demuestra que la correlación entre el Voltaje(variable dependiente) y la Intensidad(variable independiente) es lineal como también se observa que ambas variables son directamente proporcionales.\\
+\hfill \break
+\hfill \break
+Presentando una ecuación linealizada $V = -0.22 + 11.27I$, presente en la Tabla.\ref{Tabla1}, con una mínima desviación menor a 0.6 en el parámetro A con el valor de $0.35$ y en B con un valor de $0.50$ en la Tabla.\ref{Tabla3}, además de un coeficiente de correlación de $0.99$ en la Tabla.\ref{Tabla4}, indicando que la linea teórica se ajusta muy bien a la nube de puntos de los datos experimentales.\\
+
+\section{Discusión}
+\label{Sec:Disc}
+\hfill \break
+Se puede inferir de los gráficos que representan los datos experimentales, que existe una correlación entre la variable dependiente e independiente. Además, se puede determinar si esta relación es directamente o inversamente proporcional, dependiendo de la ecuación de la curva.\\
+\hfill \break
+\hfill \break
+En adición, al aplicar el método de mínimos cuadrados, es posible obtener la ecuación de una línea teórica con una ordenada al origen A y una pendiente B. \\
+\hfill \break
+Esta línea teórica representa la linea de ajuste en la nube de puntos en la correlación entre la variable independiente (Intensidad) y la variable dependiente (Voltaje).\\
+\hfill \break
+\hfill \break
+Si los puntos de los datos experimentales están bien ajustados a la línea teórica, se sugiere que la correlación entre las variables es perfectamente lineal.\\
+\hfill \break
+\hfill \break
+Como en el caso de la Ley de Ohm con una ecuación linealizada $V = -0.22 + 11.27I$, teniendo mínimas desviaciones respecto al parámetro A conocido como ordenada con un valor mínimo de $0.35$ y al parámetro B con valor de $0.50$ en la Tabla.\ref{Tabla3}, teniendo un coeficiente de correlación cercano a 1 indicando que la linea teórica se ajusta muy bien a la nube de puntos formada por los datos experimentales.
+
+\section{Conclusiones}
+\label{Sec:Concl}
+\hfill \break
+Se concluyo que:
+\begin{enumerate}
+\item Los datos experimentales obtenidos durante el experimento de la Ley de Ohm, presentan una nube de puntos con un comportamiento curvilíneo lineal presente en la Fig\ref{Figura2}, evidenciando una correlación lineal entre la variable dependiente e independiente, cuya ecuación pertenece a la recta con Ec.\ref{ec:5}, indicando que las variables son directamente proporcionales.
+ \hfill \break
+\hfill \break
+Como en el caso de la correlación Voltaje-Intensidad en la Ley de Ohm con Ec.\ref{ec:5}, en la cual se observa que el voltaje es directamente proporcional a la intensidad.
+
+\item La aplicación del método de mínimos cuadrados permite determinar la ecuación linealizada de la curva lineal, permitiendo hallar el valor del parámetro A conocido como ordenada y del parámetro B conocido como pendiente, como también sus desviaciones y el coeficiente de correlación de la linea teórica.
+Como en el caso de:
+ \hfill \break
+ \hfill \break
+*Voltaje-Intensidad(Ley de Ohm): Con su ecuación linealizada de $V = -0.22 + 11.27I$ con parámetros A y B en la Tabla.\ref{Tabla1}, con una desviación mínima en A del $0.35$ y en B del $0.50$ en la Tabla.\ref{Tabla3}.\\
+\hfill \break
+\hfill \break
+Además de tener un coeficiente de correlación del $0.99$ en la Tabla.\ref{Tabla4}, indicando que la recta se ajusta bastante bien a la nube de puntos de los datos experimentales.\\
+
+\item Al aplicar la Ley de Ohm, se observa que tiene la forma de la ecuación de una recta, siendo la resistencia la pendiente B de la linea teórica, la cual permanece constante durante todo el experimento con un valor de $11.27$ en la Tabla.\ref{Tabla1} y representada graficamente en la Fig.\ref{Correlacion_Ohm}.
+
+\end{enumerate}
+
+\section{Bibliografía}
+\printbibliography
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\end{document}

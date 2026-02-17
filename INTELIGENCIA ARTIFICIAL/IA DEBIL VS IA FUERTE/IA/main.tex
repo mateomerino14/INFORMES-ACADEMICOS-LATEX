@@ -1,0 +1,505 @@
+\documentclass[journal]{IEEEtran} % use the `journal` option for ITherm conference style
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{mathptmx}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{caption}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,      % color de los enlaces internos (toc, figuras, etc.)
+    urlcolor=blue        % color de las URLs
+}
+
+
+\pagestyle{empty} % Elimina encabezados, pies de página y números de página
+\setlength{\parindent}{1em}
+% Configuración de márgenes y espacio entre columnas
+\setlength{\topmargin}{-19mm} % Ajuste para margen superior (19mm)
+\setlength{\textheight}{235.4mm} % Ajuste para altura del texto (279.4mm - 2*margenes superior e inferior)
+\setlength{\textwidth}{181.4mm} % Ajuste para ancho del texto (215.9mm - 2*margenes izquierdo y derecho)
+\setlength{\oddsidemargin}{-8.3mm} % Ajuste para margen izquierdo (17.3mm)
+\setlength{\evensidemargin}{-17.3mm} % Ajuste para margen derecho (17.3mm)
+\setlength{\columnsep}{4.22mm} % Espacio entre columnas
+
+\setlength{\parindent}{1em} % Sangría en la primera línea de cada párrafo
+\setlength{\parskip}{0pt} % Sin espacio extra entre párrafos
+\sloppy % Justificación para evitar desbordamientos
+
+\titleformat{\subsection}
+  {\itshape \fontsize{10pt}{12pt}\selectfont} % Estilo: cursiva, tamaño 10 puntos
+
+\title{\fontsize{24pt}{28pt}\selectfont Tipos de Inteligencia Artificial: \\``Débil vs Fuerte"}
+
+\author{
+    \IEEEauthorblockN{\fontsize{11pt}{13pt}\selectfont Merino Vidal Mateo Alejandro}\\
+    \vspace{0.5em}
+    \IEEEauthorblockN{\fontsize{10pt}{12pt}\itshape Departamento de Informática\\
+    Universidad Mayor de San Simón\\
+    \IEEEauthorblockN{\fontsize{10pt}{12pt}\itshape Docente: Lic.García Pérez Carmen Rosa }\\
+    Cochabamba, Bolivia}\\
+    \vspace{0.5em}
+    \IEEEauthorblockN{\fontsize{9pt}{11pt}\texttt{\href{mailto:202301308@est.umss.edu}{\color{black}202301308@est.umss.edu}}} \\
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+El presente articulo demuestra los conceptos fundamentales de la inteligencia artificial, centrándose en sus dos principales clasificaciones: IA Debil e IA Fuerte.
+\\
+Se detalla la historia de como surgieron estos tipos de inteligencia artificial, partiendo desde sus enfoques teóricos hasta los modelos actuales de hoy en día. 
+Asimismo, se realiza un descripción exacta sobre sus diferencias, aplicaciones y características, propias de cada una.
+Ademas, se da a conocer que algoritmos o técnicas de programación utilizan cada una de estas inteligencias artificiales para su respectivo funcionamiento.
+\end{abstract}
+\section{Introducción}
+\hfill \break
+La inteligencia artificial (IA) es un campo en constante desarrollo, llegando a tener aplicaciones destacables en diversas áreas como la medicina, la ciencia, la industria, etc.
+Desde su primer avance en 1958 con el modelo conceptual de la red neuronal perceptron, desarrollada por Frank Rosenblatt, la IA ha evolucionado significativamente.
+Este modelo simbolizo un puente que conecto la biofísica   y la psicología, sentando las bases para la creación de las primeras redes neuronales.
+\hfill \break
+\hfill \break
+A lo largo de la historia, la inteligencia artificial fue desarrollándose y complementándose con otras ciencias como:
+\begin{itemize}
+    \item Matemática: Proporciona el razonamiento matemático, a través de la lógica de predicados, la cual permite inferir resultados a través de información previa denominada como premisas.
+    \item Informática: Proporciona algoritmos, que permiten a las maquinas aprender, tomar decisiones y realizar tarea de forma automática.
+    \item Biología: Proporciona información sobre la estructura de las redes neuronales del cerebro humano, como estas interactúan, para posteriormente tratar de emular su funcionamiento en un entorno virtual.
+\end{itemize}
+\hfill \break
+Actualmente existen modelos avanzados de inteligencia artificial, llegando a acercarse al razonamiento humano, cada inteligencia artificial es clasificada como débil o fuerte, dependiendo de su capacidad de procesamiento, aprendizaje y adaptabilidad.
+\hfill \break
+Cabe recalcar que el área de la IA Fuerte aun este en constante desarrollo, ya que es un proceso complejo tratar de emular el razonamiento humano.
+Por otro lado la IA Debil no posee esa capacidad compleja de adaptabilidad y solo esta limitada a realizar una labor, la cual esta dentro de su programación.
+\hfill \break
+\hfill \break
+Esto hace que sea mas sencillo desarrollarla con respecto a la IA Fuerte, permitiendo fabricar múltiples sistemas basados en este enfoque, siendo un claro ejemplo los asistentes virtuales como Siri o Alexa, las cuales están limitados a solo responder preguntas o informar al usuario.
+
+\section{Desarrollo de contenidos}
+
+\subsection{IA Debil}
+\vspace{0.8em}
+\subsubsection{Definición Conceptual}
+\hfill \break
+También conocida como Inteligencia Artificial Estrecha, es un tipo de IA diseñada para realizar tareas especificas sin tener conciencia de si misma. 
+Esta limitada a los datos o reglas predefinidas en su programación, por lo que no posee autonomía ni la capacidad de adaptarse a distintas situaciones fuera de su alcance.
+Se basa en algoritmos de entrenamiento para resolver problemas concretos como el reconocimiento de imagen, asistentes virtuales o sistemas de recomendación.
+\hfill \break
+\subsubsection{Origen y Primer Modelo}
+\hfill \break
+El concepto de Inteligencia Artificial Débil surgió por primera vez en 1950 con los primeros intentos para crear maquinas que realicen una sola tarea o labor en especifico, a través de reglas predefinidas y el aprendizaje automático.
+\hfill \break
+\hfill \break
+Uno de los primeros modelos que surgieron con este enfoque fue ELIZA, desarrollada por Joseph Weizenbaum en 1966 en el MIT.
+ELIZA fue el primer programa informático en emplear el procesamiento del lenguaje natural, gracias al uso de la metodologia de concordancia y sustitucion de patrones era capaz de simular una conversación psicoterapeutica, con la limitación de que solo podía responder situaciones o patrones predefinidos, sin ninguna comprensión real.
+\\
+En otras palabras, daba a los usuarios la ilusión de entendimiento por parte del programa, pero no tenia ninguna interpretación que demostraba una compresión real sobre el contexto en el que hablaba el usuario.
+Este modelo demostró que una inteligencia artificial era capaz de imitar interacciones humanas sin verdadera inteligencia o conciencia de si misma. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.48\textwidth]{ELIZA_conversation.png}
+\captionsetup{justification=centering} % Centra el texto del caption
+  \caption{ELIZA}
+  \label{fig:mi_figura}
+\end{figure}
+\hfill \break
+ELIZA, al ser un chatbot, esta basada en un algoritmo conocido como ELIZA GENERATOR, el cual recibe como entrada la oración del usuario para posteriormente buscar palabra por palabra hasta encontrar la palabra clave de mayor prioridad, una palabra clave era aquella que ELIZA ya tenia almacenado en su base de datos.
+\\
+Dependiendo de si la oración contenía una palabra clave o no se tomaba una decisión distinta.
+\hfill \break
+\hfill \break
+-Contenía la palabra clave:
+Una vez encontrada la palabra clave, se escoge la tranformacion que se va a aplicar a la oración del usuario, para dar una respuesta apropiada.
+Si la palabra era "my", se usaba una estrategia de memoria para futuras respuestas y se la guardaba en la cola de memoria.
+\hfill \break
+\hfill \break
+-No contenía la palabra clave:
+Respondía con la oración genérica  "Why do you say that?" o usaba una respuesta guardada previamente en memoria para mantener la conversación fluida.
+\begin{algorithm}
+\caption{Algoritmo Generador de ELIZA}
+\begin{algorithmic}[1]
+\Function{ELIZA\_GENERATOR}{user\_sentence} \Comment{Devuelve una respuesta}
+    \State Let $w$ be the word in sentence que tiene el rango de palabra clave más alta
+    \If{$w$ exists}
+        \State Let $r$ ser la regla más alta para $w$ que coincide con la frase
+        \State response $\gets$ Aplicar la transformación en $r$ a sentence
+        \If{$w = "my"$}
+            \State future $\gets$ Aplicar una transformación de la lista de reglas de "memoria" a sentence
+            \State Push future en la cola de memoria
+        \Else \Comment{No se aplica ninguna palabra clave}
+            \State \textbf{Either:}
+            \State \quad response $\gets$ Aplicar la transformación de la palabra clave NONE a sentence
+            \State \textbf{Or:}
+            \State \quad response $\gets$ Recupera la respuesta más antigua de la cola de memoria
+        \EndIf
+    \EndIf
+    \State \Return response
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\\
+\subsubsection{Fundamentos y Arquitectura}
+\hfill \break
+Utiliza modelos matemáticos y estadísticos basados en el aprendizaje supervisado y no supervisado, aplicando diversos modelos o algoritmos de optimización y clasificación en su etapa de entrenamiento.
+\hfill \break
+\hfill \break
+Siendo los modelos mas utilizados:
+\begin{itemize}
+    \item Máquinas de Soporte Vectorial (SVM): Algoritmo de clasificación y regresión que utiliza la teoría de aprendizaje de las máquinas para maximizar la precisión de las predicciones sin ajustar excesivamente los datos.
+    \hfill \break
+    \hfill \break
+    SVM utiliza una transformación no lineal opcional de los datos de entrenamiento, seguida de la búsqueda de ecuaciones de regresión en los datos transformados para separar las clases (para objetivos categóricos) o ajustar el objetivo (para los objetivos continuos). 
+    \hfill \break
+    \hfill \break
+    La implementación de SVM de Oracle permite que se generen modelos mediante el uso de los dos kernels disponibles: lineal o gaussiano.
+    El kernel lineal omite la transformación no lineal de una vez, de tal forma que el modelo resultante sea, en esencia, un modelo de regresión.
+    \hfill \break
+    \hfill \break
+    \item Redes Neuronales Artificiales (ANN): Programa o modelo de aprendizaje automático que toma decisiones de manera similar al cerebro humano, a través del uso de procesos que imitan la forma en que las neuronas biológicas trabajan juntas para identificar fenómenos, analizar opciones y llegar a conclusiones.
+    \hfill \break
+    \hfill \break
+    Cada red neuronal consta de capas de nodos o neuronas artificiales: una capa de entrada, una o más capas ocultas y una capa de salida. Cada nodo se conecta a otros y tiene su propia ponderación y umbral asociados. Si la salida de cualquier nodo individual está por encima del valor del umbral especificado, ese nodo se activa y envía datos a la siguiente capa de la red. De lo contrario, no se pasa ningún dato a la siguiente capa de la red.
+    \hfill \break
+    \hfill \break
+    \item Algoritmos de Clustering (K-Means y DBSCAN): Técnica de aprendizaje que se utiliza en análisis de datos y minería de datos. Su objetivo es agrupar un conjunto de datos en grupos o clústeres que compartan características similares entre sí, pero sean diferentes de los grupos vecinos.
+\end{itemize}
+\hfill \break
+\subsubsection{Algoritmos}
+\hfill \break
+\begin{itemize}
+\item  K-means: Es un algoritmo de agrupamiento iterativo, el cual esta basado en centroides que dividen un conjunto de datos en grupos similares, en función de la distancia entre sus centroides. \\
+El centroide, o centro del clúster, es la media o la mediana de todos los puntos dentro del clúster, según las características de los datos.
+\hfill \break
+\hfill \break
+-Funcionamiento del Algoritmo Paso a Paso
+\hfill \break
+\hfill \break
+Suponiendo que tenemos los datos de la imagen de abajo, los pasos de ejecución del algoritmo son los siguientes:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.38\textwidth]{image.jpg}
+\captionsetup{justification=centering} % Centra el texto del caption
+  \caption{Datos Iniciales}
+  \label{fig:mi_figura}
+\end{figure}
+
+\begin{enumerate}
+    \item Elección del número de clústers k: Elegir en cuantas agrupaciones queremos segmentar los datos.
+    \hfill \break
+    \item Inicializar las coordenadas de los centroides: Los centroides se inicializan en coordenadas aleatorias. Suponiendo que tenemos k=2, iniciamos dos centroides, uno rojo y otro verde, en puntos aleatorios de los datos.
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.38\textwidth]{Capture.jpg}
+    \captionsetup{justification=centering} % Centra el texto del caption
+      \caption{Inicializacion de Centroides}
+      \label{fig:mi_figura}
+    \end{figure}
+
+    
+    \item Asignamos cada punto a un clúster: Se calcula la distancia de cada punto a cada centroide, y se agrupa con aquel centroide más próximo.
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.38\textwidth]{Capture2.jpg}
+    \captionsetup{justification=centering} % Centra el texto del caption
+      \caption{Asignacion de Clusters}
+      \label{fig:mi_figura}
+    \end{figure}
+
+    
+    \item Se recalculan los centroides de los clústers: Una vez tenemos todos los puntos asignados a un clúster, se recalculan los centroides de manera que vuelven a ser los centros de cada clúster.
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.38\textwidth]{Capture3.jpg}
+    \captionsetup{justification=centering} % Centra el texto del caption
+      \caption{Ajuste de los Clusters}
+      \label{fig:mi_figura}
+    \end{figure}
+
+    \item Se repiten los pasos 3 y 4 hasta que se llega al criterio de parada: El proceso de asignar cada punto a un clúster y calcular los centros se repite hasta que se cumple el criterio de parada. \\
+    Entre las principales causas para cumplir el criterio de parada, se encuentran:
+    \begin{itemize}
+    \item Los centroides dejan de cambiar.
+    \item Los puntos dejan de cambiar de clúster.
+    \item Límite de iteraciones.
+    \end{itemize}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.38\textwidth]{Capture4.jpg}
+    \captionsetup{justification=centering} % Centra el texto del caption
+      \caption{Resultado de Clusterizacion}
+      \label{fig:mi_figura}
+    \end{figure}
+    \end{enumerate}
+
+\hfill \break
+\begin{algorithm}
+\caption{k-means clustering}
+\begin{algorithmic}[1]
+    \State \textbf{Initialise} Cluster Centers
+    \For{each iteration $l$}
+        \State Compute $r_{nk}$:
+        \For{each data point $x_n$}
+            \State Assign each data point to a cluster:
+            \For{each cluster $k$}
+                \If{$k == \arg\min \| x_n - \mu_k^{l-1} \|$}
+                    \State $r_{nk} = 1$
+                \Else
+                    \State $r_{nk} = 0$
+                \EndIf
+            \EndFor
+        \EndFor
+        \For{each cluster $k$}
+            \State Update cluster centers as the mean of each cluster:
+            \State $\mu_k^l = \frac{\sum r_{nk} x_n}{\sum r_{nk}}$
+        \EndFor
+    \EndFor
+\end{algorithmic}
+\end{algorithm}
+\end{itemize}
+
+\subsubsection{Aplicaciones}
+\hfill \break
+Gracias al desarrollo de la IA Débil, se han llegado a implementar diversos sistemas, basados en este enfoque como:
+\hfill \break
+\begin{itemize}
+    \item Reconocimiento de Imágenes y Visión por Ordenador: Modelos como la visión por computador, que son expertos en tareas como la clasificación de imágenes, la segmentación de instancias y el seguimiento de objetos. Estos potencian aplicaciones que van desde la visión informática en la agricultura hasta la mejora de los sistemas de seguridad.
+    \hfill \break
+    \item Asistentes virtuales: Los chatbots como Siri y Alexa que entienden y responden al lenguaje natural dentro de dominios específicos, pero carecen de una comprensión más amplia o de capacidad conversacional general.
+    \hfill \break
+    \item Sistemas de recomendación: Plataformas como Netflix y Amazon utilizan IA débil para analizar los datos de los usuarios y ofrecer recomendaciones personalizadas de películas, productos o contenidos. Estos sistemas están diseñados para optimizar la participación del usuario dentro del ecosistema de la plataforma.
+    \hfill \break
+    \item Filtros de spam: Los filtros de spam de correo electrónico, ya que utilizan algoritmos para identificar y filtrar correos electrónicos no deseados basándose en patrones y palabras clave, realizando una tarea de clasificación específica.
+    \hfill \break
+    \item Vehículos autónomos: Los coches autónomos utilizan IA débil para tareas como el mantenimiento del carril, la detección de objetos(peatones, otros vehículos) y la navegación. A pesar de que son sofisticados, estos sistemas se centran estrictamente en las tareas de conducción.
+\end{itemize}
+
+\subsubsection{Ejemplos}
+ \hfill \break
+Algunos de los sistemas más utilizados que emplean el enfoque de IA Débil se centran en resolver tareas específicas sin poseer una comprensión real o generalizada del entorno.
+ \\
+Algunos ejemplos principales de estos son:
+\begin{itemize}
+\item Siri (Asistente Virtual):
+Asistente de voz basado en inteligencia artificial que responde preguntas, ejecuta comandos y realiza tareas simples como establecer recordatorios o enviar mensajes.
+\\
+Su principal limitación es que no comprende a profundidad el significado o contexto de la conversación, es decir que solo esta basado en comandos predefinidos. 
+\hfill \break
+\hfill \break
+\item Tesla Autopilot (Conducción Autónoma):
+El sistema Autopilot de Tesla usa IA para asistir en la conducción, manteniendo el vehículo en el carril, ajustando la velocidad y reaccionando ante obstáculos.
+\\
+Su principal limitación es que no es completamente autónomo, por lo que requiere de supervisión humana, debido a que no comprende el contexto en el que se encuentra.
+\hfill \break
+\hfill \break
+\item AlphaGo (Inteligencia Artificial en Juegos de Mesa):
+AlphaGo es un sistema de IA diseñado para jugar al juego de mesa Go, el cual fue capaz de derrotar a los mejores jugadores humanos del mundo.
+\\
+Su principal limitación es que no puede realizar otras funciones fuera del rol en el juego GO.
+\end{itemize}
+\subsection{IA Fuerte}
+\subsubsection{Definición Conceptual}
+\hfill \break
+Es un concepto teórico, que se refiere a un tipo de IA capaz de emular el razonamiento humano, permitiéndole adaptarse a diversas situaciones en base a los datos recolectados de su entorno, como también de los conocimientos previos obtenidos.
+A diferencia de la IA Debil, no se limitaría solo a realizar tareas especificas, sino a aplicar su conocimiento en diversos dominios sin la intervención humana, gracias a sus capacidades cognitivas avanzadas.
+\hfill \break
+\hfill \break
+\subsubsection{Origen y Primer Modelo}
+\hfill \break
+El concepto de IA fuerte fue planteado por primera vez en 1980, en el famoso experimento mental conocido como "Habitacion China", elaborado por John Searle, donde se argumentaba que una máquina podría procesar símbolos sin realmente "entenderlos". 
+Cabe recalcar que aunque no existe aun un modelo funcional de IA Fuerte, uno de los primeros intentos teóricos fue el proyecto CYC, iniciado en 1984 por Douglas Lenat.
+\hfill \break
+Este proyecto trataba de desarrollar una base de conocimiento general, que sea capaz de razonar como el ser humano, aunque hasta el día de hoy no existe un sistema que emule al 100 cien por ciento la lógica del hombre.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.38\textwidth]{habitacionchina-0000.jpg}
+    \captionsetup{justification=centering} % Centra el texto del caption
+      \caption{Habitacion China}
+      \label{fig:mi_figura}
+    \end{figure}
+    \end{enumerate}
+El experimento de la habitación china básicamente se basa en imaginar que un individuo está encerrado en una habitación y que a través de una rendija, alguien le pasa preguntas en mandarín escritas en un papel.
+\hfill \break
+\hfill \break
+Sin embargo, la persona no habla ese idioma. Pero, tiene un manual con instrucciones que entiende perfectamente, ya que está escrito en su lengua.
+Allí están las respuestas a todos los mensajes en mandarín que le llegan a través de la rendija, así que cuando los recibe, busca las respuestas correspondientes en el manual y las devuelve a través de la misma rendija.\\
+La persona que está haciendo las preguntas desde fuera de la habitación y que habla mandarín, pensará que quien está dentro también habla el idioma y que están sosteniendo una conversación.
+\hfill \break
+\hfill \break
+No obstante,como demuestra el experimento, el individuo que está en el cuarto no entiende lo que está diciendo porque no sabe ni lo que le están preguntando ni lo que está respondiendo.
+\hfill \break
+\subsubsection{Fundamentos y Arquitectura}
+\hfill \break
+Trata de emular el pensamiento humano a través del uso diversas técnicas o algoritmos avanzados.
+Sin embargo, aun no hay una IA que tenga la capacidad del razonamiento humano para ser considerada como Fuerte, por lo que actualmente se continua realizando avances a través de potenciales algoritmos como lo son:
+
+\begin{itemize}
+    \item Redes Neuronales Recurrentes (RNN): Es una red neuronal profunda, que se entrena con datos secuenciales o de series temporales, con la finalidad de crear un modelo de machine learning (ML) que pueda hacer predicciones o conclusiones secuenciales basándose en entradas secuenciales.\\
+    Esta técnica también se la puede emplear para predecir los niveles diarios de inundación basándose en los datos diarios anteriores sobre inundaciones, mareas y meteorología. Pero, también se pueden utilizar para resolver problemas ordinales o temporales, como la traducción de idiomas, el procesamiento del lenguaje natural (PLN), el análisis de sentimientos, el reconocimiento de voz y el subtitulado de imágenes.
+    \hfill \break
+    \item Transformers (GPT, BERT): Tipo de arquitectura de red neuronal, que permite transformar o cambiar una secuencia de entrada en una secuencia de salida. Para lo cual, aprenden el contexto y rastrean las relaciones entre los componentes de la secuencia. \\ 
+    Por ejemplo, si se considera la secuencia de entrada: “¿De qué color es el cielo?”. El modelo transformador usa una representación matemática interna que identifica la relevancia y la relación entre las palabras color, cielo y azul. Permitiéndole usar esa información para generar el resultado: “El cielo es azul”. 
+    \hfill \break
+    \item Aprendizaje por refuerzo profundo (DQN, PPO): Es una técnica de machine learning que combina el aprendizaje por refuerzo con redes neuronales profundas (deep learning).
+    \hfill \break
+    En el aprendizaje por refuerzo profundo, un agente aprende a tomar decisiones a través de la retroalimentación recibida del entorno, pero en lugar de utilizar técnicas de aprendizaje clásicas, se utiliza una red neuronal profunda para aprender la política de decisión óptima. La red neuronal profunda toma como entrada los datos del entorno y produce como salida la acción que el agente debe tomar en ese momento.
+\end{itemize}
+\hfill \break
+\subsubsection{Algoritmos}
+\hfill \break
+\begin{itemize}
+    \item Algoritmo de Deep Q-Learning: Es un algoritmo de aprendizaje por refuerzo, basado en la idea de aprendizaje mediante ensayo y error.\\ 
+    Su principal objetivo es descubrir la estrategia óptima que guía las acciones del agente para maximizar el valor esperado de las recompensas futuras. El agente aprende a estimar el valor de cada acción posible en un estado específico.  
+    \hfill \break
+    \hfill \break
+    -Funcionamiento del Algoritmo Paso a Paso:
+    \hfill \break
+    \hfill \break
+    Supongamos que le damos a Bob una mesa. Las columnas representan las acciones disponibles, mientras que cada fila asigna la acción a un estado concreto del espacio de estados.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.38\textwidth]{image_ced34750d9 (1).jpg}
+    \captionsetup{justification=centering} % Centra el texto del caption
+      \caption{Inicializacion de Centroides}
+      \label{fig:mi_figura}
+    \end{figure}
+
+\begin{enumerate}
+    \item Al principio, se llena la tabla con ceros, que representan los valores Qiniciales ;por eso la llamamos tabla Q.
+     \hfill \break
+    \item A continuación, se inicia un bucle de interacción desde el estado por defecto (el inicio de un episodio). En el bucle, Bob realiza la acción con el valor Q más alto para el estado dado. Sin embargo, en la primera pasada por el bucle, no habrá ningún valor Q más alto para guiar la acción de Bob, ya que todos los valores Q son inicialmente cero.
+    Aquí es donde entran en juego las estrategias de exploración (como la exploración aleatoria o la epsilon-greedy). Estas estrategias ayudan a Bob a reunir información cuando la tabla Q está vacía.
+     \hfill \break
+    \item Una vez actualizada la tabla Q, Bob vuelve a iniciar un bucle de interacción. La acción que realiza da como resultado una recompensa y un nuevo estado. A continuación, se calculan nuevos valores Q para cada acción que Bob pueda realizar en el nuevo estado.
+     \hfill \break
+    \item El episodio continúa hasta su finalización (Bob puede dar cualquier número de pasos en cada episodio), y entonces se vuelve a empezar. Cada episodio posterior tendrá una tabla Q más rica, haciendo a Bob más inteligente.
+\end{enumerate}
+\end{itemize}
+\hfill \break
+\begin{algorithm}
+\caption{Deep Q-Learning Algorithm}
+\begin{algorithmic}[1]
+\State \textbf{Inicializar} la red neuronal Q con pesos $\theta$
+\State \textbf{Inicializar} la red objetivo Q' con pesos $\theta' = \theta$
+\State \textbf{Inicializar} la memoria de experiencia vacía
+
+\For{cada episodio}
+    \State Inicializar el estado $s$
+    \For{cada paso de tiempo $t$}
+        \State Seleccionar una acción $a$ usando una política $\epsilon$-greedy basada en $Q(s,a;\theta)$
+        \State Ejecutar la acción $a$ y observar la recompensa $r$ y el nuevo estado $s'$
+        \State Almacenar la transición $(s, a, r, s')$ en la memoria de experiencia
+        \State \textbf{Si} la memoria tiene suficientes muestras:
+            \State \quad Extraer un minibatch aleatorio de transiciones $(s_j, a_j, r_j, s'_j)$
+            \State \quad Calcular el valor objetivo:
+            \State \quad \quad $y_j = r_j + \gamma \max_{a'} Q'(s'_j, a'; \theta')$
+            \State \quad Actualizar la red Q minimizando la pérdida:
+            \State \quad \quad $L(\theta) = \frac{1}{N} \sum_j (y_j - Q(s_j, a_j; \theta))^2$
+        \State Copiar los pesos de Q en Q' periódicamente: $\theta' \gets \theta$
+        \State $s \gets s'$
+    \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+\hfill \break
+\subsubsection{Aplicaciones}
+\hfill \break
+El desarrollo de nuevos sistemas bajo el enfoque de la IA Fuerte, permitiría revolucionar diversos procedimientos que se realizan en multiples ares, estando entre estas:
+\hfill \break
+\begin{itemize}
+    \item Industria Automotriz: En el desarrollo de vehículos autónomos, ya que estos sistemas no solo deben realizar tareas específicas, como mantener la velocidad o evitar obstáculos, sino que también necesitan comprender el entorno de conducción en su totalidad y tomar decisiones complejas en tiempo real.
+    \\
+    Esto incluye anticipar el comportamiento de otros conductores, gestionar situaciones de emergencia y optimizar la ruta para mejorar la eficiencia energética.
+    \hfill \break
+    \item Optimización de Procesos Industriales: Permitir gestionar sistemas complejos, optimizando procesos de producción y distribución sin intervención humana.
+    Un ejemplo podría ser una cadena de suministro que utiliza IA fuerte para gestionar inventarios, predecir la demanda y ajustar la producción en función de las condiciones del mercado.
+    \\
+    Esto no solo mejora la eficiencia, sino que también reduce costos y tiempos de entrega, lo que puede ser crucial en mercados altamente competitivos.
+    \hfill \break
+    \item Medicina: Permitir revolucionar el diagnóstico y el tratamiento de enfermedades.
+    Por ejemplo, los sistemas de IA que pueden analizar imágenes médicas con una precisión comparable a la de los mejores especialistas humanos están comenzando a emerger.
+    Estos sistemas pueden reconocer patrones en datos que podrían pasar desapercibidos para los médicos, permitiendo diagnósticos más rápidos y precisos.
+    \\
+    Además, la IA fuerte podría asistir en la creación de tratamientos personalizados, optimizando medicamentos y terapias para maximizar la eficacia y minimizar los efectos secundarios.
+    \hfill \break
+    \item Investigación Científica: Permitir acelerar el descubrimiento de nuevos materiales, medicamentos y tecnologías, ya que los sistemas de IA Fuerte pueden analizar enormes volúmenes de datos experimentales, identificar patrones complejos y generar hipótesis nuevas que los científicos pueden explorar.
+    \\
+    Este enfoque puede acortar significativamente el tiempo que lleva desarrollar nuevas innovaciones, llevando la ciencia a nuevas alturas.
+\end{itemize}
+\hfill \break
+\subsubsection{Ejemplos}
+\hfill \break
+Actualmente, las inteligencias artificiales que las personas y empresas están usando son consideradas como IA Debiles, por lo que de momento no se creo un sistema con el enfoque de IA Fuerte que permita emular el razonamiento humano.
+\subsection{Diferencias entre características}
+\begin{itemize}
+\item \textbf{Algoritmos principales}
+\begin{itemize}
+\item \textbf{IA Débil:} Regresión, clustering, redes neuronales artificiales.
+\item \textbf{IA Fuerte:} Aprendizaje profundo con redes neuronales avanzadas , razonamiento simbólico, transformers (GPT, BERT).
+\end{itemize}
+\item \textbf{Capacidad de adaptación}
+\begin{itemize}
+\item \textbf{IA Débil:} Limitada a un conjunto de reglas predefinidas al momento de ser programada o entrenada.
+\item \textbf{IA Fuerte:} Capaz de aprender de su entorno, analizar la situación y adaptarse, permitiéndole evolucionar constantemente.
+\end{itemize}
+\item \textbf{Independencia cognitiva}
+\begin{itemize}
+\item \textbf{IA Débil:} No puede realizar operaciones o funciones fuera de su dominio específico o programación.
+\item \textbf{IA Fuerte:} Puede realizar tareas generales con razonamiento, teniendo conciencia y autonomía sobre si misma.
+\end{itemize}
+\item \textbf{Almacenamiento y Mejora del Conocimiento}
+\begin{itemize}
+\item \textbf{IA Débil:} Posee memoria a corto plazo y requiere entrenamientos constantes para mejorar su rendimiento.
+\item \textbf{IA Fuerte:} Es capaz de aprender de manera continua, almacenar conocimiento y optimizar su desempeño con el tiempo.
+\end{itemize}
+\item \textbf{Toma de decisiones}
+\begin{itemize}
+\item \textbf{IA Débil:} Basada en patrones y reglas establecidas.
+\item \textbf{IA Fuerte:} Capaz de inferir y crear nuevas reglas por sí misma, en base a información previamente obtenida, conocida como premisas.
+\end{itemize}
+\end{itemize}
+
+\section{Conclusiones}
+\begin{itemize}
+    \item La inteligencia artificial esta clasificada en IA Débil y IA Fuerte, dependiendo su capacidad de procesamiento, adaptabilidad y análisis.
+    Existen múltiples sistemas desarrollados con el enfoque de la inteligencia artificial, los cuales actualmente son considerados como IA Debil o Estrecha, ya que no emulan el razonamiento humano al 100 por ciento.
+    \hfill \break
+    \item La inteligencia artificial Débil se fue desarrollando desde épocas pasadas, surgiendo con el primer chatbot conocido como ELIZA, el cual emitía una sensación de mantener una conversación con un ser humano, dando ese sentimiento de que en realidad la maquina entendía el contexto.
+    \hfill \break
+    \item Cada tipo de IA posee sus propios algoritmos de desarrollo, los cuales les permiten analizar grandes cantidades de información para realizar posteriormente análisis y predicciones.
+    \\
+    Un algoritmo muy utilizado en el entrenamiento de la IA Débil es el algoritmo de K-means, el cual le permite clasificar los datos en clusters o conjuntos, permitiendo hallar patrones o relaciones entre estos.
+    Por otro lado, el algoritmo de Deep Q-Learning que es ampliamente utilizado en el desarrollo de IA Fuerte, permite analizar diversos estados en una tabla, con la finalidad de encontrar una solución optima al problema.
+    \hfill \break
+    \item Actualmente, la IA Débil es muy utilizada en diversos campos como los chatbots, los videojuegos, la conducción automática. Sin embargo, todos estos al estar limitados por su conjunto de instrucciones, requieren de la supervisión humana.
+    \\
+    Por otro lado, aun no existen sistemas empleados con el enfoque de IA Fuerte, ya que siguen en proceso de desarrollo, pero que llegado el momento de su implementación, revolucionaran los procesos en múltiples áreas como la industria, medicina, etc.
+\end{itemize}
+\begin{itemize}
+   
+
+\end{itemize}
+
+\end{document}

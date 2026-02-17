@@ -1,0 +1,851 @@
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\usepackage{geometry} 
+\geometry{
+  left=1.5cm,          % Margen izquierdo (ajusta este valor)
+  right=1.5cm,         % Margen derecho (ajusta este valor)
+  top=2cm,             % Margen superior
+  bottom=2cm,          % Margen inferior
+}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+\pagestyle{plain}
+
+% Configuración de párrafos: sin sangría y con espacio entre párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2.5ex}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{MÍNIMOS CUADRADOS}
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+\date{\today}
+
+\begin{abstract}
+\hfill \break
+La representación gráfica de los datos es una herramienta útil para comprender el comportamiento de un fenómeno determinista. En este trabajo, se busca determinar funciones a partir de datos experimentales utilizando el método de mínimos cuadrados, con la finalidad de obtener la ecuación de la mejor recta a partir de los pares ordenados (x,y), es decir de los datos simulados.
+\hfill \break
+\hfill \break
+Además, se implementa el método de linealizacion por cambio de variable o logaritmos de base 10 para aquellas curvas no lineales, con el objetivo de obtener una ecuación de una recta teórica que atraviesa la nube de puntos en los diversos tests. Estos tests ayudan a determinar si la correlación es perfectamente lineal o no lineal, presentando cierta dispersión entre los datos.
+\begin{description}
+\item[Palabras clave]Gráfica, Escalas lineales, Escalas no lineales, Relación lineal, Relación no lineal, Linealización, Cambio de variable, Logaritmos, Mínimos cuadrados.  
+\end{description}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\label{sec:introduccion}
+Los datos presentados en este informe, son una extensión del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, presentado durante el curso de laboratorio de física general del departamento de Física, cabe mencionar que se trabajo con análisis básicos para la presentación final de datos, mediante representaciones gráficas linealizadas.
+
+En un laboratorio se comparan los resultados de los experimentos con fórmulas teóricas, es decir, se comprueba si las medidas concuerdan con los valores que predice la teoría.
+
+Las mediciones siempre están afectadas por errores y para determinar con precisión el grado de concordancia es preciso efectuar cálculos estadísticos.
+
+Esta tarea no siempre es fácil y en ciertos experimentos el análisis matemático de los datos puede ser muy complejo. Sin embargo, para los casos sencillos existen fórmulas de gran utilidad práctica, como es el método de los mínimos cuadrados.
+
+\begin{itemize}
+\item \textbf{Mínimos Cuadrados:} Son una técnica estadística que permite encontrar la mejor línea de ajuste entre un conjunto de datos, reduciendo al mínimo la suma de las distancias entre los puntos y la línea. Esto puede utilizarse para hacer predicciones y para analizar la relación entre dos o más variables.
+\end{itemize}
+
+Aunque todavía no había revelado su método, Gauss había descubierto el método de mínimos cuadrados. 
+
+En un trabajo brillante logró calcular la órbita de Ceres a partir de un número reducido de observaciones, de hecho, el método de Gauss requiere sólo un mínimo de 3 observaciones y todavía es, en esencia, el utilizado en la actualidad para calcular las órbitas, tal como lo expresa Sergio A. Cruces Álvarez \cite{Sergio}.
+
+El método de mínimos cuadrados asume que, al fijar las condiciones experimentales, los valores yi de la variable independiente se conocen con precisión absoluta (esto generalmente no es así, pero lo aceptamos como esencial en el método).
+
+Sin embargo, las mediciones de la variable x, irán afectadas de sus errores correspondientes, tal y como lo indica Torrelavega \cite{Torrelavega}.
+
+Asimismo, mediante el método de mínimos cuadrados también es posible determinar el coeficiente de correlación.
+\begin{itemize}
+\item \textbf{Coeficiente de correlación:} Es una medida estadística que indica el grado de relación o asociación entre dos variables. Este coeficiente toma valores entre -1 y 1, donde 0 indica ausencia de relación y valores cercanos a 1 o -1 indican una alta correlación positiva o negativa, respectivamente. 
+
+También puede ser utilizado para analizar la relación entre variables cuantitativas, pero no es adecuado para variables cualitativas. También es importante tener en cuenta que una correlación alta no necesariamente implica causalidad entre las variables. 
+\end{itemize}
+
+\section{Objetivo y planteamiento del problema}
+El presente trabajo busca determinar con mayor exactitud mediante la aplicación del método de mínimos cuadrados la pendiente conocida como parámetro B y la ordenada al origen como parámetro A en las ecuaciones linealizadas, obtenidas mediante la aplicación de métodos de linealizacion por cambio de variable o propiedades de logaritmos a las diversas curvas no lineales en cada uno de los tests en el trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+
+Permitiendo obtener una línea recta que pasa lo más cerca posible de todos los datos. Esta línea puede utilizarse para predecir los valores de una variable a partir de otra, o para hacer inferencias sobre la relación entre ellas.
+
+Asimismo, se llega a calcular los errores estimados del parámetro A y B, como también el coeficiente de correlación para saber el grado de ajuste de la recta a la nube de puntos en los diversos tests.
+
+Posteriormente, se procede a representar gráficamente la recta teórica para una mejor observación de su ajuste a los puntos de los datos simulados, como también de las desviaciones en el eje de las ordenadas $"Y"$ respecto a la linea teórica y así determinar si existe una correlación lineal perfecta o no entre la variable dependiente e independiente.
+
+\section{Método}
+\label{sec:met}
+\textbf{Recta Teórica}
+\begin{gather}
+y=A+B \times x
+\label{ec:1}
+\end{gather} 
+
+\textbf{Relaciónes Potenciales Simples}
+\begin{gather} 
+Parabola: y=a \times x^2 
+\label{ec:2}\\ \notag \\ 
+Hiperbola:y=a \times x^{-1}
+\label{ec:3} \\ \notag \\ 
+Cubica:y=a \times x^3
+\label{ec:4} \\ \notag \\ 
+Recta:y=a \times x^1
+\label{ec:5} 
+\end{gather}
+
+\textbf{Pendiente y Ordenada de la Recta}
+\begin{gather}
+A= \tfrac{\sum Yi \times \sum Xi^2-\sum Xi Yi  \times \sum Xi}{\Delta} 
+\label{ec:6} \\ \notag \\ 
+B= \tfrac{n \times \sum Xi Yi- \sum Xi \times \sum Yi}{\Delta}
+\label{ec:7} \\ \notag \\ 
+\Delta=n \sum Xi^2-(\sum Xi)^2
+\label{ec:8}
+\end{gather}
+
+\textbf{Desviación Individual}
+\begin{gather}
+d_i=Yi-Yi'
+\label{ec:9}
+\end{gather}
+
+\textbf{Errores Estimados para A y B}
+\begin{gather}
+\sigma^2=\tfrac{\sum d_i^2}{n-2}
+\label{ec:10} \\ \notag \\ 
+\sigma_A= \sqrt{\tfrac{\sigma^2 \sum Xi^2}{\Delta}}
+\label{ec:11} \\ \notag \\ 
+\sigma_B= \sqrt{\tfrac{\sigma^2 n}{\Delta}}
+\label{ec:12}
+\end{gather}
+
+\textbf{Coeficiente de correlación}
+\begin{gather}
+r=\tfrac{n(\sum XY)-(\sum X) (\sum Y)}{\sqrt{[n (\sum X^2)-(\sum X)^2] [n (\sum Y^2)-(\sum Y)^2]}}
+\label{ec:13}
+\end{gather}
+
+\subsection{Relación Posición-Tiempo}
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.
+
+$X$= Tiempo[s]
+
+$Y$=Distancia [m]:X1,X2,X3,X4,X5
+
+Obteniendo histograma de la representación de los datos en el sistema cartesiano a base de escalas no lineales en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen1.png}
+\caption{\centering Nube de puntos entre el tiempo y los diferentes conjuntos de datos experimentales de las distancias tomadas en cada test}
+\label{Figura1}
+\end{figure} 
+
+Obteniendo histograma de la curva de ajuste que mejor represente a la nube de puntos en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, dando como resultado múltiples regresiones no lineales, cuya representación es una curva no lineal perteneciente a una parábola con la forma de la Ec.\ref{ec:2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen7.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test1 y el test2}
+\label{Figura2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen8.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test3 y el test4}
+\label{Figura3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics [scale=0.7]{Imagen9.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test5}
+\label{Figura4}
+\end{figure}
+
+Obteniendo histogramas de la linealizacion de las curvas no lineales en cada test del trabajo de graficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, mediante el método de cambio de variable, donde $z=t^2$, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen13.png}
+\caption{\centering Linealización de las curvas del test1 y el test2}
+\label{Figura5}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen14.png}
+\caption{\centering Linealización de las curvas del test3 y el test4}
+\label{Figura6}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen15.png}
+\caption{\centering Linealización de la curva del test5}
+\label{Figura7}
+\end{figure}
+
+Obteniendo las ecuaciones en cada test de la forma Ec.\ref{ec:1}, del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+
+\textbf{Ecuación Linealizada Mediante Gráficos y Ecuaciones} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & 0.54  & 3.38 & $X=0.54+3.38z$ & $X=0.54+3.38t^2$\\
+\hline
+Test2 &  0.078 & 7.51  & $X=0.078+7.51z$ & $X=0.078+7.51t^2$\\
+\hline
+Test3 & -1.23  & 9.36 & $X=0.078+7.51z$ & $X=0.078+7.51t^2$\\
+\hline
+Test4 & 0.64  & 9.73 & $X=0.64+9.73z$ & $X=0.64+9.73t^2$\\
+\hline
+Test5 & -0.0084  &  8.31 & $X=-0.0084+8.31z$ & $X=-0.0084+8.31t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test}
+\label{Tabla1}
+\end{table}
+
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva linealizada mediante el cambio de variable, con la finalidad de obtener Delta.
+
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y los datos en la variable dependiente Y y la variable independiente "X" de la curva linealizada, con la finalidad de obtener un valor mas exacto del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.
+
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & 0.54  & 3.38 & $X=0.54+3.38z$ & $X=0.54+3.38t^2$\\
+\hline
+Test2 &  0.078 & 7.51  & $X=0.078+7.51z$ & $X=0.078+7.51t^2$\\
+\hline
+Test3 & -1.23  & 9.36 & $X=-1.23+9.36z$ & $X=-1.23+9.36t^2$\\
+\hline
+Test4 & 0.078  & 7.51 & $X=0.078+7.51z$ & $X=0.078+7.51t^2$\\
+\hline
+Test5 & -0.0084  &  8.31 & $X=-0.0084+8.31z$ & $X=-0.0084+8.31t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test mediante el método de mínimos cuadrados}
+\label{Tabla2}
+\end{table}
+
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva no lineal original y de la curva ya linealizada, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.
+
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado en cada uno de los tests.
+
+\textbf{Sigma al Cuadrado} 
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 22.04\\
+\hline
+Test2 & 55.39\\
+\hline
+Test3 & 72.94\\
+\hline
+Test4 & 55.39\\
+\hline
+Test5 & 79.12\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado en cada uno de los tests}
+\label{Tabla3}
+\end{table}
+
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.
+
+\textbf{Desviación de A y B} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 0.67 & 0.015\\
+\hline
+Test2 & 1.06 & 0.024\\
+\hline
+Test3 & 1.21 & 0.028\\
+\hline
+Test4 & 1.06 & 0.024\\
+\hline
+Test5 &  1.26 & 0.029\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica en cada uno de los tests}
+\label{Tabla4}
+\end{table}
+
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.
+
+\textbf{Coeficiente De Correlación} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & 0.99\\
+\hline
+Test2 & 0.99\\
+\hline
+Test3 & 0.99\\
+\hline
+Test4 & 0.99\\
+\hline
+Test5 & 0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica en cada uno de los tests}
+\label{Tabla5}
+\end{table}
+
+\subsection{Relación Posición-Tiempo N°2}
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.
+
+$X$= Tiempo[s]
+
+$Y$=Distancia [m]:X1,X2,X3,X4,X5
+
+Obteniendo histograma de la representación de los datos en el sistema cartesiano a base de escalas no lineales en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen2.png}
+\caption{\centering Nube de puntos entre el tiempo y los diferentes conjuntos de datos experimentales de las distancias tomadas en cada test}
+\label{Figura8}
+\end{figure} 
+
+Obteniendo histograma de la curva de ajuste que mejor represente a la nube de puntos en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023},dando como resultado múltiples regresiones no lineales, cuya representación es una curva no lineal perteneciente a una parábola con la forma de la Ec.\ref{ec:2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen4.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test1 y el test2}
+\label{Figura9}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen5.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test3 y el test4}
+\label{Figura10}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics [scale=0.7]{Imagen6.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test5}
+\label{Figura11}
+\end{figure}
+
+Obteniendo histogramas de la linealización de las curvas no lineales en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, mediante la aplicación de propiedades de logaritmos, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen16.png}
+\caption{\centering Linelización de las curvas del test1 y el test2}
+\label{Figura12}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen17.png}
+\caption{\centering Linelización de las curvas del test3 y el test4}
+\label{Figura13}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen18.png}
+\caption{\centering Linelización de la curva del test5}
+\label{Figura14}
+\end{figure}
+
+Obteniendo las ecuaciones en cada test de la forma Ec.\ref{ec:1}, del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+
+\textbf{Ecuación Linealizada} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & 0.57  & 2.00 & $X=0.57+2.00z$ & $X=0.57+2.00t^2$\\
+\hline
+Test2 &  0.92 & 2.00 & $X=0.92+2.00z$ & $X=0.92+2.00t^2$\\
+\hline
+Test3 & 0.87  & 2.00 & $X=0.87+ 2.00z$ & $X=0.87+ 2.00t^2$\\
+\hline
+Test4 & 1.01 & 1.99 & $X=1.01+1.99z$ & $X=1.01+1.99t^2$\\
+\hline
+Test5 & 1.15  &  2.00 & $X=1.15+2.00z$ & $X=1.15+2.00t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test}
+\label{Tabla6}
+\end{table}
+
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva linealizada mediante el cambio de variable, con la finalidad de obtener Delta.
+
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y los datos en la variable dependiente Y y la variable independiente "X" de la curva linealizada, con la finalidad de obtener un valor mas exacto del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.
+
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & 0.57 & 2.00 & $X=0.57+2.00z$ & $X=0.57+2.00t^2$\\
+\hline
+Test2 &  0.92 & 2.00 & $X=0.92+2.00z$ & $X=0.92+2.00^2$\\
+\hline
+Test3 & 0.87  & 2.00 & $X=0.87+2.00z$ & $X=0.87+2.00t^2$\\
+\hline
+Test4 & 1.02  & 1.99 & $X=1.02+1.99z$ & $X=1.02+1.99t^2$\\
+\hline
+Test5 & 1.15  &  2.00 & $X=1.15 +2.00z$ & $X=1.15 +2.00t^2$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test mediante el método de mínimos cuadrados}
+\label{Tabla7}
+\end{table}
+
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva no lineal original y de la curva ya linealizada, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.
+
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado en cada uno de los tests.
+
+\textbf{Sigma al Cuadrado} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 0.033\\
+\hline
+Test2 & 6.68\\
+\hline
+Test3 & 107.54\\
+\hline
+Test4 & 14.63\\
+\hline
+Test5 & 1.72\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado en cada uno de los tests}
+\label{Tabla8}
+\end{table}
+
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.
+
+\textbf{Desviación de A y B} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 0.099 & 0.12\\
+\hline
+Test2 & 1.41 & 1.75\\
+\hline
+Test3 & 5.65 & 7.04\\
+\hline
+Test4 & 2.08 & 2.60\\
+\hline
+Test5 &  0.72 & 0.89\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica en cada uno de los tests}
+\label{Tabla9}
+\end{table}
+
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.
+
+\textbf{Coeficiente De Correlación} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & 0.99\\
+\hline
+Test2 & 0.99\\
+\hline
+Test3 & 0.99\\
+\hline
+Test4 & 0.99\\
+\hline
+Test5 & 0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica en cada uno de los tests}
+\label{Tabla10}
+\end{table}
+
+\subsection{Relación Presión-Volumen}
+Identificando la variable dependiente y la variable independiente en el conjunto de datos experimentales.
+
+$X$= Volumen[L]
+
+$Y$=Presión [atm]:P1,P2,P3,P4,P5
+
+Obteniendo histograma de la representación de los datos en el sistema cartesiano a base de escalas no lineales en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen3.png}
+\caption{\centering Nube de puntos entre el volumen y los diferentes conjuntos de datos experimentales de las presiones tomados en cada test}
+\label{Figura15}
+\end{figure} 
+
+Obteniendo histograma de la curva de ajuste que mejor represente a la nube de puntos en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, dando como resultado múltiples regresiones no lineales, cuya representación es una curva no lineal perteneciente a una hipérbole con la forma de la Ec.\ref{ec:3}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen10.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test1 y el test2}
+\label{Figura16}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen11.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test3 y el test4}
+\label{Figura17}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics [scale=0.7]{Imagen12.png}
+\caption{\centering Trazado de la curva no lineal en la nube de puntos del test5}
+\label{Figura18}
+\end{figure}
+
+Obteniendo histogramas de la linealización de las curvas no lineales en cada test del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}, mediante el método de cambio de variable, donde $z=V^{-1}$, con la finalidad de obtener una ecuación de la forma Ec.\ref{ec:5}, conocida como linea teórica.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen19.png}
+\caption{\centering Linealización de las curvas del test1 y el test2}
+\label{Figura19}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen20.png}
+\caption{\centering Linealización de las curvas del test3 y el test4}
+\label{Figura20}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{Imagen21.png}
+\caption{\centering Linealización de la curva del test5}
+\label{Figura21}
+\end{figure}
+
+Obteniendo las ecuaciones en cada test de la forma Ec.\ref{ec:1}, del trabajo de gráficos y ecuaciones, realizado por Mateo Merino Vidal \cite{202301308Prt0230032023}.
+
+\textbf{Ecuación Linealizada Mediante Gráficos y Ecuaciones} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & -0.0047  & 2.17 & $P=-0.0047+2.17z$ & $P=-0.0047+2.17/V$\\
+\hline
+Test2 &  -0.0066 & 0.52 & $P=-0.0066+0.52z$ & $P=-0.0066+0.52/V$\\
+\hline
+Test3 & 0.010  & 2.24 & $P=0.010+ 2.24z$ & $P=0.010+ 2.24/V$\\
+\hline
+Test4 & -0.022 &  2.25 & $P=-0.022+2.25z$ & $P=-0.022+2.25/V$\\
+\hline
+Test5 & -0.034  &  2.79 & $P=-0.034+2.79z$ & $P=-0.034+2.79/V$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test}
+\label{Tabla11}
+\end{table}
+
+Aplicando Ec.\ref{ec:8}, utilizando los datos en la variable dependiente Y y la variable independiente X de la curva linealizada mediante el cambio de variable, con la finalidad de obtener Delta.
+
+Posteriormente aplicando Ec.\ref{ec:6} y Ec.\ref{ec:7}, utilizando el valor de Delta anteriormente calculado y los datos en la variable dependiente Y y la variable independiente "X" de la curva linealizada, con la finalidad de obtener un valor mas exacto del parámetro A conocido como ordenada y del parámetro B conocido como pendiente.
+
+\textbf{Ecuación Linealizada Mediante Mínimos Cuadrados} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{Test} & A & B & Ec.Temporal & Ec.Original\\
+\hline
+Test1 & -0.0047 & 2.17 & $P=-0.0047+2.17z$ & $P=-0.0047+2.17/V$\\
+\hline
+Test2 &  -0.0066 & 0.52 & $P=-0.0066+0.52z$ & $P=-0.0066+0.52/V$\\
+\hline
+Test3 & 0.010  & 2.24 & $P=0.010+ 2.24z$ & $P=0.010+ 2.24/V$\\
+\hline
+Test4 & -0.022 &  2.25 & $P=-0.022+2.25z$ & $P=-0.022+2.25/V$\\
+\hline
+Test5 & -0.034 &  2.79 & $P=-0.034+2.79z$ & $P=-0.034+2.79/V$\\
+\hline
+\end{tabular}
+\caption{\centering Ecuación linealizada de las relaciones entre la variable independiente y la variable dependiente en cada test mediante el método de mínimos cuadrados}
+\label{Tabla12}
+\end{table}
+
+Aplicando Ec.\ref{ec:9}, utilizando los valores de la variable dependiente Y de la curva no lineal original y de la curva ya linealizada, con la finalidad de obtener las desviaciones individuales de cada dato respecto al eje Y.
+
+Posteriormente aplicando Ec.\ref{ec:10}, utilizando los datos de las desviaciones individuales de cada dato calculadas anteriormente, con la finalidad de obtener el valor de sigma al cuadrado en cada uno de los tests.
+
+\textbf{Sigma al Cuadrado} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $\sigma^2$\\
+\hline
+Test1 & 0.0015\\
+\hline
+Test2 & 0.00043\\
+\hline
+Test3 & 0.0018\\
+\hline
+Test4 & 0.00098\\
+\hline
+Test5 & 0.011\\
+\hline
+\end{tabular}
+\caption{\centering Valor de Sigma al Cuadrado en cada uno de los tests}
+\label{Tabla13}
+\end{table}
+
+Aplicando Ec.\ref{ec:11} y Ec.\ref{ec:12}, utilizando el valor de Delta anteriormente obtenido y los valores en la variable independiente X y la variable dependiente Y linealizadas, con la finalidad de obtener la desviación de la pendiente B y la ordenada A en la linea teórica.
+
+\textbf{Desviación de A y B} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+{Test} &  Desviación de A &  Desviación de B\\
+\hline
+Test1 & 0.020 & 0.028\\
+\hline
+Test2 & 0.010 & 0.015\\
+\hline
+Test3 & 0.021 & 0.030\\
+\hline
+Test4 & 0.016 & 0.022\\
+\hline
+Test5 &  0.054 & 0.076\\
+\hline
+\end{tabular}
+\caption{\centering Desviación de la pendiente B y la ordenada A de la linea teórica en cada uno de los tests}
+\label{Tabla14}
+\end{table}
+
+Aplicando Ec.\ref{ec:13}, utilizando los valores en la variable dependiente X y la variable independiente Y linealizadas, con la finalidad de obtener el coeficiente de correlación de la linea teórica.
+
+\textbf{Coeficiente De Correlación} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{Test} &  $r$\\
+\hline
+Test1 & 0.99\\
+\hline
+Test2 & 0.99\\
+\hline
+Test3 & 0.99\\
+\hline
+Test4 & 0.99\\
+\hline
+Test5 & 0.99\\
+\hline
+\end{tabular}
+\caption{\centering Valor del coeficiente de correlación de la linea teórica en cada uno de los tests}
+\label{Tabla15}
+\end{table}
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{Relación Posición-Tiempo}
+Se evidencia de la Fig.\ref{Figura1} que todos los tests poseen diversas nubes de puntos.
+
+Asimismo, se observa que al graficar las curvas no lineales que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura2}, Fig.\ref{Figura3}, Fig.\ref{Figura4}, el comportamiento de los datos simulados sigue la ecuación de una parábola con Ec.\ref{ec:2} en cada uno de los tests.
+
+Demostrando que la correlación en cada uno de los tests entre la Distancia(variable dependiente) y el Tiempo(variable independiente) no es lineal como también se observa que ambas variables son directamente proporcionales, por lo cual se aplica el método de linealización por cambio de variable, dando como resultado una recta teórica con ordenada al origen A y pendiente B en cada uno de los tests. 
+
+Sin embargo, al determinar los valores de A y B mediante el método de gráficos y ecuaciones, presente en la Tabla.\ref{Tabla1} y por otro lado mediante mínimos cuadrados, presente en la Tabla.\ref{Tabla2} se evidencia que los resultados de la pendiente B y la ordenada A de la linea teórica son mucho mas precisos mediante el método de mínimos cuadrados que los obtenidos mediante gráficos y ecuaciones.
+
+Además de que gracias al método de mínimos cuadrados es posible determinar las desviaciones de la pendiente y la ordenada en cada uno de los tests, presentes en la Tabla.\ref{Tabla4},de los cuales se evidencia que el valor de la desviación de A en el primer test es mínima, mientras que el resto de los tests poseen una desviación en A mayor a uno como en el caso del test 4 con un valor de $1.06$, mientras que la desviación en B en cada uno de los tests es mínimo siendo menor a $0.5$ como en el caso del test4 con un valor de $0.024$.
+
+También se evidencia que el grado de correlación en cada uno de los tests presente en la Tabla.\ref{Tabla5} es casi 1, indicando que la linea teórica se ajusta muy bien a los puntos simulados obtenidos, como también se evidencia que al ser graficada en la Fig\ref{Figura5},Fig\ref{Figura6},Fig\ref{Figura7}, se observa en cada test que no todos los puntos están posicionados sobre esta, indicando que la correlación en cada test no es perfectamente lineal.
+
+\subsection{Relación Posición-Tiempo N°2}
+Se evidencia de la Fig.\ref{Figura8} que todos los tests poseen diversas nubes de puntos.
+
+Asimismo, se observa que al graficar las curvas no lineales que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura9}, Fig.\ref{Figura10}, Fig.\ref{Figura11}, el comportamiento de los datos simulados sigue la ecuación de una parábola con Ec.\ref{ec:2} en cada uno de los tests.
+
+Demostrando que la correlación en cada uno de los tests entre la Distancia(variable dependiente) y el Tiempo(variable independiente) no es lineal como también se observa que ambas variables son directamente proporcionales, por lo cual se aplica el método de linealización por aplicación de propiedades de logaritmos, dando como resultado una recta teórica con ordenada al origen A y pendiente B en cada uno de los tests.
+
+Sin embargo, al determinar los valores de A y B mediante el método de gráficos y ecuaciones, presente en la Tabla.\ref{Tabla6} y por otro lado mediante mínimos cuadrados, presente en la Tabla.\ref{Tabla7} se evidencia que los resultados de la pendiente B y la ordenada A de la linea teórica son mucho mas precisos mediante el método de mínimos cuadrados que los obtenidos mediante gráficos y ecuaciones.
+
+Además de que gracias al método de mínimos cuadrados es posible determinar las desviaciones de la pendiente y la ordenada en cada uno de los tests, presentes en la Tabla.\ref{Tabla9},de los cuales se evidencia que el valor de la desviación de A en el primer test es mínima, mientras que el resto de los tests poseen una desviación en A mayor a uno como en el caso del test 4 con un valor de $2.08$, mientras que la desviación de B en el test1 y el test5 es menor a 1 y en los demás tests es mayor como en el caso del test3 con un valor de $5.65$.
+
+También se evidencia que el grado de correlación en cada uno de los tests presente en la Tabla.\ref{Tabla10} es casi 1, indicando que la linea teórica se ajusta muy bien a los puntos simulados obtenidos, como también se evidencia que al ser graficada en la Fig\ref{Figura12},Fig\ref{Figura13},Fig\ref{Figura14}, se observa en cada test que no todos los puntos están posicionados sobre esta, indicando que la correlación en cada test no es perfectamente lineal.
+
+\subsection{Relación Presión-Volumen}
+Se evidencia de la Fig.\ref{Figura15} que todos los tests poseen diversas nubes de puntos.
+
+Asimismo, se observa que al graficar las curvas no lineales que se ajusten mejor a la nube de puntos en la Fig.\ref{Figura16}, Fig.\ref{Figura17}, Fig.\ref{Figura18}, el comportamiento de los datos simulados sigue la ecuación de una hipérbola con Ec.\ref{ec:3} en cada uno de los tests.
+
+Demostrando que la correlación en cada uno de los tests entre la Presión(variable dependiente) y el Volumen(variable independiente) no es lineal como también se observa que ambas variables son inversamente proporcionales, por lo cual se aplica el método de linealización por cambio de variable, dando como resultado una recta teórica con ordenada al origen A y pendiente B en cada uno de los tests.
+
+Sin embargo, al determinar los valores de A y B mediante el método de gráficos y ecuaciones, presente en la Tabla.\ref{Tabla11} y por otro lado mediante mínimos cuadrados, presente en la Tabla.\ref{Tabla12} se evidencia que los resultados de la pendiente B y la ordenada A de la linea teórica son mucho mas precisos mediante el método de mínimos cuadrados que los obtenidos mediante gráficos y ecuaciones.
+
+Además de que gracias al método de mínimos cuadrados es posible determinar las desviaciones de la pendiente y la ordenada en cada uno de los tests, presentes en la Tabla.\ref{Tabla14},de los cuales se evidencia que el valor de la desviación de A en cada uno de los tests es mínimo a $0.5$ como en el caso del test2 con un valor de $0.010$, mientras que la desviación de B en cada uno de los tests también es mínima, como en el caso del test1 con un valor del $0.020$.
+
+También se evidencia que el grado de correlación en cada uno de los tests presente en la Tabla.\ref{Tabla15} es casi 1, indicando que la linea teórica se ajusta muy bien a los puntos simulados obtenidos, como también se evidencia que al ser graficada en la Fig\ref{Figura19},Fig\ref{Figura20},Fig\ref{Figura21}, se observa en cada test que no todos los puntos están posicionados sobre esta, indicando que la correlación en cada test no es perfectamente lineal.
+
+\section{Discusión}
+\label{Sec:Disc}
+Se puede inferir de los gráficos que representan los datos simulados, que existe una correlación entre la variable dependiente e independiente en cada uno de los tests realizados. Además, se puede determinar si esta relación es directamente o inversamente proporcional, dependiendo de la ecuación de la curva.
+
+En adición, al aplicar el método de linealización por cambio de variable o mediante el uso de logaritmos de base 10, es posible obtener la ecuación de una línea teórica con una ordenada al origen A y una pendiente B. 
+
+Esta línea teórica representa la forma linealizada de la curva no lineal trazada a través de las diferentes nubes de puntos para cada correlación entre la variable independiente y la variable dependiente en cada test. Si los puntos de datos están bien ajustados a la línea teórica, se sugiere que la correlación entre las variables es perfectamente lineal.
+
+Por otro lado, también se evidencia que el valor de la pendiente y la ordenada de la linea teórica obtenida mediante el método de gráficos y ecuaciones no es muy exacta, ya que en el caso de la ordenada esta se determinada a simple vista de la gráfica de la correlación linealizada, dando lugar a un margen de error al estimar su valor, mientras que al calcular los valores mediante el método de mínimos cuadrados estos resultados llegan a ser mucho mas exactos, como también, es posible determinar las desviaciones de la pendiente, ordenada y el coeficiente de correlación, indicando que tan precisa es la recta teórica a la nube de puntos simulados.
+
+Es importante destacar que en muchos casos se evidencia una dispersión en los datos simulados en relación a la línea teórica obtenida mediante el método de linealización. Esto indica que la correlación entre las variables no es completamente lineal y que existen otros factores que influyen en la variabilidad de los datos.
+
+Como en el caso del test5 de la correlación Posición-Tiempo Nº2 en la Fig\ref{Figura14}, del cual se evidencia que el valor de la pendiente B y la ordenada A en la Tabla\ref{Tabla6} obtenido mediante el método de gráficos y ecuaciones, es menos exacto que los valores calculados mediante el método de mínimos cuadrados en la Tabla\ref{Tabla7} con desviaciones menores a 1 en la Tabla\ref{Tabla9} y un coeficiente de correlación del $0.99$ presente en la Tabla\ref{Tabla10}, indicando que la linea recta se ajusta muy bien a la nube de puntos simulados. 
+
+Como también se evidencia en la Fig\ref{Figura14} que no todos los puntos están sobre la linea teórica, dando a entender que no es una correlación perfectamente lineal.
+
+\section{Conclusiones}
+\label{Sec:Concl}
+Se concluyo que:
+\begin{enumerate}
+\item Los datos simulados obtenidos en cada matriz, presentan nubes de puntos con comportamientos curvilíneos distintos presentes en la Fig\ref{Figura1}, Fig\ref{Figura8}, Fig\ref{Figura15} , evidenciando correlaciones no lineales entre las variables dependientes e independientes, cuyas ecuaciones pertenecen a la parábola con Ec.\ref{ec:2} y la hipérbola con Ec.\ref{ec:3}, indicando si las variables son directamente o inversamente proporcionales.
+
+Como en el caso de la correlación Presión-Volumen con Ec.\ref{ec:3}, en la cual se observa que la presión es inversamente proporcional al volumen.
+
+\item La linealización de las correlaciones no lineales se determina mediante la aplicación del método de cambio de variable o propiedades de logaritmos de base 10, los cuales ayudan e determinar la ecuación linealizada de las curvas no lineales.
+Sin embargo al momento de determinar los valores del parámetro A conocido como ordenada y el parámetro B conocido como pendiente, el método de gráficos y ecuaciones resulta no ser tan exacto, por lo cual se llega a aplicar el método de mínimos cuadrados, dando valores mas exactos como también las desviación de A y B en cada uno de los tests, como también su coeficiente de correlación, indicando si la recta teórica se ajusta muy bien a la nube de puntos simulados.
+
+Es importante destacar que en algunos casos el valor de los parámetros A y B obtenido mediante el método de mínimos cuadrados llega a coincidir con el obtenido mediante al método de gráficos y ecuaciones.
+Como en el caso de la correlación:
+
+*Posición-Tiempo: En el test1, con su ecuación linealizada de $X = 0,54 + 3,38t^2$ con parámetros A y B en la Tabla.\ref{Tabla1}, obtenida mediante el método de gráficos y ecuaciones, la cual llega a coincidir con la ecuación obtenida mediante el método de mínimos cuadrados en la Tabla.\ref{Tabla2}, con una desviación mínima en A del $0.67$ y en B del $0.015$ en la Tabla.\ref{Tabla4}.
+
+Además de tener un coeficiente de correlación del $0.99$ en la Tabla.\ref{Tabla5}, indicando que la recta se ajusta bastante bien a la nube de puntos simulados.
+
+*Posición-Tiempo (Nº2): En el test4, con su ecuación linealizada de $X = 1,01 + 1,99t^2$ con parámetros A y B en la Tabla.\ref{Tabla6}, obtenida mediante el método de gráficos y ecuaciones, la cual casi llega a coincidir con la ecuación obtenida mediante el método de mínimos cuadrados en la Tabla.\ref{Tabla7}, con una gran desviación en A del $2.08$ y en B del $2.60$ en la Tabla.\ref{Tabla9}.
+
+Además, de tener un coeficiente de correlación del $0.99$ en la Tabla.\ref{Tabla10}, indicando que la recta se ajusta bastante bien a la nube de puntos simulados.
+
+*Presión-Volumen: En el test3, con su ecuación linealizada de $P = 0,010 + 2,24/V$ con parámetros A y B en la Tabla.\ref{Tabla11}, obtenida mediante el método de gráficos y ecuaciones, la cual casi llega a coincidir con la ecuación obtenida mediante el método de mínimos cuadrados en la Tabla.\ref{Tabla12}, con una mínima desviación en A del $0.021$ y en B del $0.030$ en la Tabla.\ref{Tabla14}.
+
+Además, de tener un coeficiente de correlación del $0.99$ en la Tabla.\ref{Tabla15}, indicando que la recta se ajusta bastante bien a la nube de puntos simulados.
+
+\item Muchas de las correlaciones al ser linealizadas demuestran no ser perfectamente lineales, ya que solo algunos de los puntos están sobre el trazado de la línea teórica, evidenciando una dispersión entre los datos simulados respecto a la misma.
+Como en el caso de la correlación:
+
+*Posición-Tiempo: En el test5, representado gráficamente en la Fig.\ref{Figura7}.
+
+*Posición-Tiempo (Nº2): En el test2, representado gráficamente en la Fig.\ref{Figura12}.
+
+*Presión-Volumen: En el test1, representado gráficamente en la Fig.\ref{Figura19}.
+
+\end{enumerate}
+
+\section{Bibliografía}
+\printbibliography
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\end{document}

@@ -1,0 +1,1366 @@
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+
+% Configuración de párrafos: sin sangría y alineados a la izquierda
+\setlength{\parindent}{0pt}
+\pagestyle{plain}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{DESVIACIÓN EN MEDIDAS DIRECTAS}
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+\date{\today}
+
+\begin{abstract}
+\hfill \break
+Se realizo el presente trabajo mediante el análisis de varias series de medidas tomadas de las dimensiones de diversas figuras tridimensionales como la esfera, el cilindro hueco, el cilindro y la moneda.
+Las cuales se utilizaron con diversos cálculos estadísticos, permitiendo evidenciar la dispersión de estos datos en función de la media o del punto de tendencia central, como también calcular la desviación individual de cada dato, la desviación estándar y el error de la media de cada serie de medidas directas de los múltiples tests.
+A la vez también se logro calcular los volúmenes, pesos y densidades de las figuras tridimensionales, pudiéndose observar las desviaciones presentes en estas.
+Como en el caso del cilindro hueco en el test6 en la Tabla \ref{Tabla11}, con una desviación estándar de $0.12$ y un error de la media de $0.0062$.
+\begin{description}
+\item[Palabras clave]Medir, Medidas Directas, Medidas Indirectas, Media, Desviación Estándar, Error, Error de la Media, Dispersión.
+\end{description}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\label{sec:introduccion}
+La física es una ciencia por naturaleza experimental cuyo objetivo es estudiar los componentes de la materia y los diversos fenómenos que observamos en la naturaleza.
+
+Al igual que las ciencias naturales, puras o aplicadas, esta depende de la observación y experimentación para determinar las causas de un fenómeno. 
+
+Es justamente por eso que tiene la necesidad de realizar mediciones sobre las diversas magnitudes que intervienen en un fenómeno, tal y como indica MEDINA \cite{Cresencio2017}.
+
+\begin{itemize}
+\item \textbf{Medir:} Comparar una magnitud física con un patrón o unidad de medida de igual naturaleza.
+\end{itemize}
+
+Las mediciones se clasifican en medidas directas e indirectas, dependiendo del método que realicemos para obtener cada una.
+
+\begin{itemize}
+\item \textbf{Medidas Indirectas:} No se pueden obtener por comparación directa, requiere del uso de ecuaciones y formulas matemáticas para calcularlas en base a las mediciones directas.
+\item \textbf{Medidas Directas:} Son las que se obtienen de la comparación directa entre el objeto a medir con la unidad de medida del instrumento, el resultado se consigue directamente con el instrumento.
+\end{itemize}
+
+A su vez las medidas directas también se clasifican en otras dos subdivisiones: medida única, serie de medidas.
+Dependiendo de la cantidad de lecturas que vayamos a tomar del objeto.
+
+\begin{itemize}
+\item \textbf{Medida Única:} Solo se realiza una lectura o medición y el error absoluto es igual a la precisión del instrumento(mínima división del instrumento).
+\item \textbf{Serie de Medidas:} Se realizan varias mediciones al mismo objeto con el mismo instrumento de medición, el punto de tendencia central y el error se calculan a través de un proceso estadístico.
+\end{itemize}
+
+Al realizar mediciones sobre todo en experimentos repetibles, es fundamental que comprendamos que no son mas que una aproximación, ya que estas nunca llegaran a ser exactas en su totalidad por muy cuidadas y científicas que sean, estarán sujetas siempre a un margen de error, tal y como lo expresa TAYLOR \cite{Jhon1997}.
+
+\begin{itemize}
+\item \textbf{Error:} Se define como la diferencia entre el valor verdadero y el obtenido experimentalmente.
+\end{itemize}
+
+De acuerdo a las causas que pueden generar el error en una medición, se encuentran el error sistemático y el error aleatorio, tal y como lo expresa MINKINA \cite{Minkina-2009}.
+
+\begin{itemize}
+ \item \textbf{Error Sistemático:} Son errores que se repiten constantemente en el transcurso de un experimento. Afecta a todas las mediciones de un modo definido y es el mismo para todas ellas.
+ 
+ En experimentos repetitivos de iguales condiciones, las desviaciones tienen las mismas magnitudes e iguales signos, estos errores son detectables y es posible corregirlos. 
+ 
+ Las causas son inherentes al instrumento de medición.
+\item \textbf{Error Aleatorio:} Son variaciones que aparecen entre observaciones sucesivas realizadas por un mismo operador. Alteran la medida realizada tanto por exceso como por defecto. 
+
+En otras palabras la desviación del valor representativo respecto al valor verdadero, cambia en magnitud y signo de forma aleatoria.
+
+El origen de estos errores accidentales esta relacionado con el operador del instrumento.
+\end{itemize}
+
+En una serie de medidas la dispersión de datos se produce en torno a un solo valor, ya que todos los datos van a tender a estar cerca de el, debido a que es el dato mas cercano al valor verdadero, denominándose punto de tendencia central o la media, tal y como lo expresa QUIRK \cite{Quirk-2012}.
+
+\begin{itemize}
+\item \textbf{Media:} Es un promedio, el cual es un valor que es típico o representativo de un conjunto de datos. Como tales valores tienden a situarse en el centro del conjunto de datos ordenados según su magnitud,los promedios se conocen también como medidas de centralización.
+\end{itemize}
+
+Es justamente por eso que todo dato obtenido de una medida individual que forme parte de un conjunto de datos de una serie de medidas tendrá siempre una desviación o discrepancia individual respecto a la media,
+tal y como lo indica BERENDSEN \cite{Berendsen-2012}.
+
+\begin{itemize}
+\item \textbf{Desviación:} Medida de la diferencia entre el valor observado de una variable y algún otro valor, a menudo la media de esa variable.
+\end{itemize}
+
+Es posible determinar la dispersión que se utiliza para representar la variabilidad de un conjunto de datos respecto de la media aritmética de los mismos, a la medida capaz de representar esto se le denomina desviación estándar o típica.
+tal y como lo expresa ABRAIRA \cite{Abraria-2012}.
+
+\begin{itemize}
+\item \textbf{Desviación Estándar:} Promedio de las desviaciones individuales de cada observación con respecto a la media de una distribución. Así, la desviación estándar mide el grado de dispersión o variabilidad. En primer lugar, midiendo la diferencia entre cada valor del conjunto de datos y la media del conjunto de datos.
+\end{itemize}
+
+\section{Objetivo y planteamiento del problema}
+El presente trabajo busca determinar el valor mas próximo al valor verdadero del volumen, la densidad y el peso de diversas figuras tridimensionales (cilindros huecos, cilindros, esferas y monedas), teniendo como datos iniciales varias series de medidas directas obtenidas de la mensuración de sus dimensiones, por lo cual se procede a realizar 
+el análisis de datos en torno a bases estadísticas y el planteamiento de ecuaciones con la finalidad de encontrar el valor mas cercano, el cual esta representado como el punto de tendencia central o la media.
+Al mismo tiempo también se procede a calcular las desviaciones individuales de cada dato en las series de medidas, la desviación estándar o típica y el error de la media en cada serie de medidas, posterior a eso se procede a analizar los datos mediante varios histogramas, los cuales nos dan una clara evidencia sobre la dispersión de los datos en cada test del volumen y la densidad en torno al valor mas próximo al valor verdadero que seria la media, dicho de otro modo nos permite observar la distribución de los datos, si estos están distribuidos de forma aproximadamente simétrica o de forma asimétrica.
+
+En el caso de una distribución simétrica, todos los valores o datos están concentrados alrededor de la media, permitiendo que el histograma tenga una forma similar a la campana de gauss.
+
+Por otro lado, en una distribución asimétrica los valores no están concentrados en la media, sino que al lado izquierdo o el lado derecho, indicando que el histograma tiene la forma de una curva sesgada a la izquierda o a la derecha.
+
+\section{Método}
+\label{sec:met}
+
+\begin{center}
+\textbf{Formulas de Volumen, Densidad y Peso}
+\end{center}
+\begin{gather}
+V_E=\dfrac{\pi \times D^3}{6} 
+\label{ec:1} \\ \notag \\ 
+V_{Ci}=\dfrac{\pi \times D^2 \times H}{4} 
+\label{ec:2}\\ \notag \\ 
+V_{Ci-Hu}=\dfrac{\pi \times (D^2-d^2)}{4}
+\label{ec:3}\\ \notag \\ 
+V_{Mon}=\dfrac{\pi \times D^2 \times E}{4}
+\label{ec:4}\\ \notag \\ 
+\rho=\dfrac{M}{V}
+\label{ec:5}\\ \notag \\
+P=M \times g
+\label{ec:6}
+\end{gather} 
+
+\begin{center}
+\textbf{Formula de la Media}
+\end{center}
+\begin{gather}
+X_{Rep}=\dfrac{1}{N}\times \sum_{i=1}^N X_i
+\label{ec:7}
+\end{gather}
+
+\begin{center}
+\textbf{Formula de la Desviación Individual}
+\end{center}
+\begin{gather}
+d_i=X_i-X_{rep}
+\label{ec:8}
+\end{gather}
+
+\begin{center}
+\textbf{Formulas de la Desviación Típica para: Gran cantidad de datos, Pequeña cantidad de datos}
+\end{center}
+\begin{gather}
+\sigma=\sqrt{\dfrac{1}{N}\times\sum{d_i} ^2}
+\label{ec:9}\\ \notag \\
+\sigma_{n-1} =\sqrt{\dfrac{1}{N-1}\times\sum{d_i} ^2}
+\label{ec:10}
+\end{gather}
+
+\begin{center}
+\textbf{Formulas del error de la media aritmética para: Gran cantidad de datos, Pequeña cantidad de datos}
+\end{center}
+\begin{gather}
+\sigma_x=\dfrac{\sigma}{\sqrt{N}} 
+\label{ec:11}\\ \notag \\
+\sigma_x=\dfrac{\sigma_{n-1}}{\sqrt{N}}
+\label{ec:12}
+\end{gather}
+
+\subsection{MEDICIONES DE LA ESFERA}
+Los datos obtenidos en el experimento de las esferas son diferentes entre ellos. Se evidencia que los datos manifiestan diferencias mostradas en la Tabla.\ref{tabla1}, los cuales fueron obtenidos utilizando la ecuación de la media Ec. ~\eqref{ec:7} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Test & Diámetro [cm] & Masa [gr]\\
+\hline
+Esfera1 & 1.44 & 15.11\\
+\hline
+Esfera2 & 3.31 & 34.49\\
+\hline
+Esfera3 & 3.39 & 48.10\\
+\hline
+Esfera4 & 3.87 & 64.89\\
+\hline
+Esfera5 & 4.64 & 74.38\\
+\hline
+Esfera6 & 5.55 & 75.26\\
+\hline
+Esfera7 & 7.33 & 102.084\\
+\hline
+Esfera8 & 7.73 & 113.40\\
+\hline
+Esfera9 & 8.32 & 113.79\\
+\hline
+Esfera10 & 9.49 & 121.00\\
+\hline
+\end{tabular}
+\caption{Valor de tendencia central de los datos obtenidos del diámetro y la masa de la esfera en cada test.}
+\label{tabla1}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:6}, utilizando los datos obtenidos de la masa de la esfera para calcular los pesos.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del peso de cada test de la esfera.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Peso [N]\\
+\hline
+Esfera1 &  0.15\\
+\hline
+Esfera2 & 0.34\\
+\hline
+Esfera3 & 0.47\\
+\hline
+Esfera4 & 0.64\\
+\hline
+Esfera5 & 0.73\\
+\hline
+Esfera6 & 0.74\\
+\hline
+Esfera7 & 1.00\\
+\hline
+Esfera8 & 1.11\\
+\hline
+Esfera9 & 1.12\\
+\hline
+Esfera10 & 1.18\\
+\hline
+\end{tabular}
+\caption{Promedio del peso de cada test}
+\label{Tabla2}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:1}, utilizando los datos obtenidos de la medición de las dimensiones de la esfera para calcular los volúmenes.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del volumen de cada test de la esfera.
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Volumen [$cm^3$]\\
+\hline
+Esfera1 & 1.56 \\
+\hline
+Esfera2 & 18.94\\
+\hline
+Esfera3 & 20.48\\
+\hline
+Esfera4 & 30.27\\
+\hline
+Esfera5 & 52.38\\
+\hline
+Esfera6 & 89.40\\
+\hline
+Esfera7 & 206.28\\
+\hline
+Esfera8 & 241.96\\
+\hline
+Esfera9 & 301.63\\
+\hline
+Esfera10 & 447.06\\
+\hline
+\end{tabular}
+\caption{Promedio del volumen de cada test}
+\label{Tabla3}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen1.png}
+\caption{Media del volumen de la esfera en cada test}
+\label{Figura1}
+\end{figure}
+
+Aplicando la Ec.~\eqref{ec:5}, utilizando los datos obtenidos de la masa y el volumen en cada medición de los tests, con la finalidad de calcular la densidad.
+
+Aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central de la densidad de cada test de la esfera.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media de la Densidad [$gr/cm^3$]\\
+\hline
+Esfera1 & 9.70\\
+\hline
+Esfera2 & 1.82\\
+\hline
+Esfera3 & 2.34\\
+\hline
+Esfera4 & 2.14\\
+\hline
+Esfera5 & 1.42\\
+\hline
+Esfera6 & 0.84\\
+\hline
+Esfera7 & 0.49 \\
+\hline
+Esfera8 & 0.47 \\
+\hline
+Esfera9 & 0.38 \\
+\hline
+Esfera10 & 0.27\\
+\hline
+\end{tabular}
+\caption{Promedio de la densidad de cada test}
+\label{Tabla4}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen2.png}
+\caption{Media de la densidad de la esfera en cada test}
+\label{Figura2}
+\end{figure}
+
+Aplicando la ecuación ~\eqref{ec:8}, utilizando los volúmenes y densidades calculados anteriormente en cada test de la esfera, con la finalidad de encontrar la desviación individual de cada volumen y densidad en los tests.
+
+Aplicando ecuaciones ~\eqref{ec:9},~\eqref{ec:11} a los volúmenes y densidades calculados anteriormente en cada test de la esfera.
+
+Utilizando la media del volumen y la densidad de cada uno de los tests anteriormente calculado, con la finalidad de determinar la desviación estándar, el error de la media o del punto de tendencia central.
+
+\begin{center}
+\textbf{Volumen}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$cm^3$] & Des.Estándar & Error.Media\\
+\hline
+Esfera1 &  1.56 & 0.0014 & 7e-05 \\
+\hline
+Esfera2 & 18.94  & 0.0092 & 0.00046 \\
+\hline
+Esfera3 & 20.48  & 0.0021 & 1e-04 \\
+\hline
+Esfera4 & 30.27  & 0.026 & 0.0013 \\
+\hline
+Esfera5 & 52.38  & 0.028 & 0.0014 \\
+\hline
+Esfera6 & 89.40  & 0.018 & 0.00091 \\
+\hline
+Esfera7 & 206.28  & 0.072 & 0.0036 \\
+\hline
+Esfera8 & 241.96  & 0.092 & 0.0046 \\
+\hline
+Esfera9 & 301.63  & 0.078 & 0.0039 \\
+\hline
+Esfera10 &  447.06 & 0.091 & 0.0045 \\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en el volumen de la esfera en cada test}
+\label{Tabla5}
+\end{table}
+
+\begin{center}
+\textbf{Densidad}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$gr/cm^3$] & Des.Estandar & Error. Media\\
+\hline
+Esfera1 & 9.70  & 0.0074 & 0.00037 \\
+\hline
+Esfera2 & 1.82  & 0.00064 & 3.20e-05 \\
+\hline
+Esfera3 & 2.35  & 0.0012 & 6.00e-05 \\
+\hline
+Esfera4 & 2.14  & 0.0020 & 9.88e-05 \\
+\hline
+Esfera5 & 1.42  & 0.00092 & 4.62e-05 \\
+\hline
+Esfera6 &  0.84  & 2.88e-05 & 1.43e-06 \\
+\hline
+Esfera7 & 0.49  & 0.00012 & 5.91e-06 \\
+\hline
+Esfera8 & 0.47  &  0.00022 & 1.12e-05 \\
+\hline
+Esfera9 & 0.38  & 3.31e-05 & 1.66e-06 \\
+\hline
+Esfera10 &  0.27 & 8.04e-05 & 4.02e-06 \\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en la densidad de la esfera en cada test}
+\label{Tabla6}
+\end{table}
+
+\subsection{MEDICIONES DEL CILINDRO HUECO}
+Los datos obtenidos en el experimento de los cilindros huecos son diferentes entre ellos. Se evidencia que los datos manifiestan diferencias mostradas en la Tabla.\ref{tabla7}, los cuales fueron obtenidos utilizando la ecuación de la media Ec. ~\eqref{ec:7} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Test & Altura [cm] & Radio.In [cm] & Radio.Ex [cm] & Masa [gr]\\
+\hline
+Cilin.H1 & 3.66 & 1.08 & 2.25 & 45.57\\
+\hline
+Cilin.H2 & 4.25 & 1.25 & 2.67 & 55.23\\
+\hline
+Cilin.H3 & 5.20 & 1.38 & 3.05 & 58.21\\
+\hline
+Cilin.H4 & 5.87 & 1.45 & 3.37 & 81.18\\
+\hline
+Cilin.H5 & 7.34 & 1.84 & 3.42 & 89.54\\
+\hline
+Cilin.H6 & 8.15 &  2.29 & 3.62  & 105.74\\
+\hline
+Cilin.H7 & 8.60 & 2.36 & 3.76 & 108.85\\
+\hline
+Cilin.H8 & 8.73 &  2.48 & 4.45 & 128.45\\
+\hline
+Cilin.H9 & 9.04 & 2.74 & 5.35 & 128.96\\
+\hline
+Cilin.H10 & 9.90 & 4.08 & 5.90 & 139.76\\
+\hline
+\end{tabular}
+\caption{Valor de tendencia central de los datos obtenidos de la altura, el radio exterior, el radio interior y la masa del cilindro hueco en cada test.}
+\label{tabla7}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:6}, utilizando los datos obtenidos de la masa del cilindro hueco para calcular los pesos.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del peso de cada test del cilindro hueco.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Peso [N]\\
+\hline
+Cilin.H1 &  0.45\\
+\hline
+Cilin.H2 & 0.54\\
+\hline
+Cilin.H3 & 0.57\\
+\hline
+Cilin.H4 & 0.80\\
+\hline
+Cilin.H5 & 0.88\\
+\hline
+Cilin.H6 &  1.04\\
+\hline
+Cilin.H7 & 1.07\\
+\hline
+Cilin.H8 & 1.26\\
+\hline
+Cilin.H9 & 1.26\\
+\hline
+Cilin.H10 & 1.37\\
+\hline
+\end{tabular}
+\caption{Promedio del peso de cada test}
+\label{Tabla8}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:3}, utilizando los datos obtenidos de la medición de las dimensiones del cilindro hueco para calcular los volúmenes.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del volumen de cada test del cilindro hueco.
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Volumen [$cm^3$]\\
+\hline
+Cilin.H1 & 45.04\\
+\hline
+Cilin.H2 & 74.26\\
+\hline
+Cilin.H3 & 120.89\\
+\hline
+Cilin.H4 & 170.39\\
+\hline
+Cilin.H5 & 192.41\\
+\hline
+Cilin.H6 & 200.28\\
+\hline
+Cilin.H7 & 231.48\\
+\hline
+Cilin.H8 & 375.38\\
+\hline
+Cilin.H9 & 600.11\\
+\hline
+Cilin.H10 & 564.75\\
+\hline
+\end{tabular}
+\caption{Promedio del volumen de cada test}
+\label{Tabla9}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen6.png}
+\caption{Media del volumen del cilindro hueco en cada test}
+\label{Figura3}
+\end{figure}
+
+Aplicando la Ec.~\eqref{ec:5}, utilizando los datos obtenidos de la masa y el volumen en cada medición de los tests, con la finalidad de calcular la densidad.
+
+Aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central de la densidad de cada test del cilindro hueco.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media de la Densidad [$gr/cm^3$]\\
+\hline
+Cilin.H1 & 1\\
+\hline
+Cilin.H2 & 0.74 \\
+\hline
+Cilin.H3 & 0.48\\
+\hline
+Cilin.H4 & 0.48 \\
+\hline
+Cilin.H5 & 0.47 \\
+\hline
+Cilin.H6 & 0.53\\
+\hline
+Cilin.H7 & 0.47\\
+\hline
+Cilin.H8 & 0.34\\
+\hline
+Cilin.H9 & 0.21\\
+\hline
+Cilin.H10 & 0.25\\
+\hline
+\end{tabular}
+\caption{Promedio de la densidad de cada test}
+\label{Tabla10}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen7.png}
+\caption{Media de la densidad del cilindro hueco en cada test}
+\label{Figura4}
+\end{figure}
+
+Aplicando la ecuación ~\eqref{ec:8}, utilizando los volúmenes y densidades calculados anteriormente en cada test del cilindro hueco, con la finalidad de encontrar la desviación individual de cada volumen y densidad en los tests.
+
+Aplicando ecuaciones ~\eqref{ec:9},~\eqref{ec:11} a los volúmenes y densidades calculados anteriormente en cada test del cilindro hueco.
+
+Utilizando la media del volumen y la densidad de cada uno de los tests anteriormente calculado, con la finalidad de determinar la desviación estándar, el error de la media o del punto de tendencia central.
+
+\begin{center}
+\textbf{Volumen}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$cm^3$] & Des.Estandar & Error.Media\\
+\hline
+Cilin.H1 & 45.04 & 0.00067 & 3.35e-05\\
+\hline
+Cilin.H2 &  74.26 & 0.0082 & 0.00041 \\
+\hline
+Cilin.H3 &  120.89 & 0.049 & 0.0025 \\
+\hline
+Cilin.H4 & 170.39 & 0.017 & 0.00087\\
+\hline
+Cilin.H5 &  192.41 & 0.025 & 0.0013 \\
+\hline
+Cilin.H6 &  200.28 & 0.12 & 0.0062 \\
+\hline
+Cilin.H7 & 231.48  & 0.12 & 0.0061 \\
+\hline
+Cilin.H8 &  375.38 & 0.13 & 0.0064 \\
+\hline
+Cilin.H9 &  600.11 &  0.047 & 0.0024 \\
+\hline
+Cilin.H10 & 564.75  &  0.050 & 0.0025 \\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en el volumen del cilindro hueco en cada test}
+\label{Tabla11}
+\end{table}
+
+\begin{center}
+\textbf{Densidad}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$gr/cm^3$] & Des.Estandar & Error.Media\\
+\hline
+Cilin.H1 & 1.01 & 0.00024 & 1.22e-05 \\
+\hline
+Cilin.H2 &  0.74 & 0.00032 & 1.60e-05\\
+\hline
+Cilin.H3 &  0.48 & 0.00013 & 6.64e-06 \\
+\hline
+Cilin.H4 & 0.48  & 7.09e-05 & 3.55e-06 \\
+\hline
+Cilin.H5 & 0.46  & 4.45e-05 & 2.22e-06 \\
+\hline
+Cilin.H6 & 0.53  & 0.00038 & 1.90e-05 \\
+\hline
+Cilin.H7 & 0.47  & 0.00018 & 9.13e-06 \\
+\hline
+Cilin.H8 & 0.34  & 0.00015 & 7.70e-06\\
+\hline
+Cilin.H9 &  0.21 & 1.77e-05 & 8.85e-07\\
+\hline
+Cilin.H10 & 0.25  & 4.19e-05 & 2.10e-06\\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en la densidad del cilindro hueco en cada test}
+\label{Tabla12}
+\end{table}
+
+\subsection{MEDICIONES DEL CILINDRO}
+Los datos obtenidos en el experimento de los cilindros son diferentes entre ellos. Se evidencia que los datos manifiestan diferencias mostradas en la Tabla.\ref{tabla13}, los cuales fueron obtenidos utilizando la ecuación de la media Ec. ~\eqref{ec:7} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test & Altura [cm] & Radio [cm]  & Masa [gr]\\
+\hline
+Cilindro1 & 1.37 & 0.34 & 17.86\\
+\hline
+Cilindro2 & 2.40 & 0.86 & 21.53\\
+\hline
+Cilindro3 & 3.41 & 0.95 & 22.42\\
+\hline
+Cilindro4 & 4.11 & 1.01 & 24.60\\
+\hline
+Cilindro5 & 4.73 & 1.11 & 81.24\\
+\hline
+Cilindro6 & 5.67 & 1.52 & 88.25\\
+\hline
+Cilindro7 & 5.79 & 1.93 & 93.92\\
+\hline
+Cilindro8 & 9.29 & 1.99 & 99.44\\
+\hline
+Cilindro9 & 9.46 & 2.03 & 119.89\\
+\hline
+Cilindro10 & 9.97 & 2.11 & 120.95\\
+\hline
+\end{tabular}
+\caption{Valor de tendencia central de los datos obtenidos de la altura, el radio y la masa del cilindro en cada test.}
+\label{tabla13}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:6}, utilizando los datos obtenidos de la masa del cilindro para calcular los pesos.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del peso de cada test del cilindro.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Peso [N]\\
+\hline
+Cilindro1 &  0.18\\
+\hline
+Cilindro2 & 0.21\\
+\hline
+Cilindro3 & 0.22\\
+\hline
+Cilindro4 & 0.24\\
+\hline
+Cilindro5 & 0.80\\
+\hline
+Cilindro6 & 0.86\\
+\hline
+Cilindro7 & 0.92\\
+\hline
+Cilindro8 & 0.97\\
+\hline
+Cilindro9 & 1.17\\
+\hline
+Cilindro10 & 1.18\\
+\hline
+\end{tabular}
+\caption{Promedio del peso de cada test}
+\label{Tabla14}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:2}, utilizando los datos obtenidos de la medición de las dimensiones del cilindro para calcular los volúmenes.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del volumen de cada test del cilindro.
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Volumen [$cm^3$]\\
+\hline
+Cilindro1 & 0.51\\
+\hline
+Cilindro2 & 5.55\\
+\hline
+Cilindro3 & 9.66\\
+\hline
+Cilindro4 & 13.28\\
+\hline
+Cilindro5 & 18.27\\
+\hline
+Cilindro6 & 41.04 \\
+\hline
+Cilindro7 & 67.65\\
+\hline
+Cilindro8 & 115.77\\
+\hline
+Cilindro9 & 122.13\\
+\hline
+Cilindro10 & 139.24 \\
+\hline
+\end{tabular}
+\caption{Promedio del volumen de cada test}
+\label{Tabla15}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen10.png}
+\caption{Media del volumen del cilindro en cada test}
+\label{Figura5}
+\end{figure}
+
+Aplicando la Ec.~\eqref{ec:5}, utilizando los datos obtenidos de la masa y el volumen en cada medición de los tests, con la finalidad de calcular la densidad.
+
+Aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central de la densidad de cada test del cilindro.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media de la Densidad [$gr/cm^3$]\\
+\hline
+Cilindro1 & 34.99\\
+\hline
+Cilindro2 & 3.88\\
+\hline
+Cilindro3 & 2.32 \\
+\hline
+Cilindro4 & 1.85\\
+\hline
+Cilindro5 & 4.44\\
+\hline
+Cilindro6 & 2.15\\
+\hline
+Cilindro7 & 1.39\\
+\hline
+Cilindro8 & 0.86 \\
+\hline
+Cilindro9 & 0.98\\
+\hline
+Cilindro10 & 0.87\\
+\hline
+\end{tabular}
+\caption{Promedio de la densidad de cada test}
+\label{Tabla16}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen11.png}
+\caption{Media de la densidad del cilindro en cada test}
+\label{Figura6}
+\end{figure}
+
+Aplicando la ecuación ~\eqref{ec:8}, utilizando los volúmenes y densidades calculados anteriormente en cada test del cilindro, con la finalidad de encontrar la desviación individual de cada volumen y densidad en los tests.
+
+Aplicando ecuaciones ~\eqref{ec:9},~\eqref{ec:11} a los volúmenes y densidades calculados anteriormente en cada test del cilindro.
+
+Utilizando la media del volumen y la densidad de cada uno de los tests anteriormente calculado, con la finalidad de determinar la desviación estándar, el error de la media o del punto de tendencia central.
+
+\begin{center}
+\textbf{Volumen}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$cm^3$] & Des.Estándar & Error.Media\\
+\hline
+Cilindro1 & 0.51  & 0.00039 & 1.97e-05 \\
+\hline
+Cilindro2 & 5.55 & 0.0044 & 0.00022 \\
+\hline
+Cilindro3 & 9.66  & 0.0047 & 0.00024 \\
+\hline
+Cilindro4 &  13.28 & 9.26e-05 & 4.63e-06 \\
+\hline
+Cilindro5 & 18.27  & 0.0096 & 0.00048\\
+\hline
+Cilindro6 & 41.04  & 0.014 & 0.00069 \\
+\hline
+Cilindro7 &  67.65 & 0.0089 & 0.00044 \\
+\hline
+Cilindro8 &  115.77 & 0.0028 & 0.00014 \\
+\hline
+Cilindro9 & 122.13  & 0.011 & 0.00055 \\
+\hline
+Cilindro10 &  139.24 & 0.0062 & 0.00031\\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en el volumen del cilindro en cada test}
+\label{Tabla17}
+\end{table}
+
+\begin{center}
+\textbf{Densidad}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$gr/cm^3$] & Des.Estándar & Error.Media\\
+\hline
+Cilindro1 & 34.99  & 0.014 & 0.00072 \\
+\hline
+Cilindro2 &  3.88 & 0.00080 & 3.99e-05 \\
+\hline
+Cilindro3 &  2.32 & 0.00089 & 4.45e-05 \\
+\hline
+Cilindro4 &  1.85 & 1.40e-05 & 7.00e-07 \\
+\hline
+Cilindro5 & 4.45  & 0.00070 & 3.51e-05 \\
+\hline
+Cilindro6 &  2.15 & 0.00066 & 3.28e-05 \\
+\hline
+Cilindro7 &  1.39 & 0.00057 & 2.84e-05 \\
+\hline
+Cilindro8 &  0.86 & 8.02e-05 & 4.00e-06\\
+\hline
+Cilindro9 & 0.98  & 4.51e-05 & 2.26e-06 \\
+\hline
+Cilindro10 & 0.87  & 9.18e-05 & 4.59e-06\\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en la densidad del cilindro en cada test}
+\label{Tabla18}
+\end{table}
+
+\subsection{MEDICIONES DE LA MONEDA}
+Los datos obtenidos en el experimento de las monedas son diferentes entre ellos. Se evidencia que los datos manifiestan diferencias mostradas en la Tabla.\ref{tabla19}, los cuales fueron obtenidos utilizando la ecuación de la media Ec. ~\eqref{ec:7} 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test & Diámetro [cm] & Espesor [cm]  & Masa [gr]\\
+\hline
+Moneda1 & 1.89 & 0.28 & 0.32\\
+\hline
+Moneda2 & 2.18 & 0.41 & 0.34\\
+\hline
+Moneda3 & 2.25 & 0.41 & 0.36\\
+\hline
+Moneda4 & 2.97 & 0.41 & 0.38\\
+\hline
+Moneda5 & 3.21 & 0.48 & 0.50\\
+\hline
+Moneda6 & 4.17 & 0.52 & 0.59\\
+\hline
+Moneda7 & 4.26 & 0.58 & 0.63\\
+\hline
+Moneda8 & 5.02 & 0.61 & 0.83\\
+\hline
+Moneda9 & 5.35 & 0.62 & 0.94\\
+\hline
+Moneda10 & 5.46 & 0.66 & 1.18\\
+\hline
+\end{tabular}
+\caption{Valor de tendencia central de los datos obtenidos del diámetro, el espesor y la masa de la moneda en cada test.}
+\label{tabla19}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:6}, utilizando los datos obtenidos de la masa de la moneda para calcular los pesos.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del peso de cada test de la moneda.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Peso [N]\\
+\hline
+Moneda1 &  0.0031\\
+\hline
+Moneda2 & 0.0033\\
+\hline
+Moneda3 & 0.0035\\
+\hline
+Moneda4 & 0.0037\\
+\hline
+Moneda5 & 0.0049\\
+\hline
+Moneda6 & 0.0058\\
+\hline
+Moneda7 & 0.0062\\
+\hline
+Moneda8 & 0.0081\\
+\hline
+Moneda9 & 0.0092\\
+\hline
+Moneda10 & 0.012\\
+\hline
+\end{tabular}
+\caption{Promedio del peso de cada test}
+\label{Tabla20}
+\end{table}
+
+Aplicando la Ec.~\eqref{ec:4}, utilizando los datos obtenidos de la medición de las dimensiones de la moneda para calcular los volúmenes.
+
+Posteriormente, aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central del volumen de cada test de la moneda.
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media del Volumen [$cm^3$]\\
+\hline
+Moneda1 & 0.77 \\
+\hline
+Moneda2 & 1.52\\
+\hline
+Moneda3 & 1.61\\
+\hline
+Moneda4 & 2.81\\
+\hline
+Moneda5 & 3.86 \\
+\hline
+Moneda6 & 7.12\\
+\hline
+Moneda7 & 8.21\\
+\hline
+Moneda8 & 12.09 \\
+\hline
+Moneda9 & 14.01\\
+\hline
+Moneda10 & 15.52\\
+\hline
+\end{tabular}
+\caption{Promedio del volumen de cada test}
+\label{Tabla21}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen14.png}
+\caption{Media del volumen de la moneda en cada test}
+\label{Figura7}
+\end{figure}
+
+Aplicando la Ec.~\eqref{ec:5}, utilizando los datos obtenidos de la masa y el volumen en cada medición de los tests, con la finalidad de calcular la densidad.
+
+Aplicando la ecuación de la media Ec.~\eqref{ec:7}, con la finalidad de obtener el punto de tendencia central de la densidad de cada test de la moneda.
+
+\begin{table}[H]
+\centering
+\begin{tabular}
+{|c|c|}
+\hline
+Test & Media de la Densidad[$gr/cm^3$]\\
+\hline
+Moneda1 & 0.41\\
+\hline
+Moneda2 & 0.22\\
+\hline
+Moneda3 & 0.22\\
+\hline
+Moneda4 & 0.14\\
+\hline
+Moneda5 & 0.13\\
+\hline
+Moneda6 & 0.082\\
+\hline
+Moneda7 & 0.077\\
+\hline
+Moneda8 & 0.068 \\
+\hline
+Moneda9 & 0.067\\
+\hline
+Moneda10 & 0.076\\
+\hline
+\end{tabular}
+\caption{Promedio de la densidad de cada test}
+\label{Tabla22}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen15.png}
+\caption{Media de la densidad de la moneda en cada test}
+\label{Figura8}
+\end{figure}
+
+Aplicando la ecuación ~\eqref{ec:8}, utilizando los volúmenes y densidades calculados anteriormente en cada test de la moneda, con la finalidad de encontrar la desviación individual de cada volumen y densidad en los tests.
+
+Aplicando ecuaciones ~\eqref{ec:9},~\eqref{ec:11} a los volúmenes y densidades calculados anteriormente en cada test de la moneda.
+
+Utilizando la media del volumen y la densidad de cada uno de los tests anteriormente calculado, con la finalidad de determinar la desviación estándar, el error de la media o del punto de tendencia central.
+
+\begin{center}
+\textbf{Volumen}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$cm^3$] & Des.Estandar & Error.Media\\
+\hline
+Moneda1 & 0.77  & 0.00033 & 1.64e-05\\
+\hline
+Moneda2 &  1.52 & 0.00078 & 3.90e-05 \\
+\hline
+Moneda3 & 1.61 & 0.00039 & 1.97e-05 \\
+\hline
+Moneda4 & 2.81  & 0.00063 & 3.14e-05 \\
+\hline
+Moneda5 &  3.86 & 0.0010 & 5.23e-05 \\
+\hline
+Moneda6 & 7.12  & 0.0024 & 0.00012 \\
+\hline
+Moneda7 &  8.21  & 0.0024 & 0.00012\\
+\hline
+Moneda8 &  12.09  & 0.0014 & 6.79e-05\\
+\hline
+Moneda9 & 14.01  & 0.00099 & 4.96e-05 \\
+\hline
+Moneda10 &  15.52 & 0.0016 & 7.76e-05\\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en el volumen de la moneda en cada test}
+\label{Tabla23}
+\end{table}
+
+\begin{center}
+\textbf{Densidad}
+\end{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\backslashbox{Test}{Cálculos} & Media [$gr/cm^3$] & Des.Estándar & Error.Media\\
+\hline
+Moneda1 & 0.41  & 0.00012 & 6.22e-06 \\
+\hline
+Moneda2 & 0.22  & 9.73e-05 & 4.86e-06 \\
+\hline
+Moneda3 & 0.22  & 4.50e-05 & 2.25e-06 \\
+\hline
+Moneda4 & 0.14  & 7.28e-05 & 3.64e-06 \\
+\hline
+Moneda5 & 0.13  & 6.51e-05 & 3.26e-06 \\
+\hline
+Moneda6 &  0.082 & 4.96e-05 & 2.48e-06 \\
+\hline
+Moneda7 &  0.077  & 1.75e-05 & 8.77e-07 \\
+\hline
+Moneda8 & 0.068  & 1.54e-05 & 7.68e-07 \\
+\hline
+Moneda9 &  0.067 & 1.10e-05 & 5.53e-07 \\
+\hline
+Moneda10 & 0.076  & 1.25e-05 & 6.26e-07\\
+\hline
+\end{tabular}
+\caption{Punto de tendencia central, desviaciones y error de la media en la densidad de la moneda en cada test}
+\label{Tabla24}
+\end{table}
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{ESFERA}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen3.png}
+\caption{Medias del volumen vs Medias de la densidad}
+\label{Figura9}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura9} que en el caso del volumen y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del volumen son los tests (1-2-3-4-5-6), con desviaciones típicas menores a $0.030$, como se puede observar en la Tabla.\ref{Tabla5}.
+
+En el caso de la densidad son todos los tests excepto el primero, con desviaciones típicas menores a $0.0021$, como se puede observar en la Tabla.\ref{Tabla6}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del volumen son los tests (7-8-9-10), con desviaciones típicas mayores a $0.010$, como se puede observar en la Tabla.\ref{Tabla5}.
+
+En el caso de la densidad es especialmente el primer test, con una desviación típica de $0.0074$, como se puede observar en la Tabla.\ref{Tabla6}.
+
+Para una mejor observación de las desviaciones de cada volumen de la esfera, observar la Fig.\ref{Figura1} y para la densidad observar la Fig.\ref{Figura2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen4.png}
+\caption{Medias del volumen vs Medias del radio}
+\label{Figura10}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura10} que en el caso del volumen y el radio hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del volumen son los tests (1-2-3-4-5-6), con desviaciones típicas menores a $0.030$, como se puede observar en la Tabla.\ref{Tabla5}.
+
+En el caso del radio son los tests (1-3-4-5-6-8-9-10), los cuales presentan una gran precisión y exactitud.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del volumen son los tests (7-8-9-10), con desviaciones típicas mayores a $0.010$, como se puede observar en la Tabla.\ref{Tabla5}.
+
+En el caso del radio son los tests (2-7), con una mayor desviación, ya que como se puede observar estos presentan mayor error y desviación en comparación con los otros tests.
+
+Para una mejor observación de las desviaciones de cada volumen de la esfera, observar la Fig.\ref{Figura1}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen5.png}
+\caption{Medias de la densidad vs Medias del peso}
+\label{Figura11}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura11} que en el caso de la densidad y el peso hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso de la densidad son todos los tests excepto el primero, con desviaciones típicas menores a $0.0021$, como se puede observar en la Tabla.\ref{Tabla6}.
+
+En el caso del peso son los tests (4-5-6-8-9-10), debido a que estos presentan una gran precisión y exactitud, por lo que sus desviaciones y errores son mínimos.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso de la densidad es especialmente el primer test, con una desviación típica de $0.0074$, como se puede observar en la Tabla.\ref{Tabla6}.
+
+En el caso del peso son los tests (1-2-3-7), ya que a comparación de los otros tests, estos llegan a presentar mayores errores, por lo tanto tendran mayores desviaciones.
+
+Para una mejor observación de las desviaciones de cada densidad de la esfera, observar la Fig.\ref{Figura2}.
+
+\subsection{CILINDRO HUECO}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen8.png}
+\caption{Medias del volumen vs Medias de la densidad}
+\label{Figura12}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura12} que en el caso del volumen y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del volumen son los tests (1-2-3-4-5-9-10), con desviaciones típicas menores a $0.055$, como se puede observar en la Tabla.\ref{Tabla11}.
+
+En el caso de la densidad son los tests (3-4-5-7-8-9-10), los cuales presentan una gran precisión y exactitud, con desviaciones estándares menores a $0.00020$, como se puede observar en la Tabla.\ref{Tabla12}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del volumen son los tests (6-7-8), con desviaciones típicas mayores a $0.090$, como se puede observar en la Tabla.\ref{Tabla11}.
+
+En el caso de la densidad son los tests 1,2,6, con desviaciones típicas mayores a $0.00020$, como se puede observar en la Tabla.\ref{Tabla12}.
+
+Para una mejor observación de las desviaciones de cada volumen del cilindro hueco observar la Fig.\ref{Figura3} y para la densidad la Fig.\ref{Figura4}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen9.png}
+\caption{Medias de la altura vs Medias de la densidad}
+\label{Figura13}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura13} que en el caso de la altura y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso de la altura son los tests (1-2-3-4-6-7-8-9), los cuales presentan una gran precisión y exactitud, por lo que llegan a presentar un error minimo, indicando que su desviación es poca.
+
+En el caso de la densidad son los tests (3-4-5-7-8-9-10), los cuales presentan una gran precisión y exactitud, con desviaciones estándares menores a $0.00020$, como se puede observar en la Tabla.\ref{Tabla12}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso de la altura son los tests (5-10), ya que a diferencia de los demás tests, estos llegan a presentar mayor error, por lo que su desviación también es mas grande.
+
+En el caso de la densidad son los tests 1,2,6, con desviaciones típicas mayores a $0.00020$, como se puede observar en la Tabla.\ref{Tabla12}.
+
+Para una mejor observación de las desviaciones de cada densidad del cilindro hueco observar la Fig.\ref{Figura4}.
+
+\subsection{CILINDRO}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen12.png}
+\caption{Medias del volumen vs Medias de la densidad}
+\label{Figura14}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura14} que en el caso del volumen y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del volumen son los tests (1-2-3-4-8), con desviaciones típicas menores a $0.0050$, como se puede observar en la Tabla.\ref{Tabla17}.
+
+En el caso de la densidad son todos los tests menos el primero, con desviaciones estándares menores a $0.00090$, como se puede observar en la Tabla.\ref{Tabla18}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del volumen son los tests (5-6-7-9-10), con desviaciones típicas mayores a $0.0060$, como se puede observar en la Tabla.\ref{Tabla17}.
+
+En el caso de la densidad es el test1, con una desviación estándar de $0.014$, como se puede observar en la Tabla.\ref{Tabla18}.
+
+Para una mejor observación de las desviaciones de cada volumen del cilindro observar la Fig.\ref{Figura5} y para la densidad la Fig.\ref{Figura6}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen13.png}
+\caption{Medias de la altura vs Medias de la densidad}
+\label{Figura15}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura15} que en el caso de la altura y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso de la altura son los tests (1-2-3-6-7-8-9-10), ya que presentan una gran precisión y exactitud en comparación con los demás tests.
+
+En el caso de la densidad serian todos los tests menos el primero, con desviaciones estándares menores a $0.00090$, como se puede observar en la Tabla.\ref{Tabla18}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso de la altura son los tests (4-5), ya que como podemos observar el error de la medición de la altura llega a ser mayor en estos tests, por lo tanto la desviación es mayor.
+
+En el caso de la densidad es el test1, con una desviación estándar de $0.014$, como se puede observar en la Tabla.\ref{Tabla18}.
+
+Para una mejor observación de las desviaciones de cada densidad observar la Fig.\ref{Figura6}.
+
+\subsection{MONEDA}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen16.png}
+\caption{Medias del volumen vs Medias de la densidad}
+\label{Figura16}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura16} que en el caso del volumen y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del volumen son todos los tests (1-2-3-4-5-8-9-10), con desviaciones estándares menores a $0.0014$, como se puede observar en la Tabla.\ref{Tabla23}.
+
+En el caso de la densidad son los tests (7-8-9-10), con desviaciones estándares menores a $1.80e-05$, como se puede observar en la Tabla.\ref{Tabla24}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del volumen son los tests (6-7), con desviaciones estándares mayores a $0.0016$, como se puede observar en la Tabla.\ref{Tabla23}.
+
+En el caso de la densidad son los tests (1-2-3-4-5-6) con desviaciones estándares mayores a $1.90e-05$, como se puede observar en la Tabla.\ref{Tabla24}.
+
+Para una mejor observación de las desviaciones de cada volumen observar la Fig.\ref{Figura7} y para la densidad observar la Fig.\ref{Figura8}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen17.png}
+\caption{Medias del diámetro vs Medias de la densidad}
+\label{Figura17}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura17} que en el caso del diámetro y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del diámetro son los tests (1-2-3-7), ya que como se puede observar no presentan enormes errores y desviaciones como en el caso de los demás tests.
+
+En el caso de la densidad son los tests (7-8-9-10), con desviaciones estándares menores a $1.80e-05$, como se puede observar en la Tabla.\ref{Tabla24}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del diámetro son los tests (4-5-6-8-9-10), ya que de acuerdo a la gráfica estos llegan a presentar grandes desviaciones en comparación con los otros test.
+
+En el caso de la densidad son los tests (1-2-3-4-5-6), con desviaciones estándares mayores a $1.90e-05$, como se puede observar en la Tabla.\ref{Tabla24}.
+
+Para una mejor observación de las desviaciones de cada densidad observar la Fig.\ref{Figura8}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{Imagen18.png}
+\caption{Medias del espesor vs Medias de la densidad}
+\label{Figura18}
+\end{figure}
+
+Se puede observar en la Fig.\ref{Figura18} que en el caso del espesor y la densidad hay mediciones que llegan a tener poco error, por lo que son muy precisas, indicando que la mayor concentración de datos están cerca de la media, por lo que se puede afirmar que la distribución de los mismos es simétrico, similar al experimento de la campana de Gauss.
+
+En el caso del espesor son todos los tests excepto el test1, ya que como se puede observar no presentan enormes errores y desviaciones como en el caso de los demás tests.
+
+En el caso de la densidad son los tests (7-8-9-10), con desviaciones estándares menores a $1.80e-05$, como se puede observar en la Tabla.\ref{Tabla24}.
+
+Sin embargo, el resto de los tests llegan a presentar menos precisión y mas error, indicando que los datos están mas dispersos, dando a entender que la distribución de los datos no es tan concentrada en la media, por lo que, la desviación es mayor.
+
+En el caso del espesor es el test1, ya que como se puede observar este llega a presentar una gran desviación en comparación con los otros test.
+
+En el caso de la densidad serian los tests (1-2-3-4-5-6), con desviaciones estándares mayores a $1.90e-05$, como se puede observar en la Tabla.\ref{Tabla24}.
+
+Para una mejor observación de las desviaciones de cada densidad observar la Fig.\ref{Figura8}.
+
+\section{Discusión}
+\label{Sec:Disc}
+Se observa que al analizar estadísticamente las series de medidas de cada test tomado a las dimensiones de las diversas figuras tridimensionales, estás permiten observar una clara diferencia entre la distribución de datos respecto al punto de tendencia central de cada serie, ya que en algunas series la distribución de los datos resulta ser asimétrica, indicando que la mayor concentración de datos tiende a uno de los extremos de la gráfica dándole a esta una figura similar al de una curva sesgada, pero en otros casos la misma llega a ser aproximadamente simétrica, teniendo una figura similar al de la campana de Gauss, indicando que la concentración de datos está mayormente por la media.
+
+También se demuestra que las desviaciones y errores de las medidas indirectas dependen de la precisión con la que se tomaron las medidas directas de las dimensiones de las figuras tridimensionales.
+
+En este caso el error de las medidas directas es mínimo, por lo que las medidas indirectas calculadas como el volumen, el peso y la densidad no presentan grandes errores, causando que la desviación estándar llegue a estar muy próximo del cero, indicando que los datos tienden a estar mas cerca de la media, ya que entre menos dispersa este la distribucion de los datos de la serie de medidas, mas cercano a 0 es la desviación estándar.
+
+Como en el caso del volumen de la moneda en el test10, presente en la Tabla.\ref{Tabla23}, con una desviación de $0.0016$ y un error de la media de $7.76e-05$.
+
+\section{Conclusiones}
+\label{Sec:Concl}
+Se concluyo que:
+\begin{enumerate}
+\item Los datos obtenidos en cada serie de medidas directas de las mediciones realizadas a las dimensiones de las figuras tridimensionales como la esfera, el cilindro hueco, el cilindro y la moneda son distintos entre ellos, evidenciando una gran diferencia en su dispersión alrededor del punto de tendencia central, a la hora de analizar los datos. 
+\item La desviación estándar de las medidas indirectas como el volumen, el peso y la densidad de las figuras tridimensionales llega a ser muy próximo al cero, indicando que la mayor concentración de datos esta alrededor de la media y no a un extremo, es decir que la mayoría de los datos están en el punto central, como se observa:
+
+-Esfera: En su volumen en el test3 de la Tabla.\ref{Tabla5}, con una desviación estándar del $0.0021$.
+
+-Cilindro Hueco: En su densidad en el test3 de la Tabla.\ref{Tabla12}, con una desviación estándar del $0.00013$.
+
+-Cilindro: En su volumen en el test1 de la Tabla.\ref{Tabla17}, con una desviación estándar del $0.00039$.
+
+-Moneda: En su densidad en el test4 de la Tabla.\ref{Tabla24}, con una desviación estándar del $7.28e-05$.
+
+\item El error cometido en las medidas directas tomadas de las dimensiones de las figuras tridimensionales, también afectara al volumen, la masa y el peso de cada figura, debido a que estas son medidas indirectas y a la hora de utilizar cálculos y ecuaciones para obtenerlos, dependen de las medidas directas anteriormente tomadas de las dimensiones de las figuras, es decir que son proporcionales.
+Debido a que se tomo con mucha precisión las medidas directas, la desviación estándar y el error de la media son mínimos.
+
+Como se aprecia:
+-En el test1 de la densidad de la esfera en la Tabla.\ref{Tabla6}.
+-En el test6 del volumen del cilindro hueco en la Tabla.\ref{Tabla11}.
+-En el test1 de la densidad del cilindro en la Tabla.\ref{Tabla18}.
+-En el test7 del volumen de la moneda en la Tabla.\ref{Tabla23}.
+\end{enumerate}
+
+\section{Bibliografía}
+\printbibliography
+
+\end{document}

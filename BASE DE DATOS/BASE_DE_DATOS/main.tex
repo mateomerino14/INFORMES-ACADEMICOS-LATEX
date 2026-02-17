@@ -1,0 +1,472 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper]{geometry}
+\geometry{top=1.8cm, bottom=1.8cm, left=2cm, right=2cm}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{xcolor}
+\usepackage{diagbox}
+\usepackage{ulem}
+\usepackage[center]{caption}
+\captionsetup[figure]{font=large}
+
+
+
+\usepackage{fancyhdr}
+\pagestyle{plain}
+\lhead{}
+\chead{}
+\rhead{\thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\documentclass{article}
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\normalfont\fontsize{22}{20}\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{19}{20}\bfseries}{\thesubsection}{1em}{}
+  \titleformat{\subsubsection}
+  {\normalfont\fontsize{16}{20}\bfseries}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\section{\fontsize{21}{20}\selectfont Enunciado}
+\hfill \break
+{\fontsize{15}{15}\selectfont 
+Una empresa de ventas tiene productos catalogados de la siguiente manera, cristalería, electrodomésticos, comunicación, muebles, ferretería, juguetería y artículos en general que contempla cualquier otro artículo que no se encuentra dentro de los grupos anteriores. Dentro de ese esquema se desea que cada venta sea almacenada junto con su detalle, la venta debe estar asociada al cajero que atendió, el cliente que compro y por
+supuesto el detalle preciso de los artículos vendidos así como la fecha, hora y caja; existen 4 cajas en la tienda (pero en el tiempo pueden ser más o menos) y la asignación de las mismas a los cajeros es aleatoria, se tiene por cada día dos turnos de atención para los cajeros, pero estos turnos deben ser posibles de cambiar por el sistema por ejemplo ahora hay dos turnos pero quizás por alguna política se cambia a 3 turnos de atención para los cajeros.
+De los productos interesa el código, nombre, precio de compra precio de venta, lote, procedencia, marca, peso, lote, garantía, se hace notar que algunos artículos tienen garantía y otros pues no, además algunos artículos tienen un color y otros varios colores, todos los artículos deben estar catalogados en algún grupo o tipo y ubicados en algún sector y estante dentro la tienda; en lo referente al personal interesa sus datos personales más importantes como ser nombre, dirección, teléfono, cargo y salario, el salario se compone de sueldo base, bonos, descuentos, fecha de emisión, mes correspondiente al pago y fecha de pago; al igual que para los clientes, se debe almacenar por lo menos nombre, teléfono y zona en la que viven, un cliente puede tener uno o muchos teléfonos
+y se debe guardar todos.
+\hfill \break
+\hfill \break
+La empresa desea lanzar promociones, las promociones se componen de productos, y tiene un nombre, una fecha de inicio, fin y una calificación que se da al final de la
+promoción, los productos son seleccionados siguiendo algunos criterios muy importantes: Por ejemplo: El producto no se está vendiendo por el alto precio que tiene, así que es necesario hacer un descuento especial y evitar que se quede en stock y resulte en una perdida, también se podría ofrecer productos novedosos que han llegado a un costo de promoción, etc. Una vez que tenemos el paquete a ofrecer, debemos determinar el mercado o un segmento del mercado al cual se desea llegar con el producto. Para determinar el segmento del mercado también se debe hacer uso de diferentes criterios que nos permitan seleccionar nuestro mercado, consideremos que la empresa tiene miles de registros de sus clientes que han realizado alguna compra, ahora quiero filtrar de ese
+universo un subconjunto de personas que podrían adquirir el producto que se ofrece, supongamos que quiero ofrecer un juguete novedoso para niños mayores a 8 años, o llego
+productos de alta tecnología en el área de telecomunicaciones, entonces debo enviar mi oferta a un grupo selecto que podría estar interesado en mi oferta, a esto se podría llamar
+campañas dirigidas, para ello de los clientes se debe almacenar sus preferencias.
+\hfill \break
+\hfill \break
+Responder a las preguntas siguientes en AR, CRT y SQL:
+
+\begin{enumerate}[label=\alph*)]
+    \item Mostrar la lista de clientes (nombre y teléfono), fecha de venta, hora de venta, y monto de la venta de los clientes que compraron artículos de cristalería y/o juguetería, y que fueron atendidos por cajeros que trabajan en el primer turno, este reporte debe ser para las ventas del mes pasado.
+    \item Mostrar la lista de las promociones exitosas (nombre de la promoción), los productos que la componen, la fecha de inicio y fin que estuvo activas la promoción, y el precio del paquete de la promoción, solo de las promociones lanzadas entre enero y septiembre de este año.
+    \item Mostrar nombre y costo de los productos de ferretería que se vendieron el primer trimestre de este año, cuyos montos de venta de los productos de ferretería estén entre 50 y 250 Bs.
+    \item Mostrar los datos más importantes de los productos en general que nunca se vendieron.
+\end{enumerate}
+
+\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+\hfill \break\hfill \break
+
+\section{\fontsize{21}{20}\selectfont Introducción}
+\hfill \break
+{\fontsize{15}{15}\selectfont 
+En el ámbito del desarrollo de sistemas de información, la creación de bases de datos es esencial para organizar y gestionar grandes volúmenes de datos de manera eficiente. Este informe describe el proceso completo seguido para desarrollar una base de datos para una empresa de ventas, desde el diseño conceptual hasta la implementación práctica y la ejecución de consultas, con el objetivo de resolver varios problemas de gestión y operación.
+\hfill \break
+\hfill \break
+La problemática principal de la empresa incluye la necesidad de gestionar eficientemente la información sobre productos, ventas, clientes, personal y promociones. Los productos están catalogados en diversas categorías y deben registrarse con detalles específicos, mientras que cada venta debe almacenar información detallada sobre el cajero, el cliente y los artículos vendidos, además de la fecha, hora y caja. La asignación de cajas y turnos de atención de los cajeros también debe ser flexible y adaptable.
+\hfill \break
+\hfill \break
+Para abordar estas necesidades, comenzamos con un análisis exhaustivo del problema, identificando las entidades principales y sus atributos, estableciendo las relaciones entre ellas, asegurando la coherencia del modelo conceptual. Simplificamos estas relaciones en el modelo lógico, asignando llaves foráneas para mantener la integridad referencial y facilitar la navegación y manipulación de datos.
+\hfill \break
+\hfill \break
+La implementación del modelo físico se realizó utilizando herramientas especializadas como Power Designer y MySQL. 
+Se obtuvo el script SQL generado por la herramienta Power Designer, que incluía la creación de tablas, definición de columnas y establecimiento de restricciones. Este script fue crucial para convertir el diseño teórico en una base de datos funcional.
+\hfill \break
+\hfill \break
+Finalmente, ingresamos datos reales y ejecutamos consultas SQL formuladas previamente con álgebra y cálculo relacional para validar la efectividad del diseño. Estas consultas permitieron verificar que el sistema cumple con los requisitos de la empresa, mejorando la gestión de ventas, productos, clientes, personal y promociones, y soportando las operaciones necesarias para una gestión eficiente de la tienda y estrategias de marketing dirigidas.
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\section{\fontsize{21}{20}\selectfont Modelamiento}
+\subsection{\fontsize{19}{20}\selectfont Modelo Conceptual}
+\subsubsection{\fontsize{19}{20}\selectfont Reconocimiento de Entidades}
+\hfill \break
+Con la finalidad de elaborar el diseño Conceptual, se procedió a analizar el contexto del enunciado sobre la problemática planteada.
+Una vez hecho el análisis se llegó a identificar las entidades necesarias que participaran en el modelo conceptual.
+\hfill \break
+\hfill \break
+Sin embargo, se llego a observar la necesidad de implementar nuevas entidades que no están presentes en el enunciado del problema, las cuales son necesarias para desarrollar un modelo mas preciso y correcto de la base de datos.\hfill \break
+Por lo que se llego a reconocer 25 entidades en total.
+
+\subsubsection{\fontsize{19}
+{20}\selectfont Asignación de Atributos}
+\hfill \break
+Posteriormente, se llega a determinar los atributos que tendrá cada entidad, con sus correspondientes llaves primarias, respetando la integridad que una llave primaria debe cumplir, es decir:
+\begin{itemize}
+    \item Nunca puede ser nula
+    \item No puede repetirse
+\end{itemize}
+Como resultado, se obtuvieron las siguientes entidades con sus correspondientes atributos:
+\begin{enumerate}
+    \item PRODUCTO: Almacena información básica sobre los productos disponibles, incluyendo código de producto(PK), nombre de producto, precio unitario de compra, precio unitario de venta, marca, peso, fecha de vencimiento, cantidad en stock, lote.
+    
+    \item CATALOGO: Organiza productos en diferentes categorías para facilitar la búsqueda, incluyendo código de catalogo(PK) y descripción de catalogo.
+    
+    \item PROCEDENCIA: Registra el origen de los productos, incluyendo código de procedencia(PK), país de procedencia y ciudad de procedencia.
+    
+    \item COLORES: Define los colores disponibles para los productos, incluyendo código de color(PK) y color.
+    
+    \item GARANTÍA: Almacena información sobre las garantías ofrecidas para los productos, incluyendo código de garantía(PK), descripción de garantía y condiciones de exclusión de garantía.
+
+    
+    \item PRODUCTO\_PROMOCIÓN: Relaciona productos con promociones aplicables, incluyendo código de producto de promoción(PK).
+    
+    \item PROMOCIONES: Registra las promociones disponibles para los clientes, incluyendo
+    código de promoción(PK), nombre de promoción, fecha de inicio de promoción, fecha de fin de promoción, calificación, precio de paquete.
+
+    \item VENTA: Registra las transacciones de venta, incluyendo código de venta(PK), fecha de venta, total, hora de venta, forma de pago, estado de la venta.
+    
+    \item DETALLE\_VENTA: Contiene información detallada de los productos vendidos en cada transacción, incluyendo código de detalle de venta(PK), cantidad de detalle y subtotal de detalle.
+    
+    \item TARJETA\_CRÉDITO: Registra la información de las tarjetas de crédito utilizadas por los clientes, incluyendo código de tarjeta de crédito(PK), numero de tarjeta, nombre del titular, nombre del banco asociado a la tarjeta, cvv de la tarjeta, fecha de vencimiento de la tarjeta.
+
+    
+    \item CLIENTES: Almacena información personal de los clientes, incluyendo código de cliente(PK), nombre de cliente, apellido de cliente, fecha de nacimiento del cliente, email del cliente, dirección del cliente, zona, ciudad.
+    
+    \item PREFERENCIAS\_CLIENTE: Guarda preferencias y hábitos de compra de los clientes, incluyendo código de preferencia de cliente(PK), categoría de producto preferida, marca preferida, fecha de ultima actualización.
+    
+    \item TELÉFONOS\_CLIENTE: Registra números de teléfono de los clientes, incluyendo código de teléfono del cliente(PK), teléfono del cliente.
+    
+    \item EMPLEADO: Contiene información del personal de la empresa, incluyendo código de empleado(PK), nombre del empleado, apellido del empleado, fecha de nacimiento del empleado, email del empleado, teléfono del empleado y dirección de domicilio.
+
+    \item CAJERO: Especifica empleados que trabajan como cajeros, incluyendo código de cajero(PK), nivel de acceso.
+
+    
+    \item ESTANTE: Define la ubicación física de los productos en la tienda, incluyendo código de estante(PK), nombre del estante y capacidad máxima.
+    
+    \item SECTORES: Describe las diferentes áreas de la tienda, incluyendo codigo de sector(PK), nombre del sector, descripción del sector y sector activo.
+    
+    \item SEGMENTO\_MERCADO: Categoriza los productos según segmentos de mercado, incluyendo código de segmento de mercado(PK), nombre del segmento y descripción del segmento.
+    
+    \item ASIGNACIÓN\_TURNO: Registra los turnos asignados a los empleados, incluyendo código de asignación de turno(PK), fecha de asignación del turno.
+    
+    \item TURNOS: Contiene información de los turnos disponibles, incluyendo código de turno(PK), nombre del turno, hora de inicio del turno y hora de fin del turno.
+    
+    \item CAJA: Almacena información de las cajas registradoras, incluyendo código de caja(PK), numero de caja, ubicación de caja, estado de caja.
+
+    
+    \item DESCUENTO: Registra los descuentos aplicables al salario de los empleados, incluyendo código de descuento(PK), monto de descuento, descripción del descuento, fecha de emisión del descuento, fecha de aplicación del descuento.
+    
+    \item SALARIOS: Almacena información salarial de los empleados, incluyendo código de salario(PK), fecha de emisión del salario, mes de pago, fecha de pago del salario, monto base.
+    
+    \item CARGO: Describe diferentes cargos y posiciones dentro de la empresa, incluyendo código de cargo(PK), nombre del cargo, descripción del cargo.
+
+    \item BONOS: Describe los incentivos o recompensas adicionales otorgados a los empleados además de su salario regular, incluyendo código de bono, monto del bono, descripción del bono y fecha de registro del bono.
+    
+\end{enumerate}
+
+\subsubsection{\fontsize{19}
+{20}\selectfont Implementación de Relaciones entre Entidades}
+\hfill \break
+Acto seguido, se llega a establecer las relaciones entre las entidades, tomando en cuenta que una relación puede tener distintas cardinalidades como también existencia, como se puede observar a continuación:
+\hfill \break
+\hfill \break
+Cardinalidad
+\begin{itemize}
+    \item Uno-Muchos
+    \item Muchos-Muchos
+    \item Uno-Uno
+\end{itemize}
+\hfill \break
+Existencia
+\begin{itemize}
+    \item Total-Total
+    \item Total-Parcial
+    \item Parcial-Parcial
+\end{itemize}
+Finalmente, se obtiene como resultado el siguiente modelo conceptual:
+
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.32]{c.jpeg} 
+\caption{Modelo Conceptual}
+\label{Modelo Coceptual}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.37]{conceptual.png} 
+\caption{Revisión de Modelo Conceptual}
+\label{Revision de Modelo Conceptual}
+\end{figure}
+
+\subsection{\fontsize{19}{20}\selectfont Modelo Lógico}
+\hfill \break
+Se llega a establecer el modelo lógico sobre el modelo conceptual anteriormente implementado, para lo cual se procede a establecer las llaves foráneas en cada una de las entidades, en base a las relaciones del modelo conceptual.
+\hfill \break
+\hfill \break
+Las llaves foráneas se establecen teniendo en cuenta los siguientes aspectos:
+\begin{itemize}
+    \item Relación Uno-Muchos: La entidad con la relación uno le envía su llave primaria a la entidad con la relación muchos.
+    \item Relación Muchos-Muchos: Se genera una nueva entidad intermedia entre las dos entidades iniciales, esta entidad intermedia recibirá las llaves primarias de las dos entidades iniciales y establecerá su llave primaria como una llave compuesta conformada por las llaves primarias que esta recibiendo.
+\end{itemize}
+\hfill \break
+Como resultado, se llegaron a obtener las siguientes entidades, con sus respectivos atributos y llaves foráneas:
+\hfill \break
+\hfill \break
+Significado de Colores:
+\begin{itemize}
+    \item Rojo:Llave Primaria
+    \item Azul:Llave Foranea
+\end{itemize}
+\begin{enumerate}
+    \Large \item  \Large PRODUCTO(\small{ \textcolor{red}{\textbf{ID\_CÓDIGO\_PRODUCTO}}, \textcolor{blue}{\textbf{ID\_PROCEDENCIA}}, \textcolor{blue}{\textbf{ID\_ESTANTE}}, NOMBRE\_PRODUCTO, PRECIO\_UNITARIO\_COMPRA, PRECIO\_UNITARIO\_VENTA, MARCA, PESO, FECHA\_VENCIMIENTO\_PRODUCTO, CANTIDAD\_STOCK, LOTE}\normalsize)
+
+    \Large \item \Large CATALOGO(\small \textcolor{red}{\textbf{ID\_CATALOGO}}, {\textcolor{blue}{\textbf{ID\_CÓDIGO\_PRODUCTO}}, CÓDIGO, DESCRIPCIÓN}\normalsize)
+
+    
+    \Large \item \Large PROCEDENCIA(\small \textcolor{red}{\textbf{ID\_PROCEDENCIA}}, {PAIS\_PROCEDENCIA, CIUDAD\_PROCEDENCIA}\normalsize)
+
+    
+    \Large \item \Large COLORES(\small \textcolor{red}{\textbf{ID\_COLOR}}, \small{COLOR}\normalsize)
+
+    
+    \Large \item \Large GARANTÍA(\small \textcolor{red}{\textbf{ID\_GARANTIA}}, \small{\textcolor{blue}{\textbf{ID\_CODIGO\_PRODUCTO}}, DESCRIP\_GARANTIA, CONDICIONES\_EXCLUSION}\normalsize)
+
+
+    
+    \Large \item \Large ESTANTE( \small \textcolor{red}{\textbf{ID\_ESTANTE}}, \small{\textcolor{blue}{\textbf{ID\_SECTOR}}, NOMB\_ESTANTE, CAPACIDAD\_MAXIMA}\normalsize)
+
+    
+    \Large \item \Large SECTORES(\small \textcolor{red}{\textbf{ID\_SECTOR}}, \small{NOM\_SECTOR, DESCRIP\_SECTOR, SECTOR\_ACTIVO}\normalsize)
+    
+   \Large  \item \Large PRODUCTO\_PROMOCIÓN(\small \textcolor{red}{\textbf{ID\_PRODUCTO\_PROMOCION}}, \small{\textcolor{blue}{\textbf{ID\_CODIGO\_PRODUCTO}}, \textcolor{blue}{\textbf{ID\_PROMOCION}}}\normalsize)
+    
+    \Large \item \Large PROMOCIONES(\small \textcolor{red}{\textbf{ID\_PROMOCION}}, \small{NOMBRE\_PROMOCION, FECHA\_INICIO\_PROMOCION, FECHA\_FIN\_PROMOCION, CALIFICACION, PRECIO\_PAQUETE}\normalsize)
+    
+    \Large \item \Large DETALLE\_VENTA(\small \textcolor{red}{\textbf{ID\_DETALLE\_VENTA}}, \small{\textcolor{blue}{\textbf{ID\_CODIGO\_PRODUCTO}}, \textcolor{blue}{\textbf{ID\_VENTA}}, CANTIDAD\_DETALLE, SUBTOTAL\_DETALLE}\normalsize)
+    
+    \Large \item \Large VENTA(\small \textcolor{red}{\textbf{ID\_VENTA}}, \small{\textcolor{blue}{\textbf{ID\_TARJETA\_CREDITO}}, \textcolor{blue}{\textbf{ID\_CLIENTE}}, \textcolor{blue}{\textbf{ID\_CAJERO}}, FECHA\_VENTA, HORA\_VENTA, TOTAL, FORMA\_PAGO, ESTADO\_VENTA}\normalsize)
+    
+    \Large \item \Large TARJETA\_CRÉDITO(\small \textcolor{red}{\textbf{ID\_TARJETA\_CREDITO}}, \small{NUM\_TARJETA, NOMBRE\_TITULAR, NOMBRE\_BANCO\_ASOCIADO, CVV, FECHA\_VENCIMIENTO\_TARJETA}\normalsize)
+    
+    \Large \item \Large CLIENTES(\small \textcolor{red}{\textbf{ID\_CLIENTE}}, \small{NOMBRE\_CLIENTE, APELLIDO\_CLIENTE, FECHA\_NACIMIENTO\_CLIENTE, EMAIL\_CLIENTE, DIRECCIÓN\_CLIENTE, ZONA, CIUDAD}\normalsize)
+
+    
+    \Large \item \Large PREFERENCIAS\_CLIENTE(\small \textcolor{red}{\textbf{ID\_PREFERENCIA}}, \small{\textcolor{blue}{\textbf{ID\_CLIENTE}}, CATEGORIA\_PREFERIDA, MARCA\_PREFERIDA, FECHA\_ULTIMA\_ACTUALIZACION}\normalsize)
+    
+    \Large \item \Large TELÉFONOS\_CLIENTE(\small \textcolor{red}{\textbf{ID\_TELÉFONO\_CLIENTE}}, \small{\textcolor{blue}{\textbf{ID\_CLIENTE}}, TELÉFONO\_CLIENTE}\normalsize)
+
+    
+    \Large \item \Large EMPLEADO(\small \textcolor{red}{\textbf{ID\_EMPLEADO}}, \small{\textcolor{blue}{\textbf{ID\_CARGO}}, NOMBRE\_EMPLEADO, APELLIDO\_EMPLEADO, FECHA\_NACIMIENTO\_EMPLEADO, EMAIL\_EMPLEADO, TELEFONO, DIRECCION\_DOMICILIO}\normalsize)
+    
+    \Large \item \Large CAJERO(\small \textcolor{red}{\textbf{ID\_CAJERO}}, \small{\textcolor{blue}{\textbf{ID\_EMPLEADO}}, NIVEL\_ACCESO}\normalsize)
+    
+    \Large \item \Large SEGMENTO\_MERCADO(\small \textcolor{red}{\textbf{ID\_SEGMENTO}}, \small{NOMBRE\_SEGEMENTO, DESCRIPCION\_SEGMENTO}\normalsize)
+    
+    \Large \item \Large ASIGNACIÓN\_TURNO(\small \textcolor{red}{\textbf{ID\_ASIGNACION\_TURNO}}, \small{\textcolor{blue}{\textbf{ID\_CAJERO}}, \textcolor{blue}{\textbf{ID\_CAJA}}, \textcolor{blue}{\textbf{ID\_TURNO}}, FECHA\_ASIGNACIÓN\_TURNO}\normalsize)
+    
+   \Large  \item \Large TURNOS(\small \textcolor{red}{\textbf{ID\_TURNO}}, \small{NOMBRE\_TURNO, HORA\_INICIO, HORA\_FIN}\normalsize)
+    
+    \Large \item \Large CAJA(\small \textcolor{red}{\textbf{ID\_CAJA}}, \small{NUMERO\_CAJA, UBICACION\_CAJA, ESTADO\_CAJA}\normalsize)
+    
+    \Large \item \Large DESCUENTOS(\small \textcolor{red}{\textbf{ID\_DESCUENTO}}, \small{\textcolor{blue}{\textbf{ID\_SALARIO}}, MONTO\_DESCUENTO, DESCRIP\_DESCUENTO, FECHA\_APLICACION}\normalsize)
+
+    \Large \item \Large BONOS(\small \textcolor{red}{\textbf{ID\_BONO}}, \small{\textcolor{blue}{\textbf{ID\_SALARIO}}, MONTO\_BONO, DESCRIPCION\_BONO, FECHA\_RESGISTRO\_BONO}\normalsize)
+    
+    \Large \item \Large SALARIOS(\small \textcolor{red}{\textbf{ID\_SALARIO}}, \small{FECHA\_EMISION, MES\_PAGO, FECHA\_PAGO, MONTO\_BASE}\normalsize)
+    
+   \Large \item \Large CARGO(\small \textcolor{red}{\textbf{ID\_CARGO}}, \small{NOMBRE\_CARGO, DESCRIPCION\_CARGO}\normalsize)
+    
+    \Large \item \Large ES\_DE(\small \textcolor{red}{\textbf{ID\_COLOR}}, \small{\textcolor{red}{\textbf{ID\_CODIGO\_PRODUCTO}}}\normalsize)
+    
+    \Large \item \Large ESTA\_DIRIGIDO(\small \textcolor{red}{\textbf{ID\_SEGMENTO}}, \small{\textcolor{red}{\textbf{ID\_PROMOCION}}}\normalsize)
+    
+    \Large\item \Large PERTENECE(\small \textcolor{red}{\textbf{ID\_CLIENTE}}, \small{\textcolor{red}{\textbf{ID\_SEGMENTO}}}\normalsize)
+    
+   \Large \item \Large RECIBE(\small \textcolor{red}{\textbf{ID\_SALARIO}}, \small{\textcolor{red}{\textbf{ID\_EMPLEADO}}}\normalsize)
+\end{enumerate}
+
+
+
+Finalmente, se obtiene como resultado el siguiente modelo lógico:
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.32]{b.jpeg} 
+\caption{Modelo Lógico}
+\label{Modelo Logico}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.37]{logico.png} 
+\caption{Revisión de Modelo Lógico}
+\label{Revision de Modelo Logico}
+\end{figure}
+
+\subsection{\fontsize{19}{20}\selectfont Modelo Físico}
+\hfill \break
+Basado en el modelo lógico previamente implementado, se obtiene como resultado el modelo físico:
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.33]{a.jpeg} 
+\caption{Modelo Físico}
+\label{Modelo Fisico}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.37]{fisico.png} 
+\caption{Revisión de Modelo Físico}
+\label{Revision de Modelo Fisico}
+\end{figure}
+
+\section{\fontsize{21}{20}\selectfont Ejecucion del Script SQL}
+\hfill \break
+Se procede a ejecutar el script SQL obtenido de la herramienta de diseño "Power designer", utilizada durante todo el modelado de la base de datos.
+\hfill \break
+\hfill \break
+Se llega a escoger Mysql como el gestor de base de datos para la ejecución del script SQL obtenido.
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.30]{EjecucionScriptSQLENMANGERLITE.png} 
+\caption{Ejecución del Script SQL}
+\label{Ejecución del Script SQL}
+\end{figure}
+
+
+\section{\fontsize{21}{20}\selectfont Llenado de Datos}
+\hfill \break
+Se procede a rellenar con datos cada una de las tablas presentes en la base de datos, mediante el comando INSERT INTO, establecido en el lenguaje de consulta SQL, con la finalidad de poder realizar consultas posteriormente.
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.42]{WhatsApp Image 2024-06-28 at 7.04.19 PM.jpeg} 
+\caption{Relleno Datos}
+\label{Relleno Datos}
+\end{figure}
+
+\section{\fontsize{21}{20}\selectfont Consultas en AR,CRT,SQL}
+\subsection{Inciso a)}
+\subsubsection{AR}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.48] {AR1.jpeg} 
+\caption{Consulta en Álgebra Relacional}
+\end{figure}
+\subsubsection{CRT}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.65]{CRT1.jpeg} 
+\caption{Consulta en Calculo Relacional}
+\end{figure}
+\subsubsection{SQL}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.65]{Consulta1.jpg} 
+\caption{Consulta en Lenguaje de Consulta SQL}
+\end{figure}
+\subsection{Inciso b)}
+\subsubsection{AR}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.30]{kfdsnfkdsndksffdsfd.jpeg} 
+\caption{Consulta en Álgebra Relacional}
+\end{figure}
+\subsubsection{CRT}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.32]{sdnfkdsnfdsklfndkl.jpeg} 
+\caption{Consulta en Calculo Relacional}
+\end{figure}
+\subsubsection{SQL}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.65]{Consulta2.jpg} 
+\caption{Consulta en Lenguaje de Consulta SQL}
+\end{figure}
+\subsection{Inciso c)}
+\subsubsection{AR}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.55] {AR3.jpeg} 
+\caption{Consulta en Álgebra Relacional}
+\end{figure}
+\subsubsection{CRT}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.55] {CRT3.jpeg} 
+\caption{Consulta en Calculo Relacional}
+\end{figure}
+\subsubsection{SQL}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.65]{Consulta3.jpg} 
+\caption{Consulta en Lenguaje de Consulta SQL}
+\end{figure}
+\subsection{Inciso d)}
+\subsubsection{AR}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.55] {AR4.jpeg} 
+\caption{Consulta en Álgebra Relacional}
+\end{figure}
+\subsubsection{CRT}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.55] {CRT4.jpeg} 
+\caption{Consulta en Calculo Relacional}
+\end{figure}
+\subsubsection{SQL}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.65]{Consulta4.jpeg} 
+\caption{Consulta en Lenguaje de Consulta SQL}
+\end{figure}
+
+\section{\fontsize{21}{20}\selectfont Ejecución de consultas SQL con Datos}
+
+\subsection{Inciso a)}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.74]{WhatsApp Image 2024-06-28 at 7.44.10 PM.jpeg} 
+\caption{Datos Filtrados con la consulta SQL}
+\end{figure}
+\subsection{Inciso b)}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.50]{CONSULTA2.jpeg} 
+\caption{Datos Filtrados con la consulta SQL}
+\end{figure}
+\subsection{Inciso c)}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.60]{CONSULTA3.jpeg} 
+\caption{Datos Filtrados con la consulta SQL}
+\end{figure}
+\subsection{Inciso d)}
+\begin{figure}[H]
+    \centering
+\includegraphics[scale=0.78]{CONSULTA4.jpeg} 
+\caption{Datos Filtrados con la consulta SQL}
+\end{figure}
+
+\end{document}

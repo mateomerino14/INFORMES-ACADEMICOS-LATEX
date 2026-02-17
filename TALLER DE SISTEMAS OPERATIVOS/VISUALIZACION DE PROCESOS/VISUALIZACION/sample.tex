@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To select a journal, use its code for the 
+% journal= option in the \documentclass command.
+% The journal codes for this template are:
+% 
+% Journal of Law and Courts: jlc
+% Macroeconomic Dynamics: mdy
+% State Politics & Policy Quarterly: spq
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[
+  journal=small,
+  manuscript=ARTICULO-CIENTIFICO,  % Use a - if you need a space e.g. "research-article"
+  year=2025
+]{cup-journal}
+
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage[nopatch]{microtype}
+\usepackage{booktabs}
+
+\title{Universidad Mayor de San Simón}
+
+\author{Merino Vidal Mateo Alejandro}
+\affiliation{Cochabamba, Bolivia \\ \texttt{202301308@est.umss.edu}}
+
+\keywords{proceso, jerarquía, sistema operativo, cambio de contexto} 
+
+\begin{document}
+
+\begin{abstract}
+El presente informe tiene como objetivo demostrar la ejecución de procesos en el sistema operativo Windows 11. Para una correcta visualización en cuanto a la jerarquía de procesos se requirió el uso de una aplicación o programa denominado Procmon. Se comparan dos escenarios: uno en donde se observa el árbol de procesos correspondiente a un solo usuario y otro cuando se están ejecutando dos usuarios a la vez.
+\end{abstract}
+
+\section{Introducción}
+Actualmente, muchas personas creen que la computadora trabaja de forma simultanea al momento de realizar diversos procesos, es decir, que ejecuta múltiples acciones a la vez. Sin embargo, esto no es verdad, ya que a pesar de que la computación ha evolucionado a lo largo de la historia, las computadoras siguen estando limitadas.
+\\ \\
+Los microprocesadores actuales ejecutan un solo proceso a la vez, pero lo hacen a una velocidad tan alta que el ser humano no puede percibir cuándo comienza o termina cada uno. Como resultado, da la impresión de que todos los procesos se ejecutan a la vez.
+\\ \\
+Cada acción realizada en la computadora, desde abrir una aplicación hasta ejecutar un simple comando, implica por lo menos la ejecución de un proceso.
+\\ \\
+\fbox{
+    \begin{minipage}{0.9\textwidth}
+        \textbf{Proceso: Actividad que se ejecuta de manera independiente dentro de un programa, pero que forma parte del conjunto de tareas necesarias para su funcionamiento. Cada proceso utiliza sus propios datos y recursos durante su ejecución.} 
+    \end{minipage}
+}
+\\
+\\
+Cuando el procesador atiende un proceso en cola, está en ejecución. Sin embargo, si la tarea ocupa demasiado tiempo, el procesador no puede asignar todo su tiempo de ejecución a esta actividad, ya que existen otras que están esperando en cola. En este caso, se guarda el estado del proceso mediante el contador del programa y el procesador pasa al siguiente proceso. A esta transición entre procesos o actividades se le denomina cambio de contexto.
+\\ \\
+\fbox{
+    \begin{minipage}{0.9\textwidth}
+        \textbf{Cambio de Contexto: Procedimiento en el cual el procesador interrumpe la ejecución de un proceso y guarda su estado para poder ejecutar el siguiente en espera. Sin embargo, este cambio requiere tiempo para guardar y restaurar la información del proceso, siendo considerado como "tiempo perdido" o "tiempo muerto", ya que no contribuye directamente con la ejecución de las tareas.} 
+    \end{minipage}
+}
+\\ \\
+Cada proceso al momento de crearse, sigue una jerarquía, pudiendo representarla a través de un árbol de procesos, cuya estructura es similar a la de un árbol genealógico, por lo que es necesario emplear términos como padre, hijo, abuelo.
+\\ \\
+En el caso de Windows, los procesos del sistema operativo no siguen como tal una jerarquía, pero gracias a la aplicación Procmon es posible observar cuales son los principales. Al iniciar el sistema, los primeros procesos que se ejecutan son los encargados de la administración básica de los recursos del sistema. Entre ellos se encuentran:
+\begin{enumerate}
+    \item \verb|System|: Núcleo de Windows, responsable de gestionar los recursos del sistema.
+    \item \verb|Winlogon|: Se encarga de la administración y autentificación del usuario.
+    \item \verb|Explorer (Shell)|: Interfaz gráfica para interactuar con el sistema.
+\end{enumerate}
+\section{Desarrollo}
+Para el presente proyecto, se llevaron a cabo una serie de pasos e instrucciones que permitieron estructurar y ejecutar de manera adecuada las tareas necesarias para el análisis de los procesos en el sistema operativo Windows 11.
+
+\begin{enumerate}
+    \item Instalación de la aplicación Procmon, ya que Windows por defecto no nos permite ver de forma clara la jerarquía de los procesos que se están ejecutando.
+   \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=1.1 \textwidth]{Procmon.png} 
+    \caption{Procmon}  
+    \label{fig:mi_imagen}  
+    \end{figure}
+    \item Ir al apartado de "Tools" en la aplicación y seleccionar Process Tree, el cual nos mostrara la jerarquía de los procesos que están actualmente en ejecución.
+    Esto hace posible observar los procesos, con sus respectivos PID (Process Identifier) cada uno, los cuales nos indican que procesos están por encima de otros en la jerarquía, es decir, cuales son padres y cuales son hijos. \\
+    Entre los primeros procesos como se observa en la fig, \ref{10} , se encuentran: 
+    \\
+     \\
+    System --> Winnit --> WinLogon --> Explorer (Iniciado por Winlogon).
+    
+    \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=1.1\textwidth]{Un_usuario.jpeg} 
+    \caption{Process Tree de 1 Usuario}  
+    \label{10}  
+    \end{figure}
+    Como se puede observar, el proceso explorer.exe gestiona la interfaz gráfica del usuario en Windows, y dentro de esta interfaz, se muestran procesos de aplicaciones abiertas como Steam, Edge, Google, etc.
+    \\
+    \item Se procede a la creación de un segundo usuario, con el fin de demostrar la existencia de dos sesiones de usuario activas, cada una con su propio proceso de WinLogon y Explorer.
+     \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=0.6\textwidth]{Usuario1.png} 
+    \caption{Usuario Principal}  
+    \label{fig:mi_imagen}  
+    \end{figure}
+     \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=0.6\textwidth]{Usuario2.png} 
+    \caption{Usuario Secundario}  
+    \label{fig:mi_imagen}  
+    \end{figure}
+
+     \item Se inicia sesión en la cuenta del segundo usuario y se procede a abrir aplicaciones para generar nuevos procesos.
+     Posteriormente se regresa a la sesión del primer usuario y se procede a generar nuevamente el Process Tree en la aplicación Procmon.
+
+     \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=1.1\textwidth]{simultaneo.jpeg} 
+    \caption{Process Tree de los dos usuarios}  
+    \label{1000}  
+    \end{figure}
+    Tal y como se observa en la fig. \ref{1000}, ambos usuarios cuentan con sus propios procesos en cuanto al Winlogon y  Explorer, teniéndose una estructura:\\ \\
+    \begin{center}
+   \begin{forest}
+    for tree={
+        grow'=south,
+        parent anchor=south,
+        child anchor=north,
+        align=center,
+        edge={thick, -{Latex}}
+    }
+    [System
+        [smss.exe
+            [winlogon.exe (Usuario 2)
+                [explorer.exe (Usuario 2)]
+            ]
+        ]
+        [winlogon.exe (Usuario 1)
+            [explorer.exe (Usuario 1)]
+        ]
+    ]
+    \end{forest}
+    \end{center}
+    Cabe mencionar que el Winlogon y  Explorer del usuario secundario ha pasado a estar contenido dentro de smss.exe. Esto ocurre porque, al iniciar una segunda sesión de usuario, el sistema reorganiza la jerarquía de procesos, y smss.exe asume el control de la administración de sesiones activas. \\
+    Por otro lado, el Winlogon y Explorer del usuario principal se muestra como un proceso independiente, es decir, que no esta contenido dentro del smss.exe como el usuario secundario.
+    \hfill \break
+    \hfill \break
+    A continuación, se puede observar en la fig.\ref{30} y fig \ref{40} los procesos correspondientes a cada usuario, pero de forma mucho mas detallada.
+     \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=1.07\textwidth]{UsuarioSecundario.jpeg} 
+    \caption{Procesos del Usuario Principal}  
+    \label{30}  
+    \end{figure}
+    
+     \begin{figure}[H] 
+    \centering 
+    \includegraphics[width=1.07\textwidth]{UsuarioPrincipal.jpeg} 
+    \caption{Procesos del Usuario Secundario}  
+    \label{40}  
+    \end{figure}
+    
+\end{enumerate}
+
+\section{Conclusión}
+\begin{itemize}
+    \item Aunque el procesador ejecuta muchos procesos a alta velocidad, lo que da la impresión de que los realiza simultáneamente, en realidad solo puede ejecutar un proceso a la vez.
+    \hfill \break
+    \item Windows no mantiene como tal una jerarquía de procesos, pero, mediante la herramienta Procman, se ha observado que entre los primeros procesos se encuentran System, Winlogon y Explorer.\\
+    Cuando se inicia sesión en un usuario secundario, se crea un segundo Winlogon y Explorer para ese usuario, lo que modifica la estructura del Process Tree.
+\end{itemize}
+
+
+
+\end{document}

@@ -1,0 +1,362 @@
+\documentclass[%
+ reprint,
+%superscriptaddress,
+groupedaddress,
+unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper
+%floatfix,
+superscriptaddress
+]{revtex4-2}
+\include{Formato}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{bibliografia}
+\pagestyle{plain}
+
+% Configuración de párrafos: sin sangría
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+
+\preprint{APS/123-QED}
+
+\title{RESISTENCIAS ELECTRICAS}
+
+\author{Merino Vidal, Mateo}
+\affiliation{Departamento de Informática y Sistemas }
+\email{202301308@est.umss.edu}
+
+\date{\today}
+
+\begin{abstract}
+\hfill \break
+En este trabajo, se busca mostrar las diferencias sustanciales que existen en el flujo de los electrones de circuitos en serie y circuitos en paralelo, así como detallar las tolerancias que conlleva el uso de resistencias, en base a los valores obtenidos de cada una de las resistencias individuales como también de la resistencia equivalente en conexiones en serie y paralelo de resistencias, determinadas de forma teórica mediante el uso del sistema de colores y de forma experimental mediante un multímetro durante la simulación en el laboratorio de física general.
+
+\begin{description}
+\item[Palabras clave:] Resistencias, Intensidad, Ohmimetro, Resistividad, Resistencias en Serie, Resistencias en Paralelo.
+\end{description}
+\end{abstract}
+
+\maketitle
+
+\section{Introducción}
+\label{sec:introduccion}
+
+Se le denomina resistencia eléctrica a la igualdad de oposición que tienen los electrones al moverse a través de un conductor.
+\hfill \break
+\hfill \break
+La resistencia de denota con la letra R y su
+unidad en el Sistema Internacional es el ohmio, que se representa con la letra
+griega omega  $\Omega$, en honor al físico alemán George Ohm, tal y como lo expresa Cythia Tiscareno \cite{Cythia}.
+\hfill \break
+\hfill \break
+En algunos materiales su resistencia es independiente de la corriente que pasa a
+través de ellos y del voltaje que produce tal corriente. A este tipo de materiales se
+les llama óhmicos y su resistencia se puede calcular mediante la expresión
+$\Delta V=E\times I$.\\
+A la expresión anterior se le denomina ley de Ohm.
+\hfill \break
+\hfill \break
+Para un conductor de tipo cable, la resistencia está dada por la siguiente fórmula:
+$R= \rho \times \dfrac{L}{S} $
+\hfill \break
+\hfill \break
+Donde $\rho$ es el coeficiente de proporcionalidad o la resistividad del material, L es la longitud del cable y S el área de la sección transversal del mismo.
+\hfill \break
+\hfill \break
+La resistencia de un material depende directamente de dicho coeficiente, además es directamente proporcional a su longitud (aumenta conforme es mayor su longitud)
+y es inversamente proporcional a su sección transversal (disminuye conforme aumenta su grosor o sección transversal), tal y como lo indica Ucaciag \cite{Ucaciag}.
+\hfill \break
+\hfill \break
+Se denomina resistencia equivalente a la asociación respecto de dos puntos A y B, a aquella que conectada a la
+misma diferencia de potencial, demanda la misma intensidad, I. Esto significa que ante las mismas condiciones, la asociación y su resistencia equivalente disipan la misma potencia.
+\hfill \break
+\hfill \break 
+Las resistencias pueden asociarse tanto es serie como en paralelo.
+\begin{itemize}
+\item \textbf{Resistencias en paralelo:} Dos o más resistencias se encuentran conectadas en serie
+cuando al aplicar al conjunto una diferencia de potencial,
+todas ellas son recorridas por la misma corriente.
+\item \textbf{Resistencias en serie:} Dos o más resistencias se encuentran en paralelo cuando
+tienen dos terminales comunes de modo que al aplicar
+al conjunto una diferencia de potencial, UAB, todas las
+resistencias tienen la misma caída de tensión, UAB.
+\end{itemize}
+El  valor  de  la  resistencia  eléctrica  siempre  dependerá  del  tipo  de  material empleado,  para  realizar  las  mediciones  de  resistencia  eléctrica  existen  instrumentos o métodos para su medición como el ohmimetro y el código de colores, tal y como lo indica Epifanio Reyes Flores\cite{Epifano}.
+\begin{itemize}
+\item \textbf{Ohmimetro:} También denominado óhmetro,  es un dispositivo electrónico, el cual nos sirve para medir resistencias  eléctricas,  para  medir  las  resistencia  eléctrica  debemos  asegurarnos que circule corriente eléctrica por el circuito, o si es posible aislar  la resistencia eléctrica, para su medición debemos escoger la mayor escala  para así no dañar el instrumento de medición.
+\item \textbf{Codigo de colores:} Es una manera de representar el valor en conjunto con la tolerancia de un circuito eléctrico. En concreto, allí se describen las resistencias con extremos axiales y el código numérico para resistencias SMD.
+\end{itemize}
+\begin{figure}[H]
+\centering \includegraphics[scale=0.36]{Tabla.jpg}\\
+\caption{\centering Codigo de colores}
+\label{Figura0}
+\end{figure}
+
+
+\section{Objetivo y planteamiento del problema}
+
+El presente trabajo busca detallar las tolerancias que conlleva el uso de resistencias, como también el margen de error que pude haber entre el metodo teorico y experimental a la hora de determinar el valor de cada una de las resistencias utilizadas durante la simulación en el laboratorio de Fisica.\\
+\hfill \break
+\hfill \break 
+Aplicando el instrumento del multimetro para determinar de manera experimental el valor de cada una de las resistencias como también la resistencia equivalente de las mismas con conexiones en serie y paralelo.\\
+\hfill \break
+\hfill \break 
+Asimismo también se implementa el metodo de codigo de colores, identificando el valor de las resistencias mediante el color en cada una de sus franjas, tomando en cuenta siempre el orden o la secuencia en las mismas.\\
+\section{Material y Procedimiento}
+
+\textbf{Material}
+\begin{enumerate}
+\item Cables de conexión
+\item Juego de resistencia de carbón
+\item Multimetro
+
+\end{enumerate}
+\begin{figure}[H]
+\centering \includegraphics[scale=0.50]{Material1.jpeg}\\
+\caption{\centering Material utilizado durante el experimento}
+\label{Figura1}
+\end{figure}
+
+
+\textbf{Procedimiento}
+\begin{enumerate}
+\item Instalar los cables positivo y negativo a las terminales del multimetro, los otros extremos de los cables fijar a los extremos del juego de resistencias de carbón.
+\item Poner el multimetro en la escala adecuada, de acuerdo al valor de la resistencia a medir; encender el multimetro y observar en la pantalla el valor de dicha resistencia; comparar el valor medido con el valor determinado mediante los códigos de colores a las resistencias.
+\end{enumerate}
+
+\section{Método}
+\label{sec:met}
+\begin{center}
+\textbf{Resistencias en Serie y Paralelo}
+\end{center}
+\begin{gather}
+R_{equiv}=R_a+R_b+R_c+R_d+......\\
+\label{ec:1}
+\dfrac{1}{R_{equiv}}=\dfrac{1}{R_a}+\dfrac{1}{R_b}+\dfrac{1}{R_c}+\dfrac{1}{R_d}+.....\\
+\label{ec:2}
+\end{gather} 
+
+\subsection{Método Experimental}
+
+Obteniendo los valores de las resistencias, determinadas de forma experimental utilizando el ohmimetro.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Resistencia  & Valor[Ohm] \\
+\hline
+Resistencia1 & 3690 \\
+\hline 
+Resistencia2 & 1102 \\
+\hline 
+Resistencia3 & 214 \\
+\hline
+Resistencia4 & 106.3 \\
+\hline
+Resistencia5 & 23 \\
+\hline
+\end{tabular}
+\caption{\centering Datos experimentales obtenidos durante el experimento}
+\label{Tabla1}
+\end{table}
+
+Obteniendo, el valor de la resistencia equivalente, cuando las resistencias están conectadas en paralelo, conectando el ohmimetro a los extremos de las resistencias, con la ayuda de los cables de conexión. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Resistencia Equivalente[Ohm] \\
+\hline
+22.4 \\
+\hline 
+\end{tabular}
+\caption{\centering Dato Experimental de la Resistencia Equivalente, cuando todas las resistencias están conectadas en paralelo}
+\label{Tabla2}
+\end{table}
+
+Obteniendo, el valor de la resistencia equivalente, cuando las resistencias están conectadas en serie, conectando el ohmimetro a los extremos de las resistencias, con la ayuda de los cables de conexión. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Resistencia Equivalente[Ohm] \\
+\hline
+5150 \\
+\hline 
+\end{tabular}
+\caption{\centering Dato Experimental de la Resistencia Equivalente, cuando todas las resistencias están conectadas en serie}
+\label{Tabla3}
+\end{table}
+
+\subsection{Método Teórico}
+
+Obteniendo los valores de las resistencias, determinadas de forma teórica utilizando el codigo de colores.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Resistencia & Valor[Ohm] & Tolerancia[Porcentaje]\\
+\hline
+Resistencia1 & 3300 & 10\\
+\hline 
+Resistencia2 & 1000 & 10\\
+\hline 
+Resistencia3 & 220 & 10\\
+\hline
+Resistencia4 & 100 & 10\\
+\hline
+Resistencia5 & 22 & 10\\
+\hline
+\end{tabular}
+\caption{\centering Datos teóricos obtenidos mediante el código de colores}
+\label{Tabla4}
+\end{table}
+
+Aplicando la Ec.\ref{ec:2}, utilizando los valores de las resistencias, determinadas de forma teórica, con la finalidad de obtener la resistencia equivalente cuando las resistencias están conectadas en paralelo.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Resistencia Equivalente[Ohm] \\
+\hline
+16.31 \\
+\hline 
+\end{tabular}
+\caption{\centering Dato Teórico de la Resistencia Equivalente, cuando todas las resistencias están conectadas en paralelo}
+\label{Tabla5}
+\end{table}
+
+Aplicando la Ec.\ref{ec:1}, utilizando los valores de las resistencias, determinadas de forma teórica, con la finalidad de obtener la resistencia equivalente cuando las resistencias están conectadas en serie.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Resistencia Equivalente[Ohm] \\
+\hline
+4642 \\
+\hline 
+\end{tabular}
+\caption{\centering Dato Teórico de la Resistencia Equivalente, cuando todas las resistencias están conectadas en serie}
+\label{Tabla6}
+\end{table}
+
+\section{Resultados}
+\label{Sec:res}
+\subsection{MÉTODO EXPERIMENTAL Y MÉTODO TEÓRICO}
+
+Se evidencia de la Tabla. \ref{Tabla1} y de la Tabla. \ref{Tabla2}, que el valor de las resistencias determinadas de manera teórica tienen un margen de error, dependiendo del material del que este hecho la ultima franja de la resistencia.\\
+\hfill \break
+\hfill \break
+Indicando que cada valor obtenido mediante el método teórico, utilizando el código de colores, nunca sera 100 por ciento exacto, en comparación a los valores determinados de manera experimental, mediante el ohmimetro y los cables de conexión.\\
+\hfill \break
+\hfill \break
+Asimismo también se observa mediante la Tabla. \ref{Tabla2} y la Tabla. \ref{Tabla5}, que dependiendo del método que utilicemos para calcular los valores de cada resistencia, influirá a la hora de determinar el valor de la resistencia equivalente cuando las demás estén con conexiones en paralelo, teniendo un valor de la resistencia equivalente de $22.4$, presente en la Tabla. \ref{Tabla2}, mediante el método experimental y un valor de $16.4$, mediante el código de colores, mostrando una gran variación entre ambos.\\
+\hfill \break
+\hfill \break
+Presentando el mismo efecto cuando las resistencias tienen conexiones en serie, teniendo un valor de la resistencia equivalente de $5150$, determinado de manera experimental, presente en la Tabla.\ref{Tabla3} y un valor de $4642$, determinado de manera teórica, presente en la Tabla.\ref{Tabla6}.\\
+
+\section{Discusión}
+\label{Sec:Disc}
+
+Se puede inferir del valor de cada una de las resistencias, obtenidas tanto de manera teórica mediante un código de colores indicadores del valor real, que estos nos llegan a presentar un intervalo de confianza, dentro del cual puede estar el valor verdadero de la resistencia, indicando que no es 100 por ciento exacto y es solo un aproximación al valor verdadero.\\
+\hfill \break
+\hfill \break
+En comparación, con el valor de cada una de las resistencias determinadas de manera experimental mediante el ohmimetro y los cables de conexión, los cuales están dentro del intervalo de confianza determinado mediante el código de colores.\\
+\hfill \break
+\hfill \break
+Asimismo, también se observa que dependiendo del procedimiento utilizado, este tendrá una gran influencia a la hora de determinar el valor de la resistencia equivalente en las conexiones en serie y en paralelo de las resistencias.\\
+\hfill \break
+\hfill \break
+Como en el caso de la Resistencia 1, en el método experimental con un valor de $3690$ en la Tabla. \ref{Tabla1}, dentro del intervalo del 10 por ciento en el valor obtenido mediante el método teórico, con un valor de $3300$.\\
+\hfill \break
+\hfill \break
+Teniendo un valor en la resistencia equivalente, mediante el método experimental de $22.4$ en conexión en paralelo y un valor de $5150$ en conexión en serie.\\
+\hfill \break
+\hfill \break
+Por otro lado, mediante el código de colores con un valor de la resistencia equivalente de $16.31$ en conexión en paralelo y con un valor de $4642$ en conexión en serie.\\
+
+\section{Conclusiones}
+\label{Sec:Concl}
+Se concluyo que:
+\begin{enumerate}
+\item El método teórico mediante el código de colores no es 100 por ciento exacto, presentando un intervalo de confianza, dentro del cual puede encontrarse el valor verdadero de la resistencia, ya que se analiza a la resistencia de forma ideal, sin tomar en cuenta los demás factores que inciden en el experimento.
+
+\item El valor obtenido de manera experimental en cada una de las resistencias, cumple y esta dentro del intervalo en cada uno de los valores teóricos obtenidos mediante el código de colores.Como en el caso de:
+\hfill \break
+\hfill \break
+La Resistencia 3 con un valor de $214$, presente en la Tabla.\ref{Tabla1}, la cual se encuentra en el intervalo de confianza de $220\pm10 por ciento$, presente en la Tabla.\ref{Tabla4}.
+\item El método, por el cual se calcula el valor de cada resistencia influirá a la hora de determinar el valor de la resistencia equivalente en conexiones en serie o paralelo.
+Como en el caso de la:
+\hfill \break
+\hfill \break
+*Conexión en Serie: Con un valor de la resistencia equivalente de $5150$, presente en la Tabla.\ref{Tabla3}, obtenido de forma experimental y un valor de $4642$, presente en la Tabla.\ref{Tabla6} obtenido de forma teórica.
+\hfill \break
+\hfill \break
+*Conexión en Paralelo: Con un valor de la resistencia equivalente de $22.4$, presente en la Tabla.\ref{Tabla2}, obtenido de forma experimental y un valor de $16.31$, presente en la Tabla.\ref{Tabla5} obtenido de forma teórica.
+\end{enumerate}
+\hfill \break
+\section{Bibliografía}
+\printbibliography
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break\hfill \break
+\hfill \break
+
+\end{document}

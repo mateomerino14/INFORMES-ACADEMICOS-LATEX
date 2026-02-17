@@ -1,0 +1,838 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To select a journal, use its code for the 
+% journal= option in the \documentclass command.
+% The journal codes for this template are:
+% 
+% Journal of Law and Courts: jlc
+% Macroeconomic Dynamics: mdy
+% State Politics & Policy Quarterly: spq
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[
+  journal=small,
+  manuscript=ARTICULO-CIENTIFICO,  % Use a - if you need a space e.g. "research-article"
+  year=2025
+]{cup-journal}
+\usepackage{adjustbox}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage[nopatch]{microtype}
+\usepackage{booktabs}
+\usepackage{multirow}
+\title{Fundamentos de la Simulación de Sistemas}
+
+\author{Merino Vidal Mateo Alejandro}
+\affiliation{Universidad Mayor de San Simón \\ 
+\texttt{Cochabamba, Bolivia }\\  
+\texttt{202301308@est.umss.edu}}
+
+\keywords{sistema,estado,modelo,probabilidad,frecuencia} 
+
+\begin{document}
+\small 
+\begin{abstract}
+El presente trabajo se realizó mediante la representación de diversos sistemas a través de modelos abstractos, tales como el lanzamiento de una moneda, el lanzamiento de un dado y el lanzamiento de dos dados. Esto se desarrolló con el fin de poder simular y estudiar su comportamiento, teniendo en cuenta el factor de la aleatoriedad, permitiendo observar cómo cada uno de estos sistemas transitan de un estado transiente a un estado estable en función del número de corridas realizadas.
+\end{abstract}
+
+\section{Introducción}
+La simulación de sistemas es una herramienta fundamental tanto para la ingeniería como para otras áreas, especialmente en la toma de decisiones, ya que permite representar un sistema de la vida real bajo un modelo, manteniendo sus características principales.
+\hfill \break
+\hfill \break
+Esto permite analizar, modelar y predecir el comportamiento de procesos complejos sin tener que intervenir en la vida real, brindando información indispensable en contextos donde los errores pueden ser costosos o riesgosos, como en la industria, la logística, la salud y la tecnología.
+\hfill \break
+\hfill \break
+Hoy en día, este campo abarca una amplia variedad de metodologías y técnicas, incluyendo simulación discreta, continua e híbrida, siendo cada una elegida en función de los tipos de problemas y sectores de aplicación. Esta diversidad hace que la simulación sea adaptable y aplicable en numerosos ámbitos, desde la planificación de producción industrial hasta la optimización de cadenas de suministro, el diseño de redes informáticas o la gestión de flujos hospitalarios.
+\hfill \break
+\hfill \break
+Un claro ejemplo de su aplicación en Bolivia es el sector de la salud, donde la simulación ha sido utilizada para optimizar los procesos de atención en hospitales. En particular, en el Hospital de Clínicas de La Paz se empleó esta técnica para representar y analizar el flujo de pacientes en el área de emergencia, logrando identificar cuellos de botella y proponer mejoras en la organización y asignación de recursos.
+\hfill \break
+\hfill \break
+Sin embargo, una rama que también acompaña a este amplio campo es la probabilidad y estadística, ya que los datos generados al simular un sistema no tendrían relevancia sin un análisis detallado y riguroso con la finalidad de identificar patrones y probabilidades, permitiendo una mejor toma de decisiones basada en la información obtenida.
+\hfill \break
+\hfill \break
+El presente trabajo tiene como propósito ofrecer una visión integral de la simulación de sistemas, describiendo sus conceptos fundamentales mediante herramientas probabilísticas, sus técnicas principales y su evolución a lo largo de la historia. Además, se analiza la representación de diversos sistemas bajo el enfoque de la aleatoriedad, con el fin de estudiar y comprender su comportamiento.
+
+
+
+\section{Antecedentes}
+La simulación de sistemas ha evolucionado de la mano de la informática, llegando a desarrollarse a lo largo de los años, hasta convertirse en una herramienta esencial en múltiples campos.
+\hfill \break
+\hfill \break
+Su primera aplicación fue durante el Proyecto Manhattan en la Segunda Guerra Mundial, donde se buscaba recrear detonaciones nucleares para comprender mejor su comportamiento. Es gracias a esto que el campo de la simulación llegó a demostrar su importancia por primera vez, y con el paso del tiempo, esta se fue desarrollando de modo que no solo complementó los métodos tradicionales, sino que en muchos casos los reemplazó, especialmente en situaciones donde obtener soluciones exactas era imposible.
+Sin embargo, a pesar de que se hayan adoptado diversas modalidades con el paso del tiempo, todas comparten un objetivo común: recrear escenarios representativos de un modelo sin necesidad de explorar exhaustivamente todos los posibles estados, algo que resultaría demasiado costoso.
+\hfill \break
+\hfill \break
+Más adelante, la técnica se simulación  se convirtió en un instrumento estratégico durante la Guerra Fría, siendo utilizada para calcular trayectorias de satélites, guiar misiles y estudiar sistemas complejos. En esa época, los ordenadores analógicos demostraron su utilidad al permitir operaciones matemáticas como integración, suma y multiplicación, facilitando el manejo de ecuaciones diferenciales no lineales que antes eran prácticamente inviables.
+\hfill \break
+\hfill \break
+Años después, en la década de 1960 llegarían a surgir los primeros programas de simulación de sistemas de acontecimientos discretos, destinados inicialmente a aplicaciones civiles. Entre los más destacados se encuentran GPSS (General Purpose System Simulator) de IBM y SIMSCRIPT, siendo considerados modelos que se emplean hoy en áreas tan diversas como fabricación, logística, transporte, comunicaciones y servicios, ya que permiten analizar cómo un sistema cambia ante eventos específicos y entender los factores aleatorios que intervienen.
+\hfill \break
+Un claro ejemplo de su aplicación está en procesos para optimizar el diseño de terminales y estudiar el flujo de personas, incluyendo planes de evacuación, lo que demuestra su potencial para anticipar y mejorar el comportamiento de sistemas complejos.
+\hfill \break
+\hfill \break
+Tal y como se observó, la simulación de sistemas a lo largo del tiempo se ha convertido en un recurso fundamental para enfrentar problemas complejos donde los métodos tradicionales no son suficientes. Diseñar un modelo del sistema y experimentar con él permite no solo comprender su comportamiento y evaluar estrategias, sino también desarrollar la capacidad de generar soluciones basadas en datos simulados y análisis predictivo.
+
+\section{Marco Teórico}
+\subsection{Probabilidad y Estadística}
+La estadística es una ciencia por naturaleza experimental que se ha desarrollado a lo largo del tiempo, brindando aportes significativos en múltiples áreas como la medicina, la economía y la tecnología.
+\hfill \break
+\hfill \break
+Gracias a ella, es posible aplicar métodos científicos para recopilar, organizar, resumir y analizar datos, lo que permite identificar patrones y extraer conclusiones válidas.
+\hfill \break
+\hfill \break
+Esta disciplina se ha expandido de tal forma que se ha ido dividiendo en diversas ramas, como la estadística descriptiva y la estadística inferencial.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Estadística descriptiva:} Se encarga de recopilar, organizar, resumir y presentar datos de manera clara y comprensible, mediante tablas, gráficos y medidas como la media, mediana, moda o desviación estándar.
+    
+    \item \textbf{Estadística inferencial:} Se encarga de hacer generalizaciones o predicciones sobre una población a partir de los datos obtenidos de una muestra, utilizando herramientas como estimaciones, intervalos de confianza y pruebas de hipótesis.
+\end{itemize}
+\hfill \break
+Al llevar a cabo estudios experimentales, no siempre es factible analizar estadísticamente a toda una población. Por lo cual, se selecciona una muestra representativa de dicha población, que permita generalizar los resultados.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Población:} Conjunto completo de individuos, objetos o eventos que cumplen ciertas características y sobre los cuales se desea obtener información estadística.
+    \item \textbf{Muestra:} Subconjunto representativo de la población, seleccionado para realizar un estudio estadístico cuando no es factible analizar toda la población.
+\end{itemize}
+\hfill \break
+Sin embargo, no todos los eventos de la vida real son deterministas; es decir, existe un factor de aleatoriedad. Por ello, no siempre es posible saber con certeza si un evento ocurrirá. Ante esta incertidumbre surge la probabilidad, permitiendo realizar estimaciones y medir la incertidumbre.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Probabilidad:} Medida numérica que indica la posibilidad de que ocurra un evento incierto, expresada como un valor entre 0 y 1, la cual está representada por la fórmula:
+    \[
+    P(A) = \frac{\text{Número de casos favorables a } A}{\text{Número total de casos posibles}}
+    \]
+    donde \(P(A)\) es la probabilidad del evento \(A\).
+\end{itemize}
+\hfill \break
+Al momento de estudiar fenómenos es necesario tener una forma de representar ciertas características, por lo que se emplea el uso de variables, siendo algunas de estos atributos discretos o continuos.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Variable:} Característica o atributo de un fenómeno que puede medirse u observarse.
+    \begin{itemize}
+        \item \textbf{Discreta:} Toma valores contables, como el número de hijos o la edad en años.
+        \item \textbf{Continua:} Toma cualquier valor dentro de un intervalo, como la estatura, el peso o la temperatura.
+    \end{itemize}
+\end{itemize}
+\hfill \break
+Para describir formalmente cómo se distribuyen los valores de una variable aleatoria usamos funciones, que pueden ser funciones de probabilidad para variables discretas o funciones de densidad para variables continuas.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Función:} Relación matemática que asigna a cada elemento de un conjunto de partida exactamente un elemento de un conjunto de llegada.
+\end{itemize}
+\hfill \break
+Cuando observamos fenómenos que se repiten en la vida real, nos interesa entender con qué frecuencia se presentan ciertos resultados, ya que esto nos ayuda a organizar los datos y a reconocer patrones o tendencias. Esta frecuencia puede expresarse de distintas formas: llegando a ser frecuencia absoluta o frecuencua relativa.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Frecuencia absoluta:} Número de veces que ocurre un evento o se presenta un valor específico en un conjunto de datos.
+    \item \textbf{Frecuencia relativa:} Proporción que representa cuántas veces ocurre un evento respecto al total de observaciones, generalmente expresada como fracción o porcentaje.
+\end{itemize}
+
+\hfill \break
+Al mismo tiempo, debemos considerar que ninguna medición es completamente exacta. Siempre existe un margen de error, que refleja la diferencia entre los resultados obtenidos y los valores reales.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Error:} Diferencia entre el valor observado o medido de una variable y el valor verdadero o real, reflejando la imprecisión de la medición.
+\end{itemize}
+\hfill \break
+De manera complementaria, la relación entre las frecuencias observadas y la probabilidad teórica se entiende mejor gracias a la Ley de los grandes números.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Ley de los grandes números:} Principio que establece que, al aumentar el número de repeticiones de un experimento, la frecuencia relativa de un evento tiende a aproximarse a su probabilidad verdadera.
+\end{itemize}
+
+
+\subsection{Simulación de Sistemas}
+La simulación de sistemas permite estudiar y analizar el comportamiento de sistemas complejos mediante modelos, sin necesidad de intervenir directamente en el sistema real.
+\hfill \break
+\hfill \break
+Para realizar simulaciones, se utilizan computadoras, que permiten procesar datos y ejecutar modelos de manera rápida y precisa.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Computadora:} Maquina electrónica, que toma valores de energía discreta, empleada para el tratamiento de información. Esta compuesta por componente principales como la CPU, Memoria Principal y Controladores de E/S.
+\end{itemize}
+\hfill \break
+En nuestro entorno existen múltiples sistemas, tales como el sistema solar, el sistema digestivo y otros de tipo biológico y físico, cada uno con su propio comportamiento y estructura.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Sistema:} Conjunto de elementos interrelacionados que trabajan conjuntamente para lograr un objetivo común.
+\end{itemize}
+\hfill \break
+Los sistemas pueden clasificarse de acuerdo a la forma en como estos evolucionan con el paso del tiempo.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Sistema estático:} Sistema cuyo comportamiento ni estructura cambian con el paso del tiempo.
+    \item \textbf{Sistema dinámico:} Sistema cuyo comportamiento y estructura varia durante el transcurso del tiempo.
+\end{itemize}
+\hfill \break
+Al estudiar un sistema dinámico, es fundamental considerar su estado al inicio del análisis. Este estado inicial, llamado \textbf{condiciones iniciales}, determina cómo evolucionará el sistema y permite diferenciar entre el periodo de transición y el momento en que el sistema alcanza un comportamiento estable.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Condiciones iniciales:} Estado del sistema al inicio de su análisis o simulación. Las condiciones iniciales determinan la evolución del sistema y permiten identificar:
+    \begin{itemize}
+        \item \textbf{Estado transitorio:} Etapa temporal durante la cual las variables del sistema fluctúan antes de alcanzar un comportamiento estable.
+        \item \textbf{Estado estable:} Estado en el que las variables del sistema permanecen relativamente constantes o siguen un patrón predecible.
+    \end{itemize}
+\end{itemize}
+\hfill \break
+Para analizar un sistema de manera completa, es necesario identificar los diferentes aspectos que pueden medirse o observarse.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Variable:} Elemento o atributo de un sistema que puede medirse u observarse, representando de forma cuantitativa un aspecto del comportamiento del sistema. Las variables pueden ser:
+    \begin{itemize}
+        \item \textbf{Discreta:} Toma valores contables y específicos, como el número de elementos de un sistema.
+        \item \textbf{Continua:} Toma cualquier valor dentro de un rango, como la temperatura, velocidad o presión.
+    \end{itemize}
+\end{itemize}
+\hfill \break
+Para estudiar un sistema, se construyen modelos que representen su comportamiento de manera simplificada.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Modelo:} Representación de un sistema real, conservando sus características principales y, sobre todo, su esencia.
+    \begin{itemize}
+        \item \textbf{Modelo abstracto:} Representación conceptual, que no puede percibirse mediante los sentidos, pero sí a través de la razón o el pensamiento.
+        \item \textbf{Modelo concreto:} Representación física o tangible, que puede percibirse por los sentidos.
+    \end{itemize}
+\end{itemize}
+\hfill \break
+La creación de modelos requiere abstraer los elementos esenciales de un sistema.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Abstracción:} Proceso de simplificar un sistema real seleccionando únicamente los elementos relevantes para el estudio, ignorando detalles innecesarios.
+\end{itemize}
+\hfill \break
+Al analizar un sistema, es necesario considerar factores que influyen en la simulación y su implementación.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Factores a considerar en un sistema:} Elementos que deben tomarse en cuenta para que la simulación sea representativa y válida, incluyendo:
+    \begin{enumerate}
+        \item \textbf{Lenguaje de programación:} Herramienta utilizada para implementar el modelo de simulación en una computadora.
+        \item \textbf{Variables:} Elementos descriptores en un sistema,mientras mayor definidos estén, mejor definido estará el sistema.
+        \item \textbf{Experimentación:} Definir un conjunto de datos para alimentar el sistema y analizar los resultados obtenidos de su comportamiento bajo ciertas condiciones.
+        \item \textbf{Tamaño de la muestra:} Numero de corridas o veces que es necesario ejecutar el sistema para obtener resultados confiables.
+        \item \textbf{Condiciones iniciales:} Estado del sistema al inicio de la simulación, involucra dos estados:
+        \begin{itemize}
+            \item \textbf{Transiente:} Estado temporal mientras el sistema se ajusta hasta encontrar un punto de estabilidad para pasar a un estado estable.
+            \item \textbf{Estable:} Estado en el cual los elementos del sistema se encuentran estables, permitiendo realizar un análisis o estudio.
+        \end{itemize}
+    \end{enumerate}
+\end{itemize}
+\hfill \break
+El desarrollo de un proyecto de simulación sigue una serie de etapas que garantizan resultados confiables.
+\hfill \break
+\begin{itemize}
+    \item \textbf{Etapas de un proyecto de simulación:}
+    \begin{enumerate}
+        \item \textbf{Definición del sistema:} Identificación del sistema a estudiar, sus límites, objetivos y comportamiento.
+        \item \textbf{Colección de datos:} La obtención de información necesaria sobre el sistema real es fundamental, ya que permite identificar qué datos están directamente vinculados con el sistema y con sus elementos descriptores, garantizando un tratamiento adecuado de la información.
+        
+        \item \textbf{Modelo de simulación:} Tratamiento de las relaciones que existen entre los elementos descriptores del propio sistema (variables), siendo generalmente formulas o descripciones en prosa.
+        
+        \item \textbf{Implementación:} Creación del sistema en base al código de un lenguaje de programación.
+        
+        \item \textbf{Validaciones:} Verificación de que el modelo refleja correctamente el comportamiento del sistema real, analizando los resultados de salida.
+        
+        \item \textbf{Experimentación:} Ejecución del modelo bajo diferentes condiciones para analizar resultados, se busca casos particulares en donde el sistema falle al ser simulado.
+        
+        \item \textbf{Interpretación:} Análisis de los resultados obtenidos para darles sentido o significado y así poder extraer conclusiones validas.
+        \item \textbf{Documentación:} Registro completo del proyecto de simulación que integra la metodología, los resultados y las conclusiones, sirviendo además como manual de usuario para garantizar su comprensión y utilidad.
+    \end{enumerate}
+\end{itemize}
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\section{Métodos}
+
+\begin{center}
+\textbf{Fórmulas de Probabilidad y Frecuencia} \\[1em]
+
+\begingroup
+\small % tamaño más pequeño
+\begin{gather}
+P(A) = \frac{\text{Número de casos favorables a } A}{\text{Número total de casos posibles}} \\[0.5em]
+E = \left| X_{\text{medido}} - X_{\text{verdadero}} \right| \\[0.5em]
+n_i = \sum_{j=1}^{N} I(X_j = x_i) \\[0.5em]
+f_i = \frac{n_i}{N} \\[0.5em]
+f_{\%i} = f_i \times 100
+\end{gather}
+\endgroup
+\hfill \break
+\begin{adjustwidth}{20pt}{2cm} % 0cm margen izquierdo, 2cm margen derecho
+\small
+\begin{itemize}
+    \item $n_i$: frecuencia absoluta de la categoría $x_i$.
+    \item $f_i$: frecuencia relativa de la categoría $x_i$.
+    \item $f_{\%i}$: frecuencia porcentual de la categoría $x_i$.
+    \item $P(A)$: probabilidad del evento $A$.
+    \item $E$: error absoluto entre el valor medido y el valor verdadero.
+\end{itemize}
+\end{adjustwidth}
+\end{center}
+
+
+\section{Descripción del Problema}
+Analizar el comportamiento de sistemas aleatorios simples mediante la simulación del lanzamiento de una moneda, un dado y dos dados, donde cada lanzamiento constituye un evento incierto; es decir, sus resultados no pueden predecirse con certeza, pero su probabilidad puede estimarse a través de la ejecución de múltiples corridas o ejecuciones.
+\hfill \break
+\hfill \break
+En este estudio se consideran los siguientes sistemas aleatorios:
+\begin{itemize}
+    \item \textbf{Moneda:} Sus resultados posibles son “cara” o “cruz”, cada uno con una probabilidad teórica de $\frac{1}{2}$.
+    \hfill \break
+    \item \textbf{Dado:} Sus posibles salidas corresponden a los números del 1 al 6, cada uno con una probabilidad teórica de $\frac{1}{6}$.
+    \hfill \break
+    \item \textbf{Dos dados:} Además de los valores individuales que muestra cada uno, se consideran también las sumas de sus resultados, cuyas probabilidades varían: por ejemplo, la suma 7 es la más probable ($\frac{6}{36}$) y las sumas 2 y 12 son las menos probables ($\frac{1}{36}$), lo que permite observar distribuciones más variadas.
+\end{itemize}
+\hfill \break
+Estos modelos se caracterizan por ser justos y aleatorios, ya que nada externo influye en los lanzamientos: cada resultado depende únicamente del azar.
+\hfill \break
+\hfill \break
+Los sistemas se clasifican como dinámicos, ya que sus resultados varían en cada lanzamiento. Se desarrollará un modelo computacional que permita explorar distintas variables, como el número de lanzamientos y el tipo de elemento aleatorio (moneda o dado), posibilitando un análisis más profundo del comportamiento probabilístico de los sistemas aleatorios. 
+\hfill \break
+\hfill \break
+De esta manera, se podrá estudiar el efecto del número de corridas sobre la estabilidad de las frecuencias relativas, comparar los resultados empíricos obtenidos mediante simulación con las probabilidades teóricas de cada evento, y analizar patrones en los resultados, incluyendo su distribución, con el fin de comprender mejor la naturaleza de dichos sistemas.
+
+
+\section{Objetivos}
+
+\begin{itemize}
+    \item Analizar el comportamiento de sistemas aleatorios simples mediante la simulación, observando cómo varían los resultados de los experimentos en función de las diferentes condiciones y número de corridas. 
+    \hfill \break
+    \item Demostrar el acercamiento de los resultados experimentales a los valores teóricos a medida que aumenta el número de lanzamientos, evidenciando la ley de los grandes números.  
+    \hfill \break
+    \item Representar sistemas aleatorios mediante modelos de simulación, incluyendo el lanzamiento de una moneda, un dado y dos dados, y registrar sus resultados para su análisis estadístico.  
+    \hfill \break
+    \item Evaluar cómo cambia el estado o comportamiento de los sistemas en función del número de corridas realizadas, identificando el punto en el que el sistema pasa de un estado transiente a uno estable.
+    \hfill \break
+    \item Comparar la frecuencia relativa y porcentual de los resultados obtenidos con las probabilidades teóricas, verificando confiabilidad del modelo de simulación. 
+    \hfill \break
+    \item Analizar e interpretar los resultados experimentales obtenidos mediante gráficas, aplicando conceptos de probabilidad y estadística.  
+\end{itemize}
+
+\section{Desarrollo de la Solución}
+Se desarrolló un modelo de simulación para cada sistema planteado, empleando R Studio junto con el lenguaje de programación R para simular su comportamiento. Se tuvo en cuenta el factor de aleatoriedad en cada ejecución o corrida. Además, se elaboraron plots y gráficos de barras para representar las frecuencias, así como gráficos de convergencia para analizar el comportamiento de los sistemas. Esto permitió visualizar cómo, a medida que se incrementa el número de corridas, los resultados tienden a acercarse al umbral establecido por las probabilidades teóricas.
+\hfill \break
+\hfill \break
+Para el análisis de estos sistemas, se realizaron ejecuciones con un número de corridas de 1, 3, 5, 10, 30, 50, 100, 300, 500, 1000, 3000, 5000 y 10000 para cada sistema.
+
+\subsection{Lanzamiento de 1 Moneda}
+
+\subsection*{1. Definición del Sistema}
+El sistema consiste en el lanzamiento de una moneda, cuyos posibles resultados son ``cara'' o ``cruz''. Cada lanzamiento se considera un evento aleatorio e independiente, y el comportamiento del sistema se estudiará mediante la simulación de múltiples corridas. El análisis se centra en cómo se distribuyen los resultados a lo largo de diferentes números de lanzamientos y cómo se aproxima la frecuencia relativa de cada resultado a la probabilidad teórica de 50\%.
+
+\subsection*{2. Colección de Datos}
+Para cada corrida, se registrarán los resultados individuales de los lanzamientos. Se contabilizará el número de veces que aparece ``cara'' y ``cruz'', calculando la frecuencia absoluta (3), la frecuencia relativa (4) y la frecuencia porcentual (5). Estos datos permitirán generar tablas y gráficos que reflejen la evolución del sistema a lo largo de diferentes números de corridas.
+
+\subsection*{3. Modelo de Simulación}
+Se construye un modelo que simula $N$ lanzamientos de la moneda, generando resultados aleatorios para cada evento. El modelo calcula la frecuencia acumulada de cada resultado y permite observar cómo se comporta el sistema con distintas cantidades de corridas, incluyendo valores bajos (1, 3, 5) y altos (100, 300, 500, 1000, 3000, 5000, 10000). Este modelo representa de manera simplificada el sistema real y permite experimentar sin necesidad de realizar lanzamientos físicos.
+
+\subsection*{4. Implementación}
+El modelo de simulación se ejecuta en un entorno computacional, permitiendo al usuario seleccionar el número de lanzamientos para cada corrida. Para esta simulación, se utilizarán las corridas mencionadas previamente. Cada ejecución genera datos acumulados sobre frecuencia absoluta (3), frecuencia relativa (4) y frecuencia porcentual (5) de cada resultado, así como gráficos que muestran la convergencia de las frecuencias hacia el valor esperado teórico.
+
+\subsection*{5. Validación}
+La validación del sistema consiste en comparar los resultados obtenidos en la simulación con la probabilidad teórica de 50\% para ``cara'' y ``cruz''. Se analiza cómo las frecuencias relativas se aproximan a este valor a medida que aumenta el número de corridas, asegurando que el modelo simula correctamente el comportamiento del sistema aleatorio de la moneda.
+\begin{table}[H]
+\centering
+\small
+\caption{Resultados de simulación: lanzamiento de una moneda}
+\begin{tabular}{c|cc|cc|cc}
+\hline
+\multirow{2}{*}{N} & \multicolumn{2}{c|}{Frecuencia Absoluta} & \multicolumn{2}{c|}{Frecuencia Relativa} & \multicolumn{2}{c}{Frecuencia Porcentual} \\
+ & Cara & Cruz & Cara & Cruz & Cara & Cruz \\
+\hline
+1      & 0    & 1    & 0.000 & 1.000 & 0\%   & 100\% \\
+3      & 1    & 2    & 0.333 & 0.667 & 33.3\% & 66.7\% \\
+5      & 1    & 4    & 0.200 & 0.800 & 20\%   & 80\% \\
+10     & 5    & 5    & 0.500 & 0.500 & 50\%   & 50\% \\
+30     & 14   & 16   & 0.467 & 0.533 & 46.7\% & 53.3\% \\
+50     & 22   & 28   & 0.440 & 0.560 & 44\%   & 56\% \\
+100    & 53   & 47   & 0.530 & 0.470 & 53\%   & 47\% \\
+300    & 152  & 148  & 0.507 & 0.493 & 50.7\% & 49.3\% \\
+500    & 262  & 238  & 0.524 & 0.476 & 52.4\% & 47.6\% \\
+1000   & 510  & 490  & 0.510 & 0.490 & 51\%   & 49\% \\
+3000   & 1519 & 1481 & 0.506 & 0.494 & 50.6\% & 49.4\% \\
+5000   & 2433 & 2567 & 0.487 & 0.513 & 48.7\% & 51.3\% \\
+10000  & 4986 & 5014 & 0.499 & 0.501 & 49.9\% & 50.1\% \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{6. Experimentación}
+Se realizan experimentos variando el número de lanzamientos. Con pocas corridas (1, 3, 5), las frecuencias pueden mostrar variaciones significativas debido al carácter aleatorio del sistema. A medida que el número de corridas aumenta, se observa la convergencia de la frecuencia relativa hacia la probabilidad teórica del 50\%. Se generan gráficos de línea y de barras que permiten visualizar esta tendencia y la estabilidad del sistema.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Frecuencia relativa, probabilidad teórica y error absoluto para el lanzamiento de una moneda}
+\begin{tabular}{c|c|c|c}
+\hline
+N & Frecuencia Relativa (Cara) & Probabilidad Teórica & Error Absoluto \\
+\hline
+1      & 0.000 & 0.5   & 0.500 \\
+3      & 0.333 & 0.5   & 0.167 \\
+5      & 0.200 & 0.5   & 0.300 \\
+10     & 0.500 & 0.5   & 0.000 \\
+30     & 0.467 & 0.5   & 0.033 \\
+50     & 0.440 & 0.5   & 0.060 \\
+100    & 0.530 & 0.5   & 0.030 \\
+300    & 0.507 & 0.5   & 0.007 \\
+500    & 0.524 & 0.5   & 0.024 \\
+1000   & 0.510 & 0.5   & 0.010 \\
+3000   & 0.506 & 0.5   & 0.006 \\
+5000   & 0.487 & 0.5   & 0.013 \\
+10000  & 0.499 & 0.5   & 0.001 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection*{7. Interpretación de Resultados}
+Los resultados se analizan en términos de frecuencia absoluta, frecuencia relativa y porcentaje. Se observa cómo, en corridas pequeñas, el sistema puede mostrar variabilidad significativa, mientras que en corridas grandes la frecuencia relativa de ``cara'' y ``cruz'' se aproxima al 50\%, evidenciando la ley de los grandes números. Este análisis permite comprender la naturaleza aleatoria de los eventos y la relación entre resultados experimentales y probabilidades teóricas.
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{moneda10000.png}
+\caption{Comportamiento del sistema}
+\label{mon1}
+\end{figure}
+\hfill \break
+Tal como se observa en la Fig.~\ref{mon1}, el sistema inicia en un estado transitorio durante aproximadamente las primeras 2300 corridas. A partir de la corrida número 3000, considerada el punto de estabilización, el sistema alcanza un estado estable, que se mantiene hasta la última corrida o ejecución.
+
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{moneda10000Barras.png}
+\caption{Histograma de frecuencia absoluta acumulada}
+\label{mon2}
+\end{figure}
+\hfill \break
+Asimismo, en la Fig.~\ref{mon2} se aprecia que las frecuencias absolutas de ambas caras de la moneda convergen hacia valores similares, lo que confirma el Teorema de los Números Grandes: a medida que aumenta la cantidad de corridas o ejecuciones, los resultados experimentales se aproximan cada vez más a la probabilidad teórica.
+\hfill \break
+\hfill \break
+\hfill \break
+\subsection*{8. Documentación}
+\begin{enumerate}
+    \item Ejecutar la función \texttt{main()} del programa.
+    \item Seleccionar la opción \textbf{1} para simular el lanzamiento de una moneda.
+    \item Ingresar el número de corridas a realizar, separados por comas si se desean múltiples simulaciones (por ejemplo: 10, 50, 100).
+    \item Observar en la consola la \textbf{frecuencia absoluta acumulada} de cada cara de la moneda.
+    \item Revisar la \textbf{frecuencia relativa acumulada} de cada cara, que indica la proporción de ocurrencias respecto al total de lanzamientos.
+    \item Consultar la \textbf{frecuencia porcentual} de cada cara, expresada en porcentaje.
+    \item Para un número de corridas mayor o igual a 500, se generarán automáticamente:
+        \begin{enumerate}
+            \item Un \textbf{gráfico de convergencia} mostrando cómo la frecuencia relativa se aproxima a la probabilidad teórica.
+            \item Un \textbf{gráfico de barras} con la frecuencia absoluta de cada cara de la moneda.
+        \end{enumerate}
+\end{enumerate}
+
+
+\subsection{Lanzamiento de 1 Dado}
+
+
+\subsection*{1. Definición del Sistema}
+El sistema consiste en el lanzamiento de un dado de seis caras, cuyos posibles resultados son los números del 1 al 6. Cada lanzamiento se considera un evento aleatorio e independiente, y el comportamiento del sistema se estudiará mediante la simulación de múltiples corridas. El análisis se centra en cómo se distribuyen las frecuencias de aparición de cada cara del dado y cómo estas se aproximan a la probabilidad teórica de $1/6$ para cada número.
+
+\subsection*{2. Colección de Datos}
+Para cada corrida, se registrarán los resultados de cada lanzamiento. Se contabilizará cuántas veces aparece cada cara del dado, calculando la frecuencia absoluta (3), la frecuencia relativa (4) y la frecuencia porcentual (5). Estos datos permitirán generar tablas y gráficos que reflejen la evolución del sistema a lo largo de diferentes números de corridas.
+
+\subsection*{3. Modelo de Simulación}
+Se construye un modelo que simula $N$ lanzamientos del dado, generando resultados aleatorios para cada evento. El modelo calcula la frecuencia acumulada de cada cara y permite observar el comportamiento del sistema con corridas pequeñas (1, 3, 5) y corridas grandes (100, 300, 500, 1000, 3000, 5000, 10000). Este modelo representa de manera simplificada el sistema real, facilitando la experimentación sin la necesidad de realizar lanzamientos físicos.
+
+\subsection*{4. Implementación}
+El modelo se ejecuta en un entorno computacional, permitiendo al usuario seleccionar el número de lanzamientos para cada corrida. Cada ejecución genera datos sobre frecuencia absoluta (3), frecuencia relativa (4) y frecuencia porcentual (5) para cada una de las seis caras del dado, además de gráficos que muestran la convergencia de las frecuencias hacia el valor esperado teórico.
+
+\subsection*{5. Validación}
+La validación del sistema consiste en comparar los resultados obtenidos en la simulación con la probabilidad teórica de $1/6$ para cada cara. Se analiza cómo las frecuencias relativas se aproximan a este valor a medida que aumenta el número de corridas, asegurando que el modelo refleja correctamente el comportamiento de un dado justo.
+\begin{table}[H]
+\centering
+\small
+\caption{Frecuencia absoluta y relativa del lanzamiento de un dado.}
+\label{tab:dado_abs_rel}
+\begin{tabular}{c|cccccc}
+\hline
+\textbf{N} & \textbf{Cara 1} & \textbf{Cara 2} & \textbf{Cara 3} & \textbf{Cara 4} & \textbf{Cara 5} & \textbf{Cara 6} \\
+\hline
+\multicolumn{7}{c}{\textbf{Frecuencia absoluta}} \\
+\hline
+1     & 0   & 0   & 1   & 0   & 0   & 0   \\
+3     & 1   & 0   & 0   & 1   & 1   & 0   \\
+5     & 0   & 0   & 1   & 1   & 3   & 0   \\
+10    & 3   & 0   & 2   & 3   & 1   & 1   \\
+30    & 5   & 2   & 7   & 4   & 4   & 8   \\
+50    & 10  & 11  & 6   & 10  & 8   & 5   \\
+100   & 20  & 19  & 11  & 16  & 15  & 19  \\
+300   & 51  & 52  & 60  & 49  & 45  & 43  \\
+500   & 99  & 92  & 70  & 70  & 78  & 91  \\
+1000  & 174 & 163 & 152 & 180 & 152 & 179 \\
+\hline
+\multicolumn{7}{c}{\textbf{Frecuencia relativa}} \\
+\hline
+1     & 0     & 0     & 1     & 0     & 0     & 0     \\
+3     & 0.333 & 0     & 0     & 0.333 & 0.333 & 0     \\
+5     & 0     & 0     & 0.2   & 0.2   & 0.6   & 0     \\
+10    & 0.3   & 0     & 0.2   & 0.3   & 0.1   & 0.1   \\
+30    & 0.167 & 0.067 & 0.233 & 0.133 & 0.133 & 0.267 \\
+50    & 0.2   & 0.22  & 0.12  & 0.2   & 0.16  & 0.1   \\
+100   & 0.2   & 0.19  & 0.11  & 0.16  & 0.15  & 0.19  \\
+300   & 0.17  & 0.173 & 0.2   & 0.163 & 0.15  & 0.143 \\
+500   & 0.198 & 0.184 & 0.14  & 0.14  & 0.156 & 0.182 \\
+1000  & 0.174 & 0.163 & 0.152 & 0.18  & 0.152 & 0.179 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\small
+\caption{Frecuencia porcentual del lanzamiento de un dado.}
+\label{tab:dado_pct}
+\begin{tabular}{c|cccccc}
+\hline
+\multicolumn{7}{c}{\textbf{Frecuencia porcentual}} \\
+\hline
+\textbf{N} & \textbf{Cara 1} & \textbf{Cara 2} & \textbf{Cara 3} & \textbf{Cara 4} & \textbf{Cara 5} & \textbf{Cara 6} \\
+\hline
+1     & 0\%    & 0\%    & 100\% & 0\%    & 0\%    & 0\%    \\
+3     & 33.3\% & 0\%    & 0\%   & 33.3\% & 33.3\% & 0\%    \\
+5     & 0\%    & 0\%    & 20\%  & 20\%  & 60\%  & 0\%    \\
+10    & 30\%   & 0\%    & 20\%  & 30\%  & 10\%  & 10\%  \\
+30    & 16.7\% & 6.67\% & 23.3\% & 13.3\% & 13.3\% & 26.7\% \\
+50    & 20\%   & 22\%   & 12\%   & 20\%  & 16\%  & 10\%  \\
+100   & 20\%   & 19\%   & 11\%   & 16\%  & 15\%  & 19\%  \\
+300   & 17\%   & 17.3\% & 20\%   & 16.3\% & 15\%  & 14.3\% \\
+500   & 19.8\% & 18.4\% & 14\%   & 14\%  & 15.6\% & 18.2\% \\
+1000  & 17.4\% & 16.3\% & 15.2\% & 18\%  & 15.2\% & 17.9\% \\
+3000  & 17.4\% & 16.1\% & 15.7\% & 16.7\% & 17.5\% & 16.7\% \\
+5000  & 16.1\% & 16.4\% & 16.8\% & 17.6\% & 17\%  & 16.1\% \\
+10000 & 17.5\% & 16.7\% & 16.8\% & 16.4\% & 16.6\% & 16.1\% \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{6. Experimentación}
+Se realizan experimentos variando el número de lanzamientos según la secuencia establecida. Con pocas corridas, las frecuencias de aparición de las caras del dado pueden mostrar variaciones significativas debido al azar. A medida que se aumenta el número de corridas, se observa la convergencia de las frecuencias relativas hacia $1/6$. Los gráficos de línea y de barras permiten visualizar la estabilidad del sistema y la aproximación a la probabilidad teórica.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{c|cccccc}
+\hline
+\multicolumn{7}{c}{\textbf{Calculo de Error Absoluto}} \\
+\hline
+N & C1 & C2 & C3 & C4 & C5 & C6 \\
+\hline
+1   & 0.000-0.167 & 0.000-0.167 & 1.000-0.167 & 0.000-0.167 & 0.000-0.167 & 0.000-0.167 \\
+3   & 0.333-0.167 & 0.000-0.167 & 0.000-0.167 & 0.333-0.167 & 0.333-0.167 & 0.000-0.167 \\
+5   & 0.000-0.167 & 0.000-0.167 & 0.200-0.167 & 0.200-0.167 & 0.600-0.167 & 0.000-0.167 \\
+10  & 0.300-0.167 & 0.000-0.167 & 0.200-0.167 & 0.300-0.167 & 0.100-0.167 & 0.100-0.167 \\
+30  & 0.167-0.167 & 0.067-0.167 & 0.233-0.167 & 0.133-0.167 & 0.133-0.167 & 0.267-0.167 \\
+50  & 0.200-0.167 & 0.220-0.167 & 0.120-0.167 & 0.200-0.167 & 0.160-0.167 & 0.100-0.167 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Error absoluto (frecuencia relativa - probabilidad teórica) corridas 1 a 50.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c|cccccc}
+\hline
+\multicolumn{7}{c}{\textbf{Calculo de Error Absoluto}} \\
+\hline
+N & C1 & C2 & C3 & C4 & C5 & C6 \\
+\hline
+100   & 0.200-0.167 & 0.190-0.167 & 0.110-0.167 & 0.160-0.167 & 0.150-0.167 & 0.190-0.167 \\
+300   & 0.170-0.167 & 0.173-0.167 & 0.200-0.167 & 0.163-0.167 & 0.150-0.167 & 0.143-0.167 \\
+500   & 0.198-0.167 & 0.184-0.167 & 0.140-0.167 & 0.140-0.167 & 0.156-0.167 & 0.182-0.167 \\
+1000  & 0.174-0.167 & 0.163-0.167 & 0.152-0.167 & 0.180-0.167 & 0.152-0.167 & 0.179-0.167 \\
+3000  & 0.174-0.167 & 0.161-0.167 & 0.157-0.167 & 0.167-0.167 & 0.175-0.167 & 0.167-0.167 \\
+5000  & 0.161-0.167 & 0.164-0.167 & 0.168-0.167 & 0.176-0.167 & 0.170-0.167 & 0.161-0.167 \\
+10000 & 0.175-0.167 & 0.167-0.167 & 0.168-0.167 & 0.164-0.167 & 0.166-0.167 & 0.161-0.167 \\
+\hline
+\end{tabular}
+}
+\caption{Frecuencia relativa y error absoluto (frecuencia relativa - probabilidad teórica) del dado para corridas de 100 a 10000.}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c|cccccc}
+\hline
+\multicolumn{7}{c}{\textbf{Error Absoluto}} \\
+\hline
+N & C1 & C2 & C3 & C4 & C5 & C6 \\
+\hline
+1   & -0.167 & -0.167 & 0.833 & -0.167 & -0.167 & -0.167 \\
+3   & 0.167 & -0.167 & -0.167 & 0.167 & 0.167 & -0.167 \\
+5   & -0.167 & -0.167 & 0.033 & 0.033 & 0.433 & -0.167 \\
+10  & 0.133 & -0.167 & 0.033 & 0.133 & -0.067 & -0.067 \\
+30  & 0.000 & -0.100 & 0.067 & -0.033 & -0.033 & 0.100 \\
+50  & 0.033 & 0.053 & -0.047 & 0.033 & -0.007 & -0.067 \\
+\hline
+\end{tabular}
+}
+\caption{Error absoluto (frecuencia relativa - probabilidad teórica) corridas 1 a 50.}
+\end{table}
+
+
+
+
+
+\begin{table}[H]
+\centering
+\scriptsize
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c|cccccc}
+\hline
+\multicolumn{7}{c}{\textbf{Error Absoluto}} \\
+\hline
+N & C1 & C2 & C3 & C4 & C5 & C6 \\
+\hline
+100   & 0.033 & 0.023 & -0.057 & -0.007 & -0.017 & 0.023 \\
+300   & 0.003 & 0.006 & 0.033 & -0.004 & -0.017 & -0.024 \\
+500   & 0.031 & 0.017 & -0.027 & -0.027 & -0.011 & 0.015 \\
+1000  & 0.007 & -0.004 & -0.015 & 0.013 & -0.015 & 0.012 \\
+3000  & 0.007 & -0.006 & -0.010 & 0.000 & 0.008 & 0.000 \\
+5000  & -0.006 & -0.003 & 0.001 & 0.009 & 0.003 & -0.006 \\
+10000 & 0.008 & 0.000 & 0.001 & -0.003 & -0.001 & -0.006 \\
+\hline
+
+\end{tabular}
+}
+\caption{Error absoluto calculado para corridas del dado de 100 a 10000.}
+\end{table}
+
+
+
+\subsection*{7. Interpretación de Resultados}
+Los resultados se analizan en términos de frecuencia absoluta, frecuencia relativa y porcentaje para cada cara del dado. Se observa cómo, con un número pequeño de lanzamientos, los resultados pueden diferir de la teoría, mientras que con corridas grandes, las frecuencias relativas se acercan a $1/6$. Este análisis permite comprender la variabilidad inherente en los sistemas aleatorios y la relación entre experimentos simulados y probabilidades teóricas.
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{dado1.png}
+\caption{Comportamiento del sistema}
+\label{abd}
+\end{figure}
+\hfill \break
+Tal como se observa en la Fig.~\ref{abd}, el sistema inicia en un estado transitorio durante aproximadamente las primeras 2100 corridas. A partir de la corrida número 2500, considerada el punto de estabilización, el sistema alcanza un estado estable, que se mantiene hasta la última corrida o ejecución.
+
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{dado2.png}
+\caption{Histograma de frecuencia absoluta acumulada}
+\label{dsdk}
+\end{figure}
+\hfill \break
+Asimismo, en la Fig.~\ref{dsdk} se aprecia que las frecuencias absolutas de las caras del dado convergen hacia valores similares, lo que confirma el Teorema de los Números Grandes: a medida que aumenta la cantidad de corridas o ejecuciones, los resultados experimentales se aproximan cada vez más a la probabilidad teórica.
+
+
+
+
+
+\subsection*{8. Documentación}
+\begin{enumerate}
+    \item Ejecutar el método \texttt{main()}.
+    \item Seleccionar la opción \textbf{2. Lanzar dado} cuando se muestren las opciones disponibles.
+    \item Ingresar el número de corridas a realizar, separados por comas (por ejemplo: 10,20,30).
+    \item El programa mostrará para cada corrida:
+    \begin{itemize}
+        \item Frecuencia absoluta acumulada de cada cara del dado.
+        \item Frecuencia relativa acumulada de cada cara.
+        \item Frecuencia porcentual de cada cara.
+    \end{itemize}
+    \item Si el número de corridas es mayor o igual a 500, se generarán automáticamente:
+    \begin{itemize}
+        \item Gráfico de convergencia de la frecuencia relativa de cada cara.
+        \item Gráfico de barras de la frecuencia absoluta de cada cara.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Lanzamiento de 2 Dados}
+
+
+\subsection*{1. Definición del Sistema}
+El sistema consiste en el lanzamiento simultáneo de dos dados de seis caras. Cada lanzamiento genera una suma de los valores obtenidos, con posibles resultados que van del 2 al 12. Cada evento se considera aleatorio e independiente, y el análisis se centra en cómo se distribuyen las sumas de los lanzamientos y cómo se aproximan a las probabilidades teóricas conocidas para cada suma.
+
+\subsection*{2. Colección de Datos}
+Para cada corrida, se registrarán los resultados de los dos dados y se calculará la suma correspondiente. Se contabilizará la frecuencia absoluta (3) de cada suma, así como la frecuencia relativa (4) y la frecuencia porcentual (5) correspondiente. Estos datos permitirán generar tablas y gráficos que reflejen la evolución del sistema a lo largo de diferentes números de corridas.
+
+\subsection*{3. Modelo de Simulación}
+Se construye un modelo que simula $N$ lanzamientos simultáneos de dos dados, generando resultados aleatorios para cada evento. El modelo calcula la frecuencia acumulada de cada suma y permite observar el comportamiento del sistema con corridas pequeñas (1, 3, 5) y corridas grandes (100, 300, 500, 1000, 3000, 5000, 10000). Este modelo representa de manera simplificada el sistema real y facilita la experimentación sin la necesidad de realizar lanzamientos físicos.
+
+\subsection*{4. Implementación}
+El modelo se ejecuta en un entorno computacional, permitiendo al usuario seleccionar el número de lanzamientos para cada corrida. Cada ejecución genera datos sobre frecuencia absoluta (3), frecuencia relativa (4) y frecuencia porcentual (5) de cada suma de los dos dados, además de gráficos que muestran la convergencia de las frecuencias hacia las probabilidades teóricas esperadas.
+
+\subsection*{5. Validación}
+La validación del sistema consiste en comparar los resultados obtenidos con las probabilidades teóricas de cada suma. Por ejemplo, la suma 7 es la más probable, mientras que las sumas 2 y 12 son las menos probables. Se analiza cómo las frecuencias relativas se aproximan a estos valores a medida que aumenta el número de corridas, asegurando que el modelo refleja correctamente el comportamiento del sistema.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{c|c|c|c}
+\hline
+Suma & Frecuencia absoluta & Frecuencia relativa & Frecuencia \% \\
+\hline
+2  & 282  & 0.0282 & 2.82 \% \\
+3  & 538  & 0.0538 & 5.38 \% \\
+4  & 852  & 0.0852 & 8.52 \% \\
+5  & 1183 & 0.118  & 11.8 \% \\
+6  & 1416 & 0.142  & 14.2 \% \\
+7  & 1587 & 0.159  & 15.9 \% \\
+8  & 1355 & 0.136  & 13.6 \% \\
+9  & 1078 & 0.108  & 10.8 \% \\
+10 & 867  & 0.0867 & 8.67 \% \\
+11 & 550  & 0.055  & 5.5 \% \\
+12 & 292  & 0.0292 & 2.92 \% \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Frecuencias para las sumas de dos dados (N = 10000).}
+\label{tabla:2dados}
+\end{table}
+
+
+\subsection*{6. Experimentación}
+Se realizan experimentos variando el número de lanzamientos según la secuencia establecida. Con pocas corridas, las frecuencias de las sumas pueden mostrar variaciones significativas debido al azar. A medida que se aumenta el número de corridas, se observa la convergencia de las frecuencias relativas hacia las probabilidades teóricas. Los gráficos de línea y de barras permiten visualizar la estabilidad del sistema y la aproximación a los valores esperados.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{c|c|c|c}
+\hline
+Suma & Frecuencia relativa & Probabilidad teórica & Error absoluto \\
+\hline
+2  & 0.0282 & 0.0278 & 0.0004 \\
+3  & 0.0538 & 0.0556 & 0.0018 \\
+4  & 0.0852 & 0.0833 & 0.0019 \\
+5  & 0.118  & 0.1111 & 0.0069 \\
+6  & 0.142  & 0.1389 & 0.0031 \\
+7  & 0.159  & 0.1667 & 0.0077 \\
+8  & 0.136  & 0.1389 & 0.0029 \\
+9  & 0.108  & 0.1111 & 0.0031 \\
+10 & 0.0867 & 0.0833 & 0.0034 \\
+11 & 0.055  & 0.0556 & 0.0006 \\
+12 & 0.0292 & 0.0278 & 0.0014 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Error absoluto entre la frecuencia relativa y la probabilidad teórica para N = 10000.}
+\label{tabla:error_2dados}
+\end{table}
+
+
+
+\subsection*{7. Interpretación de Resultados}
+Los resultados se analizan en términos de frecuencia absoluta, frecuencia relativa y porcentaje de cada suma. Se observa cómo con un número pequeño de lanzamientos los resultados pueden diferir de la teoría, mientras que con corridas grandes, las frecuencias relativas tienden a estabilizarse según la distribución teórica. Este análisis permite comprender la variabilidad inherente en sistemas aleatorios y la relación entre resultados experimentales y probabilidades teóricas.
+
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{dados1.png}
+\caption{Comportamiento del sistema}
+\label{dado1}
+\end{figure}
+\hfill \break
+Tal como se observa en la Fig.~\ref{dado1}, el sistema inicia en un estado transitorio durante aproximadamente las primeras 7500 corridas. A partir de la corrida número 8000, considerada el punto de estabilización, el sistema alcanza un estado estable, que se mantiene hasta la última corrida o ejecución.
+
+
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=1\textwidth]{dados2.png}
+\caption{Histograma de frecuencia absoluta acumulada}
+\label{dado2}
+\end{figure}
+\hfill \break
+Asimismo, en la Fig.~\ref{dado2} se aprecia que las frecuencias absolutas de las sumas de las caras de los dados convergen hacia los valores teóricos, lo que confirma el Teorema de los Números Grandes: a medida que aumenta la cantidad de corridas o ejecuciones, los resultados experimentales se aproximan cada vez más a la probabilidad teórica, la cual llega a tener un comportamiento similar a la campana de Gauss.
+
+
+
+
+\subsection*{8. Documentación}
+\begin{enumerate}
+    \item Ejecutar la función \texttt{main()} del programa.
+    \item Seleccionar la opción 3 para lanzar dos dados.
+    \item Ingresar el número de corridas o lanzamientos que se desean simular, separados por comas (por ejemplo: 10, 50, 100).
+    \item El programa realiza los lanzamientos de los dos dados de manera aleatoria y acumula:
+        \begin{itemize}
+            \item La frecuencia absoluta de cada posible suma (2 a 12).
+            \item La frecuencia relativa de cada suma.
+            \item La frecuencia porcentual de cada suma.
+        \end{itemize}
+    \item Si el número de lanzamientos es mayor o igual a 500, el programa genera gráficos para visualizar:
+        \begin{itemize}
+            \item La convergencia de la frecuencia relativa hacia la probabilidad teórica de cada suma.
+            \item La distribución de frecuencia absoluta de las sumas obtenidas.
+        \end{itemize}
+    \item Para cada corrida, el programa imprime en consola:
+        \begin{itemize}
+            \item La frecuencia absoluta acumulada de cada suma.
+            \item La frecuencia relativa acumulada de cada suma.
+            \item La frecuencia porcentual acumulada de cada suma.
+        \end{itemize}
+\end{enumerate}
+
+
+\section{Conclusiones}
+\begin{itemize}
+    \item La simulación de sistemas aleatorios permite estudiar el comportamiento de fenómenos inciertos sin necesidad de realizar experimentos físicos, proporcionando resultados confiables y observables mediante modelos computacionales.
+    \hfill \break
+    \item Se verificó que, a medida que aumenta el número de corridas, las frecuencias relativas de los resultados tienden a aproximarse a las probabilidades teóricas, evidenciando la validez de la Ley de los Grandes Números.
+    \hfill \break
+    \item Los sistemas estudiados (moneda, dado y dos dados) muestran un estado transitorio inicial, seguido de un estado estable donde las variables del sistema permanecen consistentes, lo que permite realizar análisis predictivos más confiables.
+    \hfill \break
+    \item La representación gráfica de los resultados facilita la interpretación y comprensión del comportamiento del sistema, evidenciando patrones y tendencias que no siempre son evidentes en tablas de datos.
+    \hfill \break
+    \item La implementación de modelos de simulación con R Studio demostró ser eficaz en comparación con otros lenguajes de programación, permitiendo automatizar experimentos, registrar resultados y analizar la convergencia de frecuencias de manera precisa y clara.
+\end{itemize}
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\section{Bibliografía}
+\begin{thebibliography}{99}
+
+\bibitem{cao2002}
+Cao Abad, Ricardo. (2002). \textit{Introducción a la simulación}. NETBIBLO, S.L.
+
+\bibitem{chunagara}
+Chunagara, H. \textit{Estadística}.
+
+\bibitem{coss2003}
+Coss Bu, Raúl. (2003). \textit{Simulación: Un enfoque práctico}. Editorial LIMUSA, S.A. de C.V.
+
+\bibitem{garcia2006}
+García Duma, Eduardo; García Reyes, Heriberto; Cárdenas Barrón, Leopoldo Eduardo. (2006). \textit{Simulación y análisis de sistemas}. Pearson Educación.
+
+\bibitem{himmelblau2004}
+Himmelblau, David M.; Bischoff, Kenneth B. (2004). \textit{Análisis y simulación}. Editorial Reverté.
+
+\bibitem{montero2011}
+Montero Avendaño, Ana Karina. (2011). \textit{Historia de la Simulación}. Universidad libre de Barranquilla.
+
+\bibitem{ross}
+Ross, Shaun. \textit{Simulación}.
+
+\bibitem{zapata}
+Zapata B., J. E. \textit{Historia, definición e importancia de la simulación}.
+
+\end{thebibliography}
+
+\end{document}
